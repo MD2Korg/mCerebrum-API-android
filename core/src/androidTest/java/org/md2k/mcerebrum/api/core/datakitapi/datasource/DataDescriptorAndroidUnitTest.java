@@ -6,12 +6,11 @@ import android.support.test.filters.SmallTest;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.datakitapi.CommonObjectConstructors;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataDescriptor;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;

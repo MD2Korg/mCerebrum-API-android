@@ -6,18 +6,16 @@ import android.support.test.InstrumentationRegistry;
 
 import org.junit.Before;
 import org.junit.Test;
-
 import org.md2k.mcerebrum.api.core.MCerebrumAPI;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataDescriptor;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 public class DataSourceCreatorAndroidUnitTest {

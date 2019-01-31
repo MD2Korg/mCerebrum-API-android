@@ -6,6 +6,7 @@ import android.test.suitebuilder.annotation.SmallTest;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.datakitapi.CommonObjectConstructors;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;

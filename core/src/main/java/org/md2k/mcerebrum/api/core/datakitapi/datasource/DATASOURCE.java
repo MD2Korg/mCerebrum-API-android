@@ -1,6 +1,7 @@
+package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 /*
- * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
- *
+ * Copyright (c) 2016, The University of Memphis, MD2K Center
+ * - Syed Monowar Hossain <monowar.hossain@gmail.com>
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -25,660 +26,292 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.md2k.mcerebrum.api.core.datakitapi.datasource;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-/**
- * This class defines constants for Data Source Metadata denoting the type and id.
- */
-public final class DATASOURCE {
-    private DATASOURCE() {
+import com.google.gson.Gson;
+
+import org.md2k.mcerebrum.api.core.datakitapi.data.DataType;
+import org.md2k.mcerebrum.api.core.datakitapi.data.SampleType;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.ApplicationMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.PlatformAppMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.PlatformMetaData;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+public class DataSource implements Parcelable {
+    private static final String SEPARATOR = "-";
+
+    protected String dataSourceType = null;
+    protected String dataSourceId = null;
+    protected String platformType = null;
+    protected String platformId = null;
+    protected String platformAppType = null;
+    protected String platformAppId = null;
+    protected String applicationType = null;
+    protected String applicationId = null;
+
+    protected DataType dataType = DataType.POINT;
+    protected SampleType sampleType = SampleType.INT_ARRAY;
+
+    protected HashMap<String, String> dataSourceMetaData = new HashMap<>();
+    protected HashMap<String, String> platformMetaData = new HashMap<>();
+    protected HashMap<String, String> platformAppMetaData = new HashMap<>();
+    protected HashMap<String, String> applicationMetaData = new HashMap<>();
+    protected ArrayList<HashMap<String, String>> dataDescriptors = new ArrayList<>();
+
+    protected DataSource() {
+
     }
 
-    /**
-     * This embedded class defines the data source types.
-     */
-    public static class TYPE {
+    protected DataSource(String uuid) {
+        String[] splits = uuid.split(SEPARATOR);
+        if (splits.length > 0 && splits[0] != null && splits[0].length() != 0)
+            this.dataSourceType = splits[0];
+        if (splits.length > 1 && splits[1] != null && splits[1].length() != 0)
+            this.dataSourceId = splits[1];
+        if (splits.length > 2 && splits[2] != null && splits[2].length() != 0)
+            this.platformType = splits[2];
+        if (splits.length > 3 && splits[3] != null && splits[3].length() != 0)
+            this.platformId = splits[3];
+        if (splits.length > 4 && splits[4] != null && splits[4].length() != 0)
+            this.platformAppType = splits[4];
+        if (splits.length > 5 && splits[5] != null && splits[5].length() != 0)
+            this.platformAppId = splits[5];
+        if (splits.length > 6 && splits[6] != null && splits[6].length() != 0)
+            this.applicationType = splits[6];
+        if (splits.length > 7 && splits[7] != null && splits[7].length() != 0)
+            this.applicationId = splits[7];
 
-        /**
-         * Accelerometer sensor <p><code>"ACCELEROMETER"</code></p>
-         */
-        public static final String ACCELEROMETER = "ACCELEROMETER";
-
-        /**
-         * Gyroscope sensor <p><code>"GYROSCOPE"</code></p>
-         */
-        public static final String GYROSCOPE = "GYROSCOPE";
-
-        /**
-         * Compass sensor <p><code>"COMPASS"</code></p>
-         */
-        public static final String COMPASS = "COMPASS";
-
-        /**
-         * Ambient light sensor <p><code>"AMBIENT_LIGHT"</code></p>
-         */
-        public static final String AMBIENT_LIGHT = "AMBIENT_LIGHT";
-
-        /**
-         * Pressure sensor <p><code>"PRESSURE"</code></p>
-         */
-        public static final String PRESSURE = "PRESSURE";
-
-        /**
-         * Proximity sensor <p><code>"PROXIMITY"</code></p>
-         */
-        public static final String PROXIMITY = "PROXIMITY";
-
-        /**
-         * Location sensor <p><code>"LOCATION"</code></p>
-         */
-        public static final String LOCATION = "LOCATION";
-
-        /**
-         * Geofence <p><code>"GEOFENCE"</code></p>
-         */
-        public static final String GEOFENCE = "GEOFENCE";
-
-        /**
-         * Distance sensor <p><code>"DISTANCE"</code></p>
-         */
-        public static final String DISTANCE = "DISTANCE";
-
-        /**
-         * Heart rate sensor <p><code>"HEART_RATE"</code></p>
-         */
-        public static final String HEART_RATE = "HEART_RATE";
-
-        /**
-         * Speed sensor <p><code>"SPEED"</code></p>
-         */
-        public static final String SPEED = "SPEED";
-
-        /**
-         * Step count sensor <p><code>"STEP_COUNT"</code></p>
-         */
-        public static final String STEP_COUNT = "STEP_COUNT";
-
-        /**
-         * Pace sensor <p><code>"PACE"</code></p>
-         */
-        public static final String PACE = "PACE";
-
-        /**
-         * Motion type inference <p><code>"MOTION_TYPE"</code></p>
-         */
-        public static final String MOTION_TYPE = "MOTION_TYPE";
-
-        /**
-         * Ultraviolet radiation sensor <p><code>"ULTRA_VIOLET_RADIATION"</code></p>
-         */
-        public static final String ULTRA_VIOLET_RADIATION = "ULTRA_VIOLET_RADIATION";
-
-        /**
-         * Band contact sensor <p><code>"BAND_CONTACT"</code></p>
-         */
-        public static final String BAND_CONTACT = "BAND_CONTACT";
-
-        /**
-         * Calorie burn sensor <p><code>"CALORIE_BURN"</code></p>
-         */
-        // TODO: Fix spelling of calorie.
-        public static final String CALORY_BURN = "CALORY_BURN";
-
-        /**
-         * Electrocardiography sensor <p><code>"ECG"</code></p>
-         */
-        public static final String ECG = "ECG";
-
-        /**
-         * Respiration sensor <p><code>"RESPIRATION"</code></p>
-         */
-        public static final String RESPIRATION = "RESPIRATION";
-
-        /**
-         * Respiration baseline <p><code>"RESPIRATION_BASELINE"</code></p>
-         */
-        public static final String RESPIRATION_BASELINE = "RESPIRATION_BASELINE";
-
-        /**
-         * Respiration sensor (Raw measurement) <p><code>"RESPIRATION_RAW"</code></p>
-         */
-        public static final String RESPIRATION_RAW = "RESPIRATION_RAW";
-
-        /**
-         * Altimeter sensor <p><code>"ALTIMETER"</code></p>
-         */
-        public static final String ALTIMETER = "ALTIMETER";
-
-        /**
-         * Air pressure sensor <p><code>"AIR_PRESSURE"</code></p>
-         */
-        public static final String AIR_PRESSURE = "AIR_PRESSURE";
-
-        /**
-         * Interval between R points on an ECG <p><code>"RR_INTERVAL"</code></p>
-         */
-        public static final String RR_INTERVAL = "RR_INTERVAL";
-
-
-        /**
-         * Ambient temperature sensor <p><code>"AMBIENT_TEMPERATURE"</code></p>
-         */
-        public static final String AMBIENT_TEMPERATURE = "AMBIENT_TEMPERATURE";
-
-        /**
-         * Skin temperature sensor <p><code>"SKIN_TEMPERATURE"</code></p>
-         */
-        public static final String SKIN_TEMPERATURE = "SKIN_TEMPERATURE";
-
-        /**
-         * Battery usage <p><code>"BATTERY"</code></p>
-         */
-        public static final String BATTERY = "BATTERY";
-
-        /**
-         * CPU usage <p><code>"CPU"</code></p>
-         */
-        public static final String CPU = "CPU";
-
-        /**
-         * Memory usage <p><code>"MEMORY"</code></p>
-         */
-        public static final String MEMORY = "MEMORY";
-
-        /**
-         * Autosense device <p><code>"AUTOSENSE"</code></p>
-         */
-        public static final String AUTOSENSE = "AUTOSENSE";
-
-        /**
-         * X axis of the accelerometer <p><code>"ACCELEROMETER_X"</code></p>
-         */
-        public static final String ACCELEROMETER_X = "ACCELEROMETER_X";
-
-        /**
-         * Y axis of the accelerometer <p><code>"ACCELEROMETER_Y"</code></p>
-         */
-        public static final String ACCELEROMETER_Y = "ACCELEROMETER_Y";
-
-        /**
-         * Z axis of the accelerometer <p><code>"ACCELEROMETER_Z"</code></p>
-         */
-        public static final String ACCELEROMETER_Z = "ACCELEROMETER_Z";
-
-        /**
-         * X axis of the gyroscope <p><code>"GYROSCOPE_X"</code></p>
-         */
-        public static final String GYROSCOPE_X = "GYROSCOPE_X";
-
-        /**
-         * Y axis of the gyroscope <p><code>"GYROSCOPE_Y"</code></p>
-         */
-        public static final String GYROSCOPE_Y = "GYROSCOPE_Y";
-
-        /**
-         * Z axis of the gyroscope <p><code>"GYROSCOPE_Z"</code></p>
-         */
-        public static final String GYROSCOPE_Z = "GYROSCOPE_Z";
-
-        /**
-         * Ecological Momentary Assessment <p><code>"EMA"</code></p>
-         */
-        public static final String EMA = "EMA";
-
-        /**
-         * Status <p><code>"STATUS"</code></p>
-         */
-        public static final String STATUS = "STATUS";
-
-        /**
-         * Log <p><code>"LOG"</code></p>
-         */
-        public static final String LOG = "LOG";
-
-        /**
-         * Timezone <p><code>"TIMEZONE"</code></p>
-         */
-        public static final String TIMEZONE = "TIMEZONE";
-
-        /**
-         * Privacy <p><code>"PRIVACY"</code></p>
-         */
-        public static final String PRIVACY = "PRIVACY";
-
-        /**
-         * Study information <p><code>"STUDY_INFO"</code></p>
-         */
-        public static final String STUDY_INFO = "STUDY_INFO";
-
-        /**
-         * User information <p><code>"USER_INFO"</code></p>
-         */
-        public static final String USER_INFO = "USER_INFO";
-
-        /**
-         * Sleep time <p><code>"SLEEP"</code></p>
-         */
-        public static final String SLEEP = "SLEEP";
-
-        /**
-         * Wakeup time <p><code>"WAKEUP"</code></p>
-         */
-        public static final String WAKEUP = "WAKEUP";
-
-        /**
-         * Day start <p><code>"DAY_START"</code></p>
-         */
-        public static final String DAY_START = "DAY_START";
-
-        /**
-         * Day end <p><code>"DAY_END"</code></p>
-         */
-        public static final String DAY_END = "DAY_END";
-
-        /**
-         * Probability of experiencing stress <p><code>"STRESS_PROBABILITY"</code></p>
-         */
-        public static final String STRESS_PROBABILITY = "STRESS_PROBABILITY";
-
-        /**
-         * Stress label <p><code>"STRESS_LABEL"</code></p>
-         */
-        public static final String STRESS_LABEL = "STRESS_LABEL";
-
-        /**
-         * Study start <p><code>"STUDY_START"</code></p>
-         */
-        public static final String STUDY_START = "STUDY_START";
-
-        /**
-         * Study end <p><code>"STUDY_END"</code></p>
-         */
-        public static final String STUDY_END = "STUDY_END";
-
-        /**
-         * Study activity <p><code>"STUDY_ACTIVITY"</code></p>
-         */
-        public static final String STRESS_ACTIVITY = "STRESS_ACTIVITY";
-
-        /**
-         * Feature vector for cStress <p><code>"CSTRESS_FEATURE_VECTOR"</code></p>
-         */
-        public static final String CSTRESS_FEATURE_VECTOR = "CSTRESS_FEATURE_VECTOR";
-
-        /**
-         * cStress data RIP quality <p><code>"ORG_MD2K_CSTRESS_DATA_RIP_QUALITY"</code></p>
-         */
-        public static final String ORG_MD2K_CSTRESS_DATA_RIP_QUALITY = "ORG_MD2K_CSTRESS_DATA_RIP_QUALITY";
-
-        /**
-         * cStress data ECG quality <p><code>"ORG_MD2K_CSTRESS_DATA_ECG_QUALITY"</code></p>
-         */
-        public static final String ORG_MD2K_CSTRESS_DATA_ECG_QUALITY = "ORG_MD2K_CSTRESS_DATA_ECG_QUALITY";
-
-        /**
-         * cStress episode classification <p><code>"ORG_MD2K_CSTRESS_EPISODE_CLASSIFICATON"</code></p>
-         */
-        public static final String ORG_MD2K_CSTRESS_STRESS_EPISODE_CLASSIFICATION
-                = "ORG_MD2K_CSTRESS_STRESS_EPISODE_CLASSIFICATION";
-
-        /**
-         * cStress episode array classification <p><code>"ORG_MD2K_CSTRESS_EPISODE_ARRAY_CLASSIFICATION_FULL_EPISODE"</code></p>
-         */
-        public static final String ORG_MD2K_CSTRESS_STRESS_EPISODE_ARRAY_CLASSIFICATION_FULL_EPISODE
-                = "ORG_MD2K_CSTRESS_STRESS_EPISODE_ARRAY_CLASSIFICATION_FULL_EPISODE";
-
-        /**
-         * cStress episode start <p><code>"ORG_MD2K_CSTRESS_EPISODE_START"</code></p>
-         */
-        public static final String ORG_MD2K_CSTRESS_STRESS_EPISODE_START = "ORG_MD2K_CSTRESS_STRESS_EPISODE_START";
-
-        /**
-         * cStress episode peak <p><code>"ORG_MD2K_CSTRESS_EPISODE_PEAK"</code></p>
-         */
-        public static final String ORG_MD2K_CSTRESS_STRESS_EPISODE_PEAK = "ORG_MD2K_CSTRESS_STRESS_EPISODE_PEAK";
-
-        /**
-         * cStress episode end <p><code>"ORG_MD2K_CSTRESS_EPISODE_END"</code></p>
-         */
-        public static final String ORG_MD2K_CSTRESS_STRESS_EPISODE_END = "ORG_MD2K_CSTRESS_STRESS_EPISODE_END";
-
-        /**
-         * cStress feature vector RIP <p><code>"CSTRESS_FEATURE_VECTOR_RIP"</code></p>
-         */
-        public static final String CSTRESS_FEATURE_VECTOR_RIP = "CSTRESS_FEATURE_VECTOR_RIP";
-
-        /**
-         * Stress RIP probability <p><code>"STRESS_RIP_PROBABILITY"</code></p>
-         */
-        public static final String STRESS_RIP_PROBABILITY = "STRESS_RIP_PROBABILITY";
-
-        /**
-         * Stress RIP label <p><code>"STRESS_RIP_LABEL"</code></p>
-         */
-        public static final String STRESS_RIP_LABEL = "STRESS_RIP_LABEL";
-
-        /**
-         * Accelerometer activity <p><code>"ACCELEROMETER_ACTIVITY_DEVIATION"</code></p>
-         */
-        public static final String ACTIVITY = "ACCELEROMETER_ACTIVITY_DEVIATION";
-
-        /**
-         * Probability of the user taking a puff <p><code>"PUFF_PROBABILITY"</code></p>
-         */
-        public static final String PUFF_PROBABILITY = "PUFF_PROBABILITY";
-
-        /**
-         * Puff Label <p><code>"PUFF_LABEL"</code></p>
-         */
-        public static final String PUFF_LABEL = "PUFF_LABEL";
-
-        /**
-         * Puffmarker feature vector <p><code>"PUFFMARKER_FEATURE_VECTOR"</code></p>
-         */
-        public static final String PUFFMARKER_FEATURE_VECTOR = "PUFFMARKER_FEATURE_VECTOR";
-
-        /**
-         * Puffmarker smoking episode <p><code>"PUFFMARKER_SMOKING_EPISODE"</code></p>
-         */
-        public static final String PUFFMARKER_SMOKING_EPISODE = "PUFFMARKER_SMOKING_EPISODE";
-
-        /**
-         * Request of a notification <p><code>"NOTIFICATION_REQUEST"</code></p>
-         */
-        public static final String NOTIFICATION_REQUEST = "NOTIFICATION_REQUEST";
-
-        /**
-         * Acknowledgement of a notification <p><code>"NOTIFICATION_ACKNOWLEDGE"</code></p>
-         */
-        public static final String NOTIFICATION_ACKNOWLEDGE = "NOTIFICATION_ACKNOWLEDGE";
-
-        /**
-         * Notification response <p><code>"NOTIFICATION_RESPONSE"</code></p>
-         */
-        public static final String NOTIFICATION_RESPONSE = "NOTIFICATION_RESPONSE";
-
-        /**
-         * Data quality <p><code>"DATA_QUALITY"</code></p>
-         */
-        public static final String DATA_QUALITY = "DATA_QUALITY";
-
-        /**
-         * Data variance <p><code>"DATA_VARIANCE"</code></p>
-         */
-        public static final String DATA_VARIANCE = "DATA_VARIANCE";
-
-        /**
-         * Type of day <p><code>"TYPE_OF_DAY"</code></p>
-         */
-        public static final String TYPE_OF_DAY = "TYPE_OF_DAY";
-
-        /**
-         * Event <p><code>"EVENT"</code></p>
-         */
-        public static final String EVENT = "EVENT";
-
-        /**
-         * Incentive <p><code>"INCENTIVE"</code></p>
-         */
-        public static final String INCENTIVE = "INCENTIVE";
-
-        /**
-         * Blood pressure <p><code>"BLOOD_PRESSURE"</code></p>
-         */
-        public static final String BLOOD_PRESSURE = "BLOOD_PRESSURE";
-
-        /**
-         * Weight <p><code>"WEIGHT"</code></p>
-         */
-        public static final String WEIGHT = "WEIGHT";
-
-        /**
-         * Brushing pressure <p><code>"ORALB_PRESSURE"</code></p>
-         */
-        public static final String ORALB_PRESSURE = "ORALB_PRESSURE";
-
-        /**
-         * Connection to the toothbrush <p><code>"ORALB_CONNECTION"</code></p>
-         */
-        public static final String ORALB_CONNECTION = "ORALB_CONNECTION";
-
-        /**
-         * Brushing sector <p><code>"ORALB_SECTOR"</code></p>
-         */
-        public static final String ORALB_SECTOR = "ORALB_SECTOR";
-
-        /**
-         * Brushing mode <p><code>"ORALB_BURSHING_MODE"</code></p>
-         */
-        public static final String ORALB_BRUSHING_MODE = "ORALB_BRUSHING_MODE";
-
-        /**
-         * Brushing state <p><code>"ORALB_BRUSHING_STATE"</code></p>
-         */
-        public static final String ORALB_BRUSHING_STATE = "ORALB_BRUSHING_STATE";
-
-        /**
-         * Time spent brushing <p><code>"ORALB_BRUSHING_TIME"</code></p>
-         */
-        public static final String ORALB_BUSHING_TIME = "ORALB_BUSHING_TIME";
-
-        /**
-         * Activity type <p><code>"ACTIVITY_TYPE"</code></p>
-         */
-        public static final String ACTIVITY_TYPE = "ACTIVITY_TYPE";
-
-        /**
-         * LED <p><code>"LED"</code></p>
-         */
-        public static final String LED = "LED";
-
-        /**
-         * Sequence number <p><code>"SEQUENCE_NUMBER"</code></p>
-         */
-        public static final String SEQUENCE_NUMBER = "SEQUENCE_NUMBER";
-
-        /**
-         * Smoking sensor <p><code>"SMOKING"</code></p>
-         */
-        public static final String SMOKING = "SMOKING";
-
-        /**
-         * Raw <p><code>"RAW"</code></p>
-         */
-        public static final String RAW = "RAW";
-
-        /**
-         * Post_quit <p><code>"POST_QUIT"</code></p>
-         */
-        public static final String POST_QUIT = "POST_QUIT";
-
-        /**
-         * Pre-quit <p><code>"PRE_QUIT"</code></p>
-         */
-        public static final String PRE_QUIT = "PRE_QUIT";
-
-        /**
-         * Beacon <p><code>"BEACON"</code></p>
-         */
-        public static final String BEACON = "BEACON";
-
-        /**
-         * Data quality summary for the minute <p><code>"DATA_QUALITY_SUMMARY_MINUTE"</code></p>
-         */
-        public static final String DATA_QUALITY_SUMMARY_MINUTE = "DATA_QUALITY_SUMMARY_MINUTE";
-
-        /**
-         * Data quality summary for the hour <p><code>"DATA_QUALITY_SUMMARY_HOUR"</code></p>
-         */
-        public static final String DATA_QUALITY_SUMMARY_HOUR = "DATA_QUALITY_SUMMARY_HOUR";
-
-        /**
-         * Data quality summary for the day <p><code>"DATA_QUALITY_SUMMARY_DAY"</code></p>
-         */
-        public static final String DATA_QUALITY_SUMMARY_DAY = "DATA_QUALITY_SUMMARY_DAY";
-
-        /**
-         * Galvanic skin response sensor <p><code>"GALVANIC_SKIN_RESPONSE"</code></p>
-         */
-        public static final String GALVANIC_SKIN_RESPONSE = "GALVANIC_SKIN_RESPONSE";
-
-        /**
-         * Touchscreen sensor <p><code>"TOUCH_SCREEN"</code></p>
-         */
-        public static final String TOUCH_SCREEN = "TOUCH_SCREEN";
-
-        /**
-         * Work annotation <p><code>"WORK_ANNOTATION"</code></p>
-         */
-        public static final String WORK_ANNOTATION = "WORK_ANNOTATION";
-
-        /**
-         * Is screen on <p><code>"CU_IS_SCREEN_ON"</code></p><p> For data integration from Cornell </p>
-         */
-        public static final String CU_IS_SCREEN_ON = "CU_IS_SCREEN_ON";
-
-        /**
-         * Audio feature <p><code>"CU_AUDIO_FEATURE"</code></p><p> For data integration from Cornell </p>
-         */
-        public static final String CU_AUDIO_FEATURE = "CU_AUDIO_FEATURE";
-
-        /**
-         * Audio energy <p><code>"CU_AUDIO_ENERGY"</code></p><p> For data integration from Cornell </p>
-         */
-        public static final String CU_AUDIO_ENERGY = "CU_AUDIO_ENERGY";
-
-        /**
-         * Audio inference <p><code>"CU_AUDIO_INFERENCE"</code></p><p> For data integration from Cornell </p>
-         */
-        public static final String CU_AUDIO_INFERENCE = "CU_AUDIO_INFERENCE";
-
-        /**
-         * App usage <p><code>"CU_APPUSAGE"</code></p><p> For data integration from Cornell </p>
-         */
-        public static final String CU_APPUSAGE = "CU_APPUSAGE";
-
-        /**
-         * SMS number <p><code>"CU_SMS_NUMBER"</code></p><p> For data integration from Cornell </p>
-         */
-        public static final String CU_SMS_NUMBER = "CU_SMS_NUMBER";
-
-        /**
-         * SMS type <p><code>"CU_SMS_NUMBER"</code></p><p> For data integration from Cornell </p>
-         */
-        public static final String CU_SMS_TYPE = "CU_SMS_NUMBER";
-
-        /**
-         * SMS length <p><code>"CU_SMS_LENGTH"</code></p><p> For data integration from Cornell </p>
-         */
-        public static final String CU_SMS_LENGTH = "CU_SMS_LENGTH";
-
-        /**
-         * Call number <p><code>"CU_CALL_NUMBER"</code></p><p> For data integration from Cornell </p>
-         */
-        public static final String CU_CALL_NUMBER = "CU_CALL_NUMBER";
-
-        /**
-         * Call type <p><code>"CU_CALL_TYPE"</code></p><p> For data integration from Cornell </p>
-         */
-        public static final String CU_CALL_TYPE = "CU_CALL_TYPE";
-
-        /**
-         * Call duration <p><code>"CU_CALL_DURATION"</code></p><p> For data integration from Cornell </p>
-         */
-        public static final String CU_CALL_DURATION = "CU_CALL_DURATION";
-
-        /**
-         * Label <p><code>"LABEL"</code></p><p> For data integration from Cornell </p>
-         */
-        public static String LABEL = "LABEL";
-
-        /**
-         * Magnetometer sensor <p><code>"MAGNETOMETER"</code></p>
-         */
-        public static final String MAGNETOMETER = "MAGNETOMETER";
-
-        /**
-         * A quaternion is a measure of rotation.
-         * In this context it denotes the rotation of the magnetometer.
-         * <p><code>"QUATERNION"</code></p>
-         */
-        public static final String QUATERNION = "QUATERNION";
-
-        /**
-         * Sensitivity of the magnetometer. <p><code>"MAGNETOMETER_SENSITIVITY"</code></p>
-         */
-        public static final String MAGNETOMETER_SENSITIVITY = "MAGNETOMETER_SENSITIVITY";
-
-        /**
-         * Time spent brushing with the OralB toothbrush. <p><code>"ORALB_BRUSHING_TIME"</code></p>
-         */
-        public static final String ORALB_BRUSHING_TIME = "ORALB_BRUSHING_TIME";
-
-        /**
-         * Accelerometer for the OralB toothbrush. <p><code>"ORALB_BRUSH_ACCELEROMETER"</code></p>
-         */
-        public static final String ORALB_BRUSH_ACCELEROMETER = "ORALB_BRUSH_ACCELEROMETER";
     }
 
-    /**
-     * This embedded class defines the data source ids.
-     */
-    public static class ID {
-        /**
-         * Default is <code>"SMOKING"</code>.
-         */
-        public static final String SMOKING = "SMOKING";
-
-        /**
-         * Default is <code>"EATING"</code>.
-         */
-        public static final String EATING = "EATING";
-
-        /**
-         * Default is <code>"SELF_REPORT"</code>.
-         */
-        public static final String SELF_REPORT = "SELF_REPORT";
+    public static IDataSourceBuilder.IDataType RegisterBuilder() {
+        return new DataSourceRegister();
     }
 
-    /**
-     * This embedded class defines data source metadata constants used by all
-     * <code>DataSourceMetaData</code> objects.
-     */
-    public static class METADATA {
-        /**
-         * Title of the data.
-         */
-        public static final String TITLE = "TITLE";
-
-        /**
-         * Summary of the data.
-         */
-        public static final String SUMMARY = "SUMMARY";
-
-        /**
-         * Description of what the data is.
-         */
-        public static final String DESCRIPTION = "DESCRIPTION";
-
-        /**
-         * Sampling frequency of the data.
-         */
-        public static final String DATA_RATE = "DATA_RATE";
-
-        /**
-         * Category of the data.
-         */
-        public static final String CATEGORY = "CATEGORY";
-
-        /**
-         * Pattern of the data.
-         */
-        public static final String PATTERN = "PATTERN";
-
-        /**
-         * Data type of the data.
-         */
-        public static final String DATA_TYPE = "DATA_TYPE";
+    public static IDataSourceBuilder.IQuery QueryBuilder() {
+        return new DataSourceQuery();
     }
+
+    public String getDataSourceType() {
+        return dataSourceType;
+    }
+
+    public String getDataSourceId() {
+        return dataSourceId;
+    }
+
+    public String getPlatformType() {
+        return platformType;
+    }
+
+    public String getPlatformId() {
+        return platformId;
+    }
+
+    public String getPlatformAppType() {
+        return platformAppType;
+    }
+
+    public String getPlatformAppId() {
+        return platformAppId;
+    }
+
+    public String getApplicationType() {
+        return applicationType;
+    }
+
+    public String getApplicationId() {
+        return applicationId;
+    }
+
+    public DataType getDataType() {
+        return dataType;
+    }
+
+    public SampleType getSampleType() {
+        return sampleType;
+    }
+
+    public DataSourceMetaData getDataSourceMetaData() {
+        return DataSourceMetaData.Builder().setMetaData(dataSourceMetaData).build();
+    }
+
+    public PlatformMetaData getPlatformMetaData() {
+        return PlatformMetaData.Builder().setMetaData(platformMetaData).build();
+    }
+
+    public PlatformAppMetaData getPlatformAppMetaData() {
+        return PlatformAppMetaData.Builder().setMetaData(platformAppMetaData).build();
+    }
+
+    public ApplicationMetaData getApplicationMetaData() {
+        return ApplicationMetaData.Builder().setMetaData(applicationMetaData).build();
+    }
+
+    public ArrayList<HashMap<String, String>> getDataDescriptors() {
+        return dataDescriptors;
+    }
+
+    @Override
+    public String toString() {
+        Gson gson = new Gson();
+        return gson.toJson(this);
+    }
+
+    private DataSource(Parcel in) {
+        dataSourceType = in.readString();
+        dataSourceId = in.readString();
+        platformType = in.readString();
+        platformId = in.readString();
+        platformAppType = in.readString();
+        platformAppId = in.readString();
+        applicationType = in.readString();
+        applicationId = in.readString();
+
+        dataType = DataType.valueOf(in.readString());
+        sampleType = SampleType.valueOf(in.readString());
+
+        dataSourceMetaData = readHashMapFromParcel(in);
+        platformMetaData = readHashMapFromParcel(in);
+        platformAppMetaData = readHashMapFromParcel(in);
+        applicationMetaData = readHashMapFromParcel(in);
+        dataDescriptors = readHashMapArrayFromParcel(in);
+
+    }
+
+    private static final Creator<DataSource> CREATOR = new Creator<DataSource>() {
+        @Override
+        public DataSource createFromParcel(Parcel in) {
+            return new DataSource(in);
+        }
+
+        @Override
+        public DataSource[] newArray(int size) {
+            return new DataSource[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(dataSourceType);
+        parcel.writeString(dataSourceId);
+        parcel.writeString(platformType);
+        parcel.writeString(platformId);
+        parcel.writeString(platformAppType);
+        parcel.writeString(platformAppId);
+        parcel.writeString(applicationType);
+        parcel.writeString(applicationId);
+
+        parcel.writeString(dataType.name());
+        parcel.writeString(sampleType.name());
+
+        writeHashMapToParcel(parcel, dataSourceMetaData);
+        writeHashMapToParcel(parcel, platformMetaData);
+        writeHashMapToParcel(parcel, platformAppMetaData);
+        writeHashMapToParcel(parcel, applicationMetaData);
+        writeDataDescriptorToParcel(parcel, dataDescriptors);
+    }
+
+    private ArrayList<HashMap<String, String>> readHashMapArrayFromParcel(Parcel in) {
+        ArrayList<HashMap<String, String>> dataDescriptors;
+        int size = in.readInt();
+        dataDescriptors = new ArrayList<>();
+        ;
+        for (int i = 0; i < size; i++)
+            dataDescriptors.add(readHashMapFromParcel(in));
+        return dataDescriptors;
+    }
+
+    private void writeDataDescriptorToParcel(Parcel parcel, ArrayList<HashMap<String, String>> dataDescriptors) {
+        int size = dataDescriptors.size();
+        parcel.writeInt(size);
+        for (HashMap<String, String> dataDescriptor : dataDescriptors)
+            writeHashMapToParcel(parcel, dataDescriptor);
+    }
+
+    private HashMap<String, String> readHashMapFromParcel(Parcel in) {
+        HashMap<String, String> metaData = new HashMap<>();
+        int size = in.readInt();
+        for (int j = 0; j < size; j++) {
+            metaData.put(in.readString(), in.readString());
+        }
+        return metaData;
+    }
+
+    private void writeHashMapToParcel(Parcel parcel, HashMap<String, String> metaData) {
+        int size = metaData.size();
+        parcel.writeInt(size);
+        for (HashMap.Entry<String, String> entry : metaData.entrySet()) {
+            parcel.writeString(entry.getKey());
+            parcel.writeString(entry.getValue());
+        }
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof DataSource))
+            return false;
+        DataSource d = (DataSource) obj;
+        if (!toUUID().equals(d.toUUID())) return false;
+        if (!dataSourceMetaData.equals(d.dataSourceMetaData)) return false;
+        if (!platformMetaData.equals(d.platformMetaData)) return false;
+        if (!platformAppMetaData.equals(d.platformAppMetaData)) return false;
+        if (!applicationMetaData.equals(d.applicationMetaData)) return false;
+        if (!dataDescriptors.equals(d.dataDescriptors)) return false;
+        if (dataType != d.dataType) return false;
+        if (sampleType != d.sampleType) return false;
+        return true;
+    }
+
+    public String toUUID() {
+        String uuid = "";
+        if (dataSourceType != null) uuid += dataSourceType;
+        uuid += SEPARATOR;
+        if (dataSourceId != null) uuid += dataSourceId;
+        uuid += SEPARATOR;
+        if (platformType != null) uuid += platformType;
+        uuid += SEPARATOR;
+        if (platformId != null) uuid += platformId;
+        uuid += SEPARATOR;
+        if (platformAppType != null) uuid += platformAppType;
+        uuid += SEPARATOR;
+        if (platformAppId != null) uuid += platformAppId;
+        uuid += SEPARATOR;
+        if (applicationType != null) uuid += applicationType;
+        uuid += SEPARATOR;
+        if (applicationId != null) uuid += applicationId;
+        return uuid;
+    }
+
+    public boolean isSubset(DataSource master) {
+        if (this.dataSourceType != null && !this.dataSourceType.equals(master.dataSourceType))
+            return false;
+        if (this.dataSourceId != null && !this.dataSourceId.equals(master.dataSourceId))
+            return false;
+        if (this.platformType != null && !this.platformType.equals(master.platformType))
+            return false;
+        if (this.platformId != null && !this.platformId.equals(master.platformId)) return false;
+        if (this.platformAppType != null && !this.platformAppType.equals(master.platformAppType))
+            return false;
+        if (this.platformAppId != null && !this.platformAppId.equals(master.platformAppId))
+            return false;
+        if (this.applicationType != null && !this.applicationType.equals(master.applicationType))
+            return false;
+        if (this.applicationId != null && !this.applicationId.equals(master.applicationId))
+            return false;
+        return true;
+    }
+
+    public boolean isEqualUUID(DataSource d) {
+        return toUUID().equals(d.toUUID());
+    }
+
 }

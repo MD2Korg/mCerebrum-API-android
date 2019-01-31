@@ -1,2 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.md2k.mcerebrum.api" />
+
+    package="org.md2k.mcerebrum.api">
+
+    <application>
+        <service
+            android:name=".core.extensionapi.MCExtensionService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="org.md2k.mcerebrum.client" />
+            </intent-filter>
+        </service>
+    </application>
+</manifest>

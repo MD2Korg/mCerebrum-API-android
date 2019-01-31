@@ -3,19 +3,20 @@ package org.md2k.mcerebrum.api.core;
 import android.annotation.SuppressLint;
 import android.content.Context;
 
-import org.md2k.mcerebrum.api.core.datakitapi.DataKitAPI;
-import org.md2k.mcerebrum.api.core.datakitapi.DataSource;
-import org.md2k.mcerebrum.api.core.datakitapi.DataSourceCreator;
-import org.md2k.mcerebrum.api.core.datakitapi.DataSourceRequest;
-import org.md2k.mcerebrum.api.core.datakitapi.DataSourceSet;
-import org.md2k.mcerebrum.api.core.datakitapi.Registration;
-import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
-import org.md2k.mcerebrum.api.core.datakitapi.callback.DataCallback;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataSet;
-import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
-import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
-import org.md2k.mcerebrum.api.core.pluginapi.MCPlugin;
+import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceQuery;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceRegister;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceResult;
+import org.md2k.mcerebrum.api.core.datakitapi.ipc.authenticate.ConnectionCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.ipc.data.QueryDataCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.ipc.insert_datasource.RegisterCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.ipc.insert_datasource.Registration;
+import org.md2k.mcerebrum.api.core.datakitapi.ipc.query_data_count.CountDataCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.ipc.query_datasource.QueryDataSourceCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.ipc.subscribe_data.SubscribeDataCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.ipc.subscribe_datasource.SubscribeDataSourceCallback;
+
+import java.util.ArrayList;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -46,31 +47,19 @@ import org.md2k.mcerebrum.api.core.pluginapi.MCPlugin;
 public final class MCerebrumAPI {
     @SuppressLint("StaticFieldLeak")
     private static MCerebrumAPI instance = null;
-    private MCPlugin plugin;
     private Context context;
-    private DataKitAPI dataKitAPI;
+    private static MCData mcDataAPI;
 
     public static void init(Context context) {
-        init(context, null);
-    }
-
-    public static void init(Context context, MCPlugin mcPlugin) {
-        if (context == null) return;
+        Preconditions.checkNotNull(context);
         if (instance == null) {
             instance = new MCerebrumAPI(context.getApplicationContext());
         }
-        instance.plugin = mcPlugin;
-    }
-
-    public static MCPlugin getPlugin() {
-        if (instance != null)
-            return instance.plugin;
-        else return null;
     }
 
     private MCerebrumAPI(Context context) {
         this.context = context;
-        dataKitAPI = new DataKitAPI(instance);
+        mcDataAPI = new MCData();
     }
 
     public static Context getContext() {
@@ -78,77 +67,155 @@ public final class MCerebrumAPI {
         return instance.context;
     }
 
-    public static int connect(ConnectionCallback connectionCallback) {
-        if (connectionCallback == null) return MCerebrumStatus.INVALID_PARAMETER;
-        if (instance == null) {
-            connectionCallback.onError(new MCerebrumException(MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED));
-            return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
-        } else return instance.dataKitAPI.connect(connectionCallback);
+    public static void connect(ConnectionCallback connectionCallback) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(connectionCallback);
+        mcDataAPI.connect(connectionCallback);
     }
 
-    public static int disconnect(ConnectionCallback connectionCallback) {
-        if (connectionCallback == null) return MCerebrumStatus.INVALID_PARAMETER;
-        if (instance == null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
-        return instance.dataKitAPI.disconnect(connectionCallback);
+    public static void disconnect(ConnectionCallback connectionCallback) {
+        mcDataAPI.disconnect(connectionCallback);
     }
 
-    public static Registration register(DataSourceCreator dataSourceCreator) {
-        if (instance == null) return null;
-        return instance.dataKitAPI.register(dataSourceCreator);
+    public static void disconnectAll() {
+        mcDataAPI.disconnectAll();
     }
 
-    public static int unregister(Registration registration) {
-        if (instance == null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
-        return instance.dataKitAPI.unregister(registration);
-
-
+    public static Registration registerDataSource(final DataSourceRegister dataSourceRegister) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceRegister);
+        return mcDataAPI.registerDataSource(dataSourceRegister);
     }
 
-    public static DataSourceSet find(DataSourceRequest dataSourceRequest) {
-        if (instance == null) return null;
-        return instance.dataKitAPI.find(dataSourceRequest);
+    public static void registerDataSourceAsync(final DataSourceRegister dataSourceRegister, RegisterCallback registerCallback) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceRegister);
+        Preconditions.checkNotNull(registerCallback);
+        mcDataAPI.registerDataSourceAsync(dataSourceRegister, registerCallback);
     }
 
-    public static int insert(Registration registration, Data[] data) {
-        if (instance == null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
-        return instance.dataKitAPI.insert(registration, data);
+    public static ArrayList<DataSourceResult> queryDataSource(DataSourceQuery dataSourceQuery) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceQuery);
+        return mcDataAPI.queryDataSource(dataSourceQuery);
     }
 
-    public static int insert(Registration registration, Data data) {
-        if (instance == null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
-        return insert(registration, new Data[]{data});
+    public static void queryDataSourceAsync(DataSourceQuery dataSourceQuery, QueryDataSourceCallback queryDataSourceCallback) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceQuery);
+        Preconditions.checkNotNull(queryDataSourceCallback);
+        mcDataAPI.queryDataSourceAsync(dataSourceQuery, queryDataSourceCallback);
     }
 
-    public static DataSet query(DataSource dataSource, int lastNPoint) {
-        if (instance == null) return null;
-        return instance.dataKitAPI.query(dataSource, lastNPoint);
-
+    public static void subscribeDataSourceAsync(DataSourceQuery dataSourceQuery, SubscribeDataSourceCallback subscribeDataSourceCallback) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceQuery);
+        Preconditions.checkNotNull(subscribeDataSourceCallback);
+        mcDataAPI.subscribeDataSourceAsync(dataSourceQuery, subscribeDataSourceCallback);
     }
 
-    public static DataSet query(DataSource dataSource, long startTimestamp, long endTimestamp) {
-        if (instance == null) return null;
-        return instance.dataKitAPI.query(dataSource, startTimestamp, endTimestamp);
+    public static void unsubscribeDataSourceAsync(SubscribeDataSourceCallback subscribeDataSourceCallback) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(subscribeDataSourceCallback);
+        mcDataAPI.unsubscribeDataSourceAsync(subscribeDataSourceCallback);
     }
 
-    public static DataSet querySummary(DataSource dataSource, long startTimestamp, long endTimestamp) {
-        if (instance == null) return null;
-        return instance.dataKitAPI.querySummary(dataSource, startTimestamp, endTimestamp);
-
+    public static ArrayList<Data> queryDataByTime(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceResult);
+        return mcDataAPI.queryDataByTime(dataSourceResult, startTimestamp, endTimestamp);
     }
 
-    public static int queryCount(DataSource dataSource, long startTimestamp, long endTimestamp) {
-        if (instance == null) return -1;
-        return instance.dataKitAPI.queryCount(dataSource, startTimestamp, endTimestamp);
-
+    public static void queryDataByTimeAsync(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp, QueryDataCallback queryCallback) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceResult);
+        Preconditions.checkNotNull(queryCallback);
+        mcDataAPI.queryDataByTimeAsync(dataSourceResult, startTimestamp, endTimestamp, queryCallback);
     }
 
-    public static int subscribe(DataSource dataSource, DataCallback callback) {
-        if (instance == null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
-        return instance.dataKitAPI.subscribe(dataSource, callback);
+    public static ArrayList<Data> queryDataByNumber(DataSourceResult dataSourceResult, int lastN) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceResult);
+        return mcDataAPI.queryDataByNumber(dataSourceResult, lastN);
     }
 
-    public static int unsubscribe(DataSource dataSource, DataCallback callback) {
-        if (instance == null) return MCerebrumStatus.MCEREBRUM_API_NOT_INITIALIZED;
-        return instance.dataKitAPI.unsubscribe(dataSource, callback);
+    public static void queryDataByNumberAsync(DataSourceResult dataSourceResult, int lastN, QueryDataCallback queryCallback) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceResult);
+        Preconditions.checkNotNull(queryCallback);
+        mcDataAPI.queryDataByNumberAsync(dataSourceResult, lastN, queryCallback);
     }
+
+    public static int queryDataCount(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceResult);
+        return mcDataAPI.queryDataCount(dataSourceResult, startTimestamp, endTimestamp);
+    }
+
+    public static void queryDataCountAsync(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp, CountDataCallback countDataCallback) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceResult);
+        Preconditions.checkNotNull(countDataCallback);
+        mcDataAPI.queryDataCountAsync(dataSourceResult, startTimestamp, endTimestamp, countDataCallback);
+    }
+
+    public static int insertData(Registration registration, Data data) {
+        Preconditions.checkNotNull(data);
+        return insertData(registration, new Data[]{data});
+    }
+
+    public static int insertData(Registration registration, Data[] data) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(registration);
+        Preconditions.checkNotNull(data);
+        return mcDataAPI.insertData(registration, data);
+    }
+
+    public static void subscribeDataAsync(DataSourceResult dataSourceResult, SubscribeDataCallback subscribeDataCallback) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceResult);
+        Preconditions.checkNotNull(subscribeDataCallback);
+        mcDataAPI.subscribeDataAsync(dataSourceResult, subscribeDataCallback);
+    }
+
+    public static void unsubscribeDataAsync(SubscribeDataCallback subscribeDataCallback) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(subscribeDataCallback);
+        mcDataAPI.unsubscribeDataAsync(subscribeDataCallback);
+    }
+
+/*
+    public static Data queryDataSummary(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceResult);
+        return mcDataAPI.queryDataSummary(dataSourceResult, startTimestamp, endTimestamp);
+    }
+
+    public static void queryDataSummaryAsync(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp, DataSummaryCallback queryCallback) {
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(dataSourceResult);
+        Preconditions.checkNotNull(queryCallback);
+        mcDataAPI.queryDataSummaryAsync(dataSourceResult, startTimestamp, endTimestamp, queryCallback);
+    }
+/*
+    public static boolean system(int operation){
+        Preconditions.checkAPIInitialized(instance);
+        try {
+        return instance.connectionAPI.systemExec(operation);
+        } catch (MCerebrumException e) {
+            return false;
+        }
+    }
+    public static void systemAsync(int operation, SystemCallback systemCallback){
+        Preconditions.checkAPIInitialized(instance);
+        Preconditions.checkNotNull(systemCallback);
+        try {
+            instance.connectionAPI.systemExecAsync(operation, systemCallback);
+        } catch (MCerebrumException e) {
+            systemCallback.onError(e.getStatus());
+        }
+    }
+
+*/
+
 }

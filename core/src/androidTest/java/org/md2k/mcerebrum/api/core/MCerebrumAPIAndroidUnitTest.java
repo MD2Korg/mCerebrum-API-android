@@ -6,24 +6,22 @@ import android.support.test.InstrumentationRegistry;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
-
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.CommonObjectConstructors;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataDescriptor;
 import org.md2k.mcerebrum.api.core.datakitapi.DataSourceCreator;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.DataSourceRequest;
 import org.md2k.mcerebrum.api.core.datakitapi.DataSourceSet;
 import org.md2k.mcerebrum.api.core.datakitapi.PlatformAppMetaData;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.Registration;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
 import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datatype.Data;
 import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
 import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 public class MCerebrumAPIAndroidUnitTest {
