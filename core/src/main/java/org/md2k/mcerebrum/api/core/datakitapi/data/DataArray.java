@@ -116,6 +116,12 @@ public class DataArray implements Parcelable {
         ArrayList<Data> temp = new ArrayList<Data>(Arrays.asList(data));
         this.data.addAll(temp);
     }
+    public void add(ArrayList<Data> data) {
+        this.data.addAll(data);
+    }
+    public void add(Data data) {
+        this.data.add(data);
+    }
 
     /**
      * Returns an array of <code>Data</code> objects that the caller contains.

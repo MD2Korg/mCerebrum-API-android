@@ -44,18 +44,19 @@ public class DataSourceRegister
 
     @Override
     public IDataSourceBuilder.ISample setDataType(DataType dataType) {
-        dataSource.dataType = dataType;
+        dataSource.dataType = dataType.getValue();
         return this;
     }
 
     @Override
     public IDataSourceBuilder.IDataDescriptor1 setSampleType(SampleType sampleType) {
-        dataSource.sampleType = sampleType;
+        dataSource.sampleType = sampleType.getValue();
         return this;
     }
 
     @Override
     public IDataSourceBuilder.IDataDescriptor2 addDataDescriptor(DataDescriptor dataDescriptor) {
+        if(dataDescriptor==null) dataDescriptor= DataDescriptor.Builder().build();
         dataSource.dataDescriptors.add(dataDescriptor.getDescriptor());
         return this;
     }

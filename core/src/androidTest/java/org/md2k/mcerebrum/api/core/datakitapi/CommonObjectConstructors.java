@@ -50,7 +50,7 @@ public class CommonObjectConstructors {
     }
 
     public static DataDescriptor createDataDescriptor() {
-        DataDescriptor.Builder testDataDescriptorBuilder = DataDescriptor.builder();
+        DataDescriptor.Builder testDataDescriptorBuilder = DataDescriptor.Builder();
         return testDataDescriptorBuilder.setTitle(TestingConstants.TEST_TITLE)
                 .setSummary(TestingConstants.TEST_SUMMARY)
                 .setDescription(TestingConstants.TEST_DESCRIPTION)

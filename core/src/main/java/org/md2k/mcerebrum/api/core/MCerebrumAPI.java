@@ -2,6 +2,7 @@ package org.md2k.mcerebrum.api.core;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.support.annotation.NonNull;
 
 import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceQuery;
@@ -50,7 +51,7 @@ public final class MCerebrumAPI {
     private Context context;
     private static MCData mcDataAPI;
 
-    public static void init(Context context) {
+    public static void init(@NonNull Context context) {
         Preconditions.checkNotNull(context);
         if (instance == null) {
             instance = new MCerebrumAPI(context.getApplicationContext());
@@ -71,6 +72,10 @@ public final class MCerebrumAPI {
         Preconditions.checkAPIInitialized(instance);
         Preconditions.checkNotNull(connectionCallback);
         mcDataAPI.connect(connectionCallback);
+    }
+    public static boolean isConnected(){
+        Preconditions.checkAPIInitialized(instance);
+        return mcDataAPI.isConnected();
     }
 
     public static void disconnect(ConnectionCallback connectionCallback) {
@@ -120,26 +125,26 @@ public final class MCerebrumAPI {
         mcDataAPI.unsubscribeDataSourceAsync(subscribeDataSourceCallback);
     }
 
-    public static ArrayList<Data> queryDataByTime(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
+    public static ArrayList<Data> queryData(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
         Preconditions.checkAPIInitialized(instance);
         Preconditions.checkNotNull(dataSourceResult);
         return mcDataAPI.queryDataByTime(dataSourceResult, startTimestamp, endTimestamp);
     }
 
-    public static void queryDataByTimeAsync(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp, QueryDataCallback queryCallback) {
+    public static void queryDataAsync(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp, QueryDataCallback queryCallback) {
         Preconditions.checkAPIInitialized(instance);
         Preconditions.checkNotNull(dataSourceResult);
         Preconditions.checkNotNull(queryCallback);
         mcDataAPI.queryDataByTimeAsync(dataSourceResult, startTimestamp, endTimestamp, queryCallback);
     }
 
-    public static ArrayList<Data> queryDataByNumber(DataSourceResult dataSourceResult, int lastN) {
+    public static ArrayList<Data> queryData(DataSourceResult dataSourceResult, int lastN) {
         Preconditions.checkAPIInitialized(instance);
         Preconditions.checkNotNull(dataSourceResult);
         return mcDataAPI.queryDataByNumber(dataSourceResult, lastN);
     }
 
-    public static void queryDataByNumberAsync(DataSourceResult dataSourceResult, int lastN, QueryDataCallback queryCallback) {
+    public static void queryDataAsync(DataSourceResult dataSourceResult, int lastN, QueryDataCallback queryCallback) {
         Preconditions.checkAPIInitialized(instance);
         Preconditions.checkNotNull(dataSourceResult);
         Preconditions.checkNotNull(queryCallback);

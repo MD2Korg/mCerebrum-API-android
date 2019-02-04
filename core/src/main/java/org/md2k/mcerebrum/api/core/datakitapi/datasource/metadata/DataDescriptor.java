@@ -149,7 +149,7 @@ public class DataDescriptor {
      *
      * @return A new <code>Builder</code>.
      */
-    public static Builder builder() {
+    public static Builder Builder() {
         return new Builder();
     }
 

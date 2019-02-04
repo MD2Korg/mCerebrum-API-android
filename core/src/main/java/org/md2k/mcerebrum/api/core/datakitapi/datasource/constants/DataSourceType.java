@@ -111,8 +111,7 @@ public class DataSourceType {
     /**
      * Calorie burn sensor <p><code>"CALORIE_BURN"</code></p>
      */
-    // TODO: Fix spelling of calorie.
-    public static final String CALORY_BURN = "CALORY_BURN";
+    public static final String CALORIE_BURN = "CALORIE_BURN";
 
     /**
      * Electrocardiography sensor <p><code>"ECG"</code></p>

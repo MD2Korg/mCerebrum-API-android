@@ -85,7 +85,7 @@ public class DataSourceQuery
     @Override
     public IDataSourceBuilder.IQuery fromUUID(String uuid) {
         this.dataSource = new DataSource(uuid);
-        return null;
+        return this;
     }
 
     @Override

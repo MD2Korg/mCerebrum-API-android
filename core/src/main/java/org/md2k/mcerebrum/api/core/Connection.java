@@ -49,13 +49,14 @@ import java.util.Random;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 abstract class Connection {
-    private static final String SERVER_ID = "org.md2k.mcerebrum.server";
+    private static final String SERVER_ID = "org.md2k.mcerebrum.library.datakit.server";
     private Integer sessionId = null;
 
     private IDataKitRemoteService iDataKitRemoteService;
     private ArrayList<ConnectionCallback> connectionCallbacks;
     private boolean connected;
     private int authenticated;
+    private Intent serverIntent;
 
     Connection() {
         connectionCallbacks = new ArrayList<>();
@@ -65,7 +66,7 @@ abstract class Connection {
 
     }
 
-    public void connect(final ConnectionCallback connectionCallback) {
+    void connect(final ConnectionCallback connectionCallback) {
         if (!connectionCallbacks.contains(connectionCallback))
             connectionCallbacks.add(connectionCallback);
         if (!connected)
@@ -77,14 +78,17 @@ abstract class Connection {
         }
     }
 
-    public void disconnect(ConnectionCallback connectionCallback) {
+    void disconnect(ConnectionCallback connectionCallback) {
         connectionCallbacks.remove(connectionCallback);
         if (connectionCallbacks.size() == 0) {
             disconnectFromServer();
         }
     }
+    boolean isConnected(){
+        return connected;
+    }
 
-    public void disconnectAll() {
+    void disconnectAll() {
         connectionCallbacks.clear();
 
         disconnectFromServer();
@@ -94,9 +98,9 @@ abstract class Connection {
         if (!connected) return;
         connected = false;
         authenticated = Status.AUTHENTICATION_REQUIRED;
-        Intent i = findServer();
-        if (i != null) {
-            MCerebrumAPI.getContext().stopService(i);
+        if (serverIntent != null) {
+            assert MCerebrumAPI.getContext() != null;
+            MCerebrumAPI.getContext().stopService(serverIntent);
             MCerebrumAPI.getContext().unbindService(mServiceConnection);
         }
     }
@@ -114,14 +118,14 @@ abstract class Connection {
 
 
     private void connectToServer() {
-        Intent intent = findServer();
-        if (intent == null) {
+        serverIntent = findServer();
+        if (serverIntent == null) {
             sendConnectionError(Status.MCEREBRUM_APP_NOT_INSTALLED);
             return;
         }
         try {
             assert MCerebrumAPI.getContext() != null;
-            boolean res = MCerebrumAPI.getContext().bindService(intent, mServiceConnection, Context.BIND_AUTO_CREATE);
+            boolean res = MCerebrumAPI.getContext().bindService(serverIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
             if (!res) {
                 sendConnectionError(Status.MCEREBRUM_BIND_ERROR);
             }
@@ -152,11 +156,12 @@ abstract class Connection {
 
     private void authenticate() {
         try {
+            assert MCerebrumAPI.getContext() != null;
             _Session in = _AuthenticateIn.create(createSessionId(), MCerebrumAPI.getContext().getPackageName());
             executeAsync(in, new IDataKitRemoteCallback.Stub() {
                 @Override
                 public void onReceived(_Session _session) {
-                    int authenticated = _AuthenticateOut.getStatus(_session.getBundle());
+                    int authenticated = _session.getStatus();
                     if (authenticated == Status.SUCCESS) {
                         sendConnectionSuccess();
                     } else {

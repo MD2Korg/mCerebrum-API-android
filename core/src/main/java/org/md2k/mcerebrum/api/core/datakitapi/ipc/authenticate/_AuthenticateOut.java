@@ -26,21 +26,11 @@ package org.md2k.mcerebrum.api.core.datakitapi.ipc.authenticate;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import android.os.Bundle;
-
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
 
 public class _AuthenticateOut {
-    private static final String AUTH_STATUS = "status";
-
-    public static _Session create(int session, int status, int result) {
-        Bundle b = new Bundle();
-        b.putInt(AUTH_STATUS, result);
-        return new _Session(session, OperationType.AUTHENTICATE, status, b);
-    }
-
-    public static int getStatus(Bundle b) {
-        return b.getInt(AUTH_STATUS);
+    public static _Session create(int session, int result) {
+        return new _Session(session, OperationType.AUTHENTICATE, result);
     }
 }

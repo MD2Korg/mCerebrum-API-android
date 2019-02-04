@@ -30,7 +30,7 @@ import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceResult;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public interface SubscribeDataSourceCallback extends Callback {
-    void onReceive(DataSourceResult dataSourceResults);
+    void onReceive(DataSourceResult dataSourceResult);
 
     void onError(int status);
 

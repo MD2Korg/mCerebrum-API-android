@@ -34,6 +34,7 @@ import com.google.gson.Gson;
 import org.md2k.mcerebrum.api.core.datakitapi.data.DataType;
 import org.md2k.mcerebrum.api.core.datakitapi.data.SampleType;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.ApplicationMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.PlatformAppMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.PlatformMetaData;
@@ -53,8 +54,8 @@ public class DataSource implements Parcelable {
     protected String applicationType = null;
     protected String applicationId = null;
 
-    protected DataType dataType = DataType.POINT;
-    protected SampleType sampleType = SampleType.INT_ARRAY;
+    protected int dataType = DataType.POINT.getValue();
+    protected int sampleType = SampleType.INT_ARRAY.getValue();
 
     protected HashMap<String, String> dataSourceMetaData = new HashMap<>();
     protected HashMap<String, String> platformMetaData = new HashMap<>();
@@ -128,11 +129,11 @@ public class DataSource implements Parcelable {
     }
 
     public DataType getDataType() {
-        return dataType;
+        return DataType.getDataType(dataType);
     }
 
     public SampleType getSampleType() {
-        return sampleType;
+        return SampleType.getSampleType(sampleType);
     }
 
     public DataSourceMetaData getDataSourceMetaData() {
@@ -151,8 +152,12 @@ public class DataSource implements Parcelable {
         return ApplicationMetaData.Builder().setMetaData(applicationMetaData).build();
     }
 
-    public ArrayList<HashMap<String, String>> getDataDescriptors() {
-        return dataDescriptors;
+    public ArrayList<DataDescriptor> getDataDescriptors() {
+        ArrayList<DataDescriptor> dds = new ArrayList<>();
+        for(int i=0;i<dataDescriptors.size();i++){
+            dds.add(DataDescriptor.Builder().setDescriptor(dataDescriptors.get(i)).build());
+        }
+        return dds;
     }
 
     @Override
@@ -171,8 +176,8 @@ public class DataSource implements Parcelable {
         applicationType = in.readString();
         applicationId = in.readString();
 
-        dataType = DataType.valueOf(in.readString());
-        sampleType = SampleType.valueOf(in.readString());
+        dataType = in.readInt();
+        sampleType = in.readInt();
 
         dataSourceMetaData = readHashMapFromParcel(in);
         platformMetaData = readHashMapFromParcel(in);
@@ -210,8 +215,8 @@ public class DataSource implements Parcelable {
         parcel.writeString(applicationType);
         parcel.writeString(applicationId);
 
-        parcel.writeString(dataType.name());
-        parcel.writeString(sampleType.name());
+        parcel.writeInt(dataType);
+        parcel.writeInt(sampleType);
 
         writeHashMapToParcel(parcel, dataSourceMetaData);
         writeHashMapToParcel(parcel, platformMetaData);

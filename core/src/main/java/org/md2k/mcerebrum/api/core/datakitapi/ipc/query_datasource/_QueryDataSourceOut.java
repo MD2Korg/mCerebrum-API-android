@@ -36,14 +36,14 @@ import org.md2k.mcerebrum.api.core.status.Status;
 import java.util.ArrayList;
 
 public class _QueryDataSourceOut {
-    public static _Session create(int session, ArrayList<DataSourceResult> dataSourceResult) {
+    public static _Session create(int session, ArrayList<DataSourceResult> dataSourceResults) {
         Bundle b = new Bundle();
-        b.putParcelableArrayList(DataSourceResult.class.getSimpleName(), dataSourceResult);
+        b.putParcelableArrayList(DataSourceResult.class.getSimpleName(), dataSourceResults);
         return new _Session(session, OperationType.QUERY_DATASOURCE, Status.SUCCESS, b);
     }
 
     public static ArrayList<DataSourceResult> getDataSourceResults(Bundle b) {
         if (b == null) return null;
-        return b.getParcelable(DataSourceResult.class.getSimpleName());
+        return b.getParcelableArrayList(DataSourceResult.class.getSimpleName());
     }
 }

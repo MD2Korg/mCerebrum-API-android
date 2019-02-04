@@ -37,12 +37,14 @@ public class _QueryDataSummaryIn extends _Session {
     private long startTimestamp;
     private long endTimestamp;
 
+/*
     public _QueryDataSummaryIn(int session, int dsId, long startTimestamp, long endTimestamp) {
         super(session, OperationType.QUERY_DATA_SUMMARY, Status.SUCCESS);
         this.dsId = dsId;
         this.startTimestamp = startTimestamp;
         this.endTimestamp = endTimestamp;
     }
+*/
 
     public int getDsId() {
         return dsId;

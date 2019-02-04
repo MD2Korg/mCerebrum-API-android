@@ -26,7 +26,8 @@ package org.md2k.mcerebrum.api.core.datakitapi.ipc;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class OperationType {
+public final class OperationType {
+    public static final int AUTHENTICATE = 0;
     public static final int INSERT_DATASOURCE = 100;
     public static final int QUERY_DATASOURCE = 101;
     public static final int SUBSCRIBE_DATASOURCE = 102;
@@ -37,10 +38,6 @@ public class OperationType {
     public static final int QUERY_DATA_COUNT = 107;
     public static final int SUBSCRIBE_DATA = 108;
     public static final int UNSUBSCRIBE_DATA = 109;
-    public static final int QUERY_DATA_SUMMARY = 110;
-
-
-    public static final int AUTHENTICATE = 200;
 
     private OperationType() {
     }

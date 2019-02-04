@@ -1,6 +1,7 @@
 package org.md2k.mcerebrum.api.core;
 
 import android.os.RemoteException;
+import android.util.Log;
 
 import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceQuery;
@@ -117,10 +118,11 @@ class MCData extends Connection {
 
     ArrayList<DataSourceResult> queryDataSource(DataSourceQuery dataSourceQuery) {
         _Session in = _QueryDataSourceIn.create(createSessionId(), dataSourceQuery.getDataSource());
-        _Session session = null;
+        _Session session;
         try {
             session = execute(in);
         } catch (RemoteException e) {
+            Log.d("abc","abc");
             //TODO:
             return null;
         }

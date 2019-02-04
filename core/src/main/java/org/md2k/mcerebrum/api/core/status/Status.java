@@ -51,6 +51,8 @@ public final class Status {
     public static final int AUTHENTICATION_REFUSED = 16;
     public static final int INVALID_OPERATION = 17;
     public static final int MCEREBRUM_BIND_ERROR = 18;
+    public static final int DATAKIT_STOPPED = 19;
+    public static final int DATAKIT_CONNECTION_ERROR = 20;
 
     private Status() {
     }
@@ -107,6 +109,10 @@ public final class Status {
                 return "INVALID_OPERATION";
             case MCEREBRUM_BIND_ERROR:
                 return "BIND_ERROR";
+            case DATAKIT_STOPPED:
+                return "DATAKIT_STOPPED";
+            case DATAKIT_CONNECTION_ERROR:
+                return "DATAKIT_CONNECTION_ERROR";
             default:
                 return "UNKNOWN_ERROR";
         }

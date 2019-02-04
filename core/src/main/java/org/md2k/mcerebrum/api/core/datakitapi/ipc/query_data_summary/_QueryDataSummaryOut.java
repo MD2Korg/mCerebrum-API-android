@@ -41,10 +41,12 @@ public class _QueryDataSummaryOut extends _Session {
         data = in.readParcelable(Data.class.getClassLoader());
     }
 
+/*
     public _QueryDataSummaryOut(int session, int status, Data data) {
         super(session, OperationType.QUERY_DATA_SUMMARY, status);
         this.data = data;
     }
+*/
 
     public static final Parcelable.Creator<_QueryDataSummaryOut> CREATOR = new Parcelable.Creator<_QueryDataSummaryOut>() {
         @Override
