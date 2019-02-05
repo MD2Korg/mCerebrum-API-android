@@ -4,6 +4,7 @@ import android.os.RemoteException;
 import android.util.Log;
 
 import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSource;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceQuery;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceRegister;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceResult;
@@ -89,7 +90,7 @@ class MCData extends Connection {
     }
 
     Registration registerDataSource(DataSourceRegister dataSourceRegister) {
-        _Session in = _InsertDataSourceIn.create(createSessionId(), dataSourceRegister.getDataSource());
+        _Session in = _InsertDataSourceIn.create(createSessionId(), (DataSource) dataSourceRegister);
         _Session out;
         try {
             out = execute(in);
@@ -101,7 +102,7 @@ class MCData extends Connection {
     }
 
     void registerDataSourceAsync(DataSourceRegister dataSourceRegister, final RegisterCallback registerCallback) {
-        _Session in = _InsertDataSourceIn.create(createSessionId(), dataSourceRegister.getDataSource());
+        _Session in = _InsertDataSourceIn.create(createSessionId(), (DataSource) dataSourceRegister);
         try {
             executeAsync(in, new IDataKitRemoteCallback.Stub() {
                 @Override
@@ -117,7 +118,7 @@ class MCData extends Connection {
     }
 
     ArrayList<DataSourceResult> queryDataSource(DataSourceQuery dataSourceQuery) {
-        _Session in = _QueryDataSourceIn.create(createSessionId(), dataSourceQuery.getDataSource());
+        _Session in = _QueryDataSourceIn.create(createSessionId(), (DataSource) dataSourceQuery);
         _Session session;
         try {
             session = execute(in);
@@ -130,7 +131,7 @@ class MCData extends Connection {
     }
 
     void queryDataSourceAsync(DataSourceQuery dataSourceQuery, final QueryDataSourceCallback queryDataSourceCallback) {
-        _Session in = _QueryDataSourceIn.create(createSessionId(), dataSourceQuery.getDataSource());
+        _Session in = _QueryDataSourceIn.create(createSessionId(), (DataSource) dataSourceQuery);
 
         try {
             executeAsync(in, new IDataKitRemoteCallback.Stub() {
@@ -148,7 +149,7 @@ class MCData extends Connection {
 
     void subscribeDataSourceAsync(DataSourceQuery dataSourceQuery, final SubscribeDataSourceCallback subscribeDataSourceCallback) {
         if (subscriptionDataSourceList.containsKey(subscribeDataSourceCallback)) return;
-        _Session in = _SubscribeDataSourceIn.create(createSessionId(), dataSourceQuery.getDataSource());
+        _Session in = _SubscribeDataSourceIn.create(createSessionId(), (DataSource) dataSourceQuery);
         IDataKitRemoteCallback.Stub iDataKitRemoteCallback = new IDataKitRemoteCallback.Stub() {
             @Override
             public void onReceived(_Session _session) throws RemoteException {

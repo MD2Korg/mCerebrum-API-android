@@ -42,7 +42,7 @@ import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.PlatformMetaDa
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DataSource implements Parcelable {
+public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegister {
     private static final String SEPARATOR = "-";
 
     protected String dataSourceType = null;
@@ -89,11 +89,11 @@ public class DataSource implements Parcelable {
     }
 
     public static IDataSourceBuilder.IDataType RegisterBuilder() {
-        return new DataSourceRegister();
+        return new DataSourceRegisterBuilder();
     }
 
     public static IDataSourceBuilder.IQuery QueryBuilder() {
-        return new DataSourceQuery();
+        return new DataSourceQueryBuilder();
     }
 
     public String getDataSourceType() {

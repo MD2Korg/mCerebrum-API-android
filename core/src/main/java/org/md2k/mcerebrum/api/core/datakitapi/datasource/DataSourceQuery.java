@@ -26,74 +26,20 @@ package org.md2k.mcerebrum.api.core.datakitapi.datasource;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class DataSourceQuery
-        implements IDataSourceBuilder.IQuery {
-    private DataSource dataSource;
+public interface DataSourceQuery {
+    String getDataSourceType();
 
-    DataSourceQuery() {
-        dataSource = new DataSource();
-    }
+    String getDataSourceId();
 
-    @Override
-    public IDataSourceBuilder.IQuery setDataSourceType(String dataSourceType) {
-        this.dataSource.dataSourceType = dataSourceType;
-        return this;
-    }
+    String getPlatformType();
 
-    @Override
-    public IDataSourceBuilder.IQuery setDataSourceId(String dataSourceId) {
-        this.dataSource.dataSourceId = dataSourceId;
-        return this;
-    }
+    String getPlatformId();
 
-    @Override
-    public IDataSourceBuilder.IQuery setPlatformType(String platformType) {
-        this.dataSource.platformType = platformType;
-        return this;
-    }
+    String getPlatformAppType();
 
-    @Override
-    public IDataSourceBuilder.IQuery setPlatformId(String platformId) {
-        this.dataSource.platformId = platformId;
-        return this;
-    }
+    String getPlatformAppId();
 
-    @Override
-    public IDataSourceBuilder.IQuery setPlatformAppType(String platformAppType) {
-        this.dataSource.platformAppType = platformAppType;
-        return this;
-    }
+    String getApplicationType();
 
-    @Override
-    public IDataSourceBuilder.IQuery setPlatformAppId(String platformAppId) {
-        this.dataSource.platformAppId = platformAppId;
-        return this;
-    }
-
-    @Override
-    public IDataSourceBuilder.IQuery setApplicationType(String applicationType) {
-        this.dataSource.applicationType = applicationType;
-        return this;
-    }
-
-    @Override
-    public IDataSourceBuilder.IQuery setApplicationId(String applicationId) {
-        this.dataSource.applicationId = applicationId;
-        return this;
-    }
-
-    @Override
-    public IDataSourceBuilder.IQuery fromUUID(String uuid) {
-        this.dataSource = new DataSource(uuid);
-        return this;
-    }
-
-    @Override
-    public DataSourceQuery build() {
-        return this;
-    }
-
-    public DataSource getDataSource() {
-        return dataSource;
-    }
+    String getApplicationId();
 }

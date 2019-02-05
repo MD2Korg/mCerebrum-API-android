@@ -33,13 +33,15 @@ import android.os.Parcelable;
 public class DataSourceResult implements Parcelable {
     protected int dsId;
     protected long creationTime;
-    protected long lastActiveTime;
+    protected long lastUpdateTime;
+    protected long lastDataTime;
     protected DataSource dataSource;
 
     public DataSourceResult(Parcel in) {
         dsId = in.readInt();
         creationTime = in.readLong();
-        lastActiveTime = in.readLong();
+        lastUpdateTime = in.readLong();
+        lastDataTime = in.readLong();
         dataSource = in.readParcelable(DataSource.class.getClassLoader());
     }
 
@@ -55,11 +57,12 @@ public class DataSourceResult implements Parcelable {
         }
     };
 
-    public DataSourceResult(int dsId, long creationTime, long lastActiveTime, DataSource dataSource) {
+    public DataSourceResult(int dsId, long creationTime, long lastUpdateTime, DataSource dataSource) {
         this.dsId = dsId;
         this.creationTime = creationTime;
-        this.lastActiveTime = lastActiveTime;
+        this.lastUpdateTime = lastUpdateTime;
         this.dataSource = dataSource;
+        this.lastDataTime = -1;
     }
 
     @Override
@@ -71,7 +74,8 @@ public class DataSourceResult implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeInt(dsId);
         parcel.writeLong(creationTime);
-        parcel.writeLong(lastActiveTime);
+        parcel.writeLong(lastUpdateTime);
+        parcel.writeLong(lastDataTime);
         parcel.writeParcelable(dataSource, i);
     }
 
@@ -83,11 +87,21 @@ public class DataSourceResult implements Parcelable {
         return creationTime;
     }
 
-    public long getLastActiveTime() {
-        return lastActiveTime;
+    public long getLastUpdateTime() {
+        return lastUpdateTime;
+    }
+
+    public long getLastDataTime() {
+        return lastDataTime;
     }
 
     public DataSource getDataSource() {
         return dataSource;
     }
+
+    public void setLastDataTime(long lastDataTime) {
+        this.lastDataTime = lastDataTime;
+    }
+
+
 }

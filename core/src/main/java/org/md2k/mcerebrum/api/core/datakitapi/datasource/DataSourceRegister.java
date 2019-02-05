@@ -5,7 +5,10 @@ import org.md2k.mcerebrum.api.core.datakitapi.data.SampleType;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.ApplicationMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.PlatformAppMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.PlatformMetaData;
+
+import java.util.ArrayList;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -33,94 +36,35 @@ import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.PlatformMetaDa
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class DataSourceRegister
-        implements IDataSourceBuilder.IDataType,
-        IDataSourceBuilder.ISample, IDataSourceBuilder.IDataDescriptor1, IDataSourceBuilder.IDataDescriptor2, IDataSourceBuilder.IRegister {
-    private DataSource dataSource;
+public interface DataSourceRegister {
+    String getDataSourceType();
 
-    DataSourceRegister() {
-        dataSource = new DataSource();
-    }
+    String getDataSourceId();
 
-    @Override
-    public IDataSourceBuilder.ISample setDataType(DataType dataType) {
-        dataSource.dataType = dataType.getValue();
-        return this;
-    }
+    String getPlatformType();
 
-    @Override
-    public IDataSourceBuilder.IDataDescriptor1 setSampleType(SampleType sampleType) {
-        dataSource.sampleType = sampleType.getValue();
-        return this;
-    }
+    String getPlatformId();
 
-    @Override
-    public IDataSourceBuilder.IDataDescriptor2 addDataDescriptor(DataDescriptor dataDescriptor) {
-        if(dataDescriptor==null) dataDescriptor= DataDescriptor.Builder().build();
-        dataSource.dataDescriptors.add(dataDescriptor.getDescriptor());
-        return this;
-    }
+    String getPlatformAppType();
 
-    @Override
-    public IDataSourceBuilder.IRegister setDataSourceType(String dataSourceType) {
-        dataSource.dataSourceType = dataSourceType;
-        return this;
-    }
+    String getPlatformAppId();
 
-    @Override
-    public IDataSourceBuilder.IRegister setDataSourceId(String dataSourceId) {
-        dataSource.dataSourceId = dataSourceId;
-        return this;
-    }
+    String getApplicationType();
 
-    @Override
-    public IDataSourceBuilder.IRegister setPlatformType(String platformType) {
-        dataSource.platformType = platformType;
-        return this;
-    }
+    String getApplicationId();
 
-    @Override
-    public IDataSourceBuilder.IRegister setPlatformId(String platformId) {
-        dataSource.platformId = platformId;
-        return this;
-    }
+    DataType getDataType();
 
-    @Override
-    public IDataSourceBuilder.IRegister setApplicationType(String applicationType) {
-        dataSource.applicationType = applicationType;
-        return this;
-    }
+    SampleType getSampleType();
 
-    @Override
-    public IDataSourceBuilder.IRegister setApplicationId(String applicationId) {
-        dataSource.applicationId = applicationId;
-        return this;
-    }
+    DataSourceMetaData getDataSourceMetaData();
 
-    @Override
-    public IDataSourceBuilder.IRegister setDataSourceMetaData(DataSourceMetaData dataSourceMetaData) {
-        dataSource.dataSourceMetaData = dataSourceMetaData.getMetaData();
-        return this;
-    }
+    PlatformMetaData getPlatformMetaData();
 
-    @Override
-    public IDataSourceBuilder.IRegister setPlatformMetaData(PlatformMetaData platformMetaData) {
-        dataSource.platformMetaData = platformMetaData.getMetaData();
-        return this;
-    }
+    PlatformAppMetaData getPlatformAppMetaData();
 
-    @Override
-    public IDataSourceBuilder.IRegister setApplicationMetaData(ApplicationMetaData applicationMetaData) {
-        dataSource.applicationMetaData = applicationMetaData.getMetaData();
-        return this;
-    }
+    ApplicationMetaData getApplicationMetaData();
 
-    @Override
-    public DataSourceRegister build() {
-        return this;
-    }
+    ArrayList<DataDescriptor> getDataDescriptors();
 
-    public DataSource getDataSource() {
-        return dataSource;
-    }
 }

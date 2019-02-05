@@ -44,8 +44,12 @@ public class Registration {
         return this.dataSourceResult.getCreationTime();
     }
 
-    public long getLastActiveTime() {
-        return this.dataSourceResult.getLastActiveTime();
+    public long getLastUpdateTime() {
+        return this.dataSourceResult.getLastUpdateTime();
+    }
+
+    public long getLastDataTime() {
+        return this.dataSourceResult.getLastDataTime();
     }
 
     public DataSource getDataSource() {
