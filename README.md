@@ -20,41 +20,70 @@ implementation "org.md2k.mcerebrum.api:core:<latest_version>"
 
 ### Initialize mCerebrumAPI
 The second is to initialize mCerebrumAPI once in `Application.onCreate():`
-```java
-mCerebrumAPI.init(context); // access data
-mCerebrumAPI.init(context, myPlugin); //access data and provide functionality to control by mCerebrum
+```
+mCerebrumAPI.init(context); // access mCerebrum Data
 ```
 
 ### Using mCerebrumAPI
 
-To access the data, first you need to connect with mCerebrum. Then, you can insert, query or subscribe any datastream. Functions supported by mCerebrum: `connect()`, `disconnect()`, `register()`, `unregister()`, `find()`, `insert()`, `query()`, `querySummary()`, `queryCount()`, `subscribe()`, `unsubscribe()`
+To access the data, first you need to connect with mCerebrum. Then, you can insert, query or subscribe any datastream. Functions supported by mCerebrum: `connect()`, `disconnect()`, `registerDataSource()`, `find()`, `insert()`, `query()`, `querySummary()`, `queryCount()`, `subscribe()`, `unsubscribe()`
 
-#### Connect to mCerebrum
+#### [connect]Connect to mCerebrum
+Step 1: Use connect() function to connect to `mCerebrum`
+```
+ //...
+
+ MCerebrumAPI.connect(new ConnectionCallback() {
+     @Override
+     public void onSuccess() {
+     }
+
+     @Override
+     public void onError(int status) {
+         String errorMessage = MCStatus.getMessage(status);
+         Log.e("abc","error: "+errorMessage);
+     }
+ });
+}
+```
+#### Register DataSource
+- Step 1: Connect to mCerebrum (as [Connect to mCerebrum](conect) )
+- Step 2: Create DataSourceRegister using `DataSource.RegisterBuilder()`
+- Step 3: Register datasource to mCerebrum
+<br><br> Example: 
+```
+// register Accelerometer datastream
+
+//Step 2:
+DataSourceRegister req = DataSource.RegisterBuilder()
+                        .setDataType(DataType.POINT)
+                        .setSampleType(SampleType.INT_ARRAY)
+                        .addDataDescriptor(DataDescriptor.Builder().setName("ACL_X").build())
+                        .addDataDescriptor(DataDescriptor.Builder().setName("ACL_Y").build())
+                        .addDataDescriptor(DataDescriptor.Builder().setName("ACL_Z").build())
+                        .setDataSourceType("ACCELEROMETER")
+                        .setPlatformType("PHONE")
+                        .setDataSourceMetaData(DataSourceMetaData.Builder().setUnit("METER_PER_SECOND_SQUARED").build())
+                        .build();
+//Step 3:
+Registration r = MCerebrumAPI.registerDataSource(dataSourceRegisterCreator);
+ ```
 
 #### Insert Data to mCerebrum
 
-Supported data types: `DataPointBoolean`, `DataPointByte`, `DataPointInt`, `DataPointLong`, `DataPointDouble`, `DataPointString`, `DataPointEnum`, `DataPointObject`. Each of these data types accept arrays.
+Supported data types: `BOOLEAN_ARRAY`, `BYTE_ARRAY`, `INT_ARRAY`, `LONG_ARRAY`, `DOUBLE_ARRAY`, `STRING_ARRAY`, `ENUM`, `OBJECT`
 
-Steps:
-- Connect to mCerebrum
-- Create a datasource using `DataSourceCreator` and register it to mCerebrum using`register()` function
-- Insert data to mCerebrum using registered id returned by `register()` function
+- Step 1: Connect to mCerebrum
+- Step 2: Create DataSourceRegister using `DataSource.RegisterBuilder()`
+- Step 3: Register datasource to mCerebrum
+- Step 4: Insert data to mCerebrum using registered id returned by `registerDataSource()` function
 
-```java
-    public void insert(){
-        // prepare data source
-        DataSourceCreator c = DataSourceCreator.builder("ACCELEROMETER", DataType.DATAPOINT_DOUBLE)
-                .setPlatformAsPhone()
-                .build();
-        // register dataSource
-        Registration r = mCerebrumAPI.register(c);
-        // prepare a data point
-        long curTime = System.currentTimeMillis();
-        double[] d = new double[]{0.0, 9.8, 0.0};
-        DataPointDouble data = new DataPointDouble(curTime, d);
-        // insert the data point
-        mCerebrumAPI.insert(r, data);
-    }
+```
+// insert accelerometer data
+
+double[] values=new double[]{5.4,4.1,-2.0};
+Data point = Data.createPoint(System.currentTimeMillis(), values);
+MCerebrumAPI.insertData(rid, point);
 ```
 #### Subscribe data
 
@@ -68,7 +97,7 @@ Steps:
 - Create a datasource using `DataSourceRequest` and search using `find()` function
 - Query data with specific datasource (returned by `find()` function)
 
-```java
+```
     public void query() {
         // prepare datasource to check availability in mCerebrum (Here: phone accelerometer)
         DataSourceQuery q = DataSourceQuery.builder()
@@ -96,6 +125,16 @@ Steps:
         }
     }
 ```
+#### Supported DataType
+|   DataType||
+|---|---|
+| POINT| Creates data with timestamp|
+| ANNOTATION|Creates data with starttime and endtime|
+#### Supported SampleType
+|   SampleType|Example (Point)|Example(Annotation)
+|---|---|---|
+| BOOLEAN_ARRAY| `Data.createPoint(time, boolean[]{true, false}`|`Data.createAnnotation(startTime, endTime, boolean[]{true, false}`|
+| BYTE_ARRAY|Creates data with starttime and endtime|
 
 #### Supported Functionality
 
