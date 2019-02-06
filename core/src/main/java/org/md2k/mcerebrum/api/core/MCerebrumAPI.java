@@ -55,12 +55,12 @@ public final class MCerebrumAPI {
         Preconditions.checkNotNull(context);
         if (instance == null) {
             instance = new MCerebrumAPI(context.getApplicationContext());
+            mcDataAPI = new MCData();
         }
     }
 
     private MCerebrumAPI(Context context) {
         this.context = context;
-        mcDataAPI = new MCData();
     }
 
     public static Context getContext() {

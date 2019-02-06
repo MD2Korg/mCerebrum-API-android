@@ -276,14 +276,20 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
     }
 
     public String toUUID() {
-        return (dataSourceType != null ? dataSourceType : "") + SEPARATOR
-                + (dataSourceId != null ? dataSourceId : "") + SEPARATOR
-                + (platformType != null ? platformType : "") + SEPARATOR
-                + (platformId != null ? platformId : "") + SEPARATOR
-                + (platformAppType != null ? platformAppType : "") + SEPARATOR
-                + (platformAppId != null ? platformAppId : "") + SEPARATOR
-                + (applicationType != null ? applicationType : "") + SEPARATOR
-                + (applicationId != null ? applicationId : "");
+        return prepString(dataSourceType) + SEPARATOR
+                + prepString(dataSourceId) + SEPARATOR
+                + prepString(platformType) + SEPARATOR
+                + prepString(platformId) + SEPARATOR
+                + prepString(platformAppType) + SEPARATOR
+                + prepString(platformAppId) + SEPARATOR
+                + prepString(applicationType) + SEPARATOR
+                + prepString(applicationId);
+
+    }
+
+    private String prepString(String s) {
+        if (s == null) return "";
+        else return s;
     }
 
     public boolean isSubset(DataSource master) {
