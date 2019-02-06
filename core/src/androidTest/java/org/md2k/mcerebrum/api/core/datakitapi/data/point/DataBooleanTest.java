@@ -30,8 +30,8 @@ public class DataBooleanTest {
     // Create the object.
     @Before
     public void createDataPointBoolean() {
-        mDataPointBoolean = Data.createPoint(testTimestamp, testSample);
-        mDataPointBooleanArray = Data.createPoint(testTimestamp, testSampleArray);
+        mDataPointBoolean = Data.createPointBooleanArray(testTimestamp, testSample);
+        mDataPointBooleanArray = Data.createPointBooleanArray(testTimestamp, testSampleArray);
     }
 
     @Test
@@ -99,10 +99,10 @@ public class DataBooleanTest {
         Data dataClone = mDataPointBoolean.clone();
         assertEquals(mDataPointBoolean.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentTimestamp = Data.createPoint(testTimestamp + 10, testSample);
+        Data dpbWithDifferentTimestamp = Data.createPointBooleanArray(testTimestamp + 10, testSample);
         assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentSample = Data.createPoint(testTimestamp, false);
+        Data dpbWithDifferentSample = Data.createPointBooleanArray(testTimestamp, false);
         assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
     }
 }

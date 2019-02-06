@@ -71,8 +71,10 @@ public class Data implements Parcelable {
                 sample = in.createStringArray();
                 break;
             case OBJECT:
+                sample = in.createStringArray();
+                break;
             case ENUM:
-                in.readStringArray((String[]) sample);
+                sample = in.createStringArray();
                 break;
             default:
         }
@@ -224,9 +226,12 @@ public class Data implements Parcelable {
                 dest.writeDoubleArray((double[]) sample);
                 break;
             case STRING_ARRAY:
-            case OBJECT:
-            case ENUM:
                 dest.writeStringArray((String[]) sample);
+                break;
+            case OBJECT:
+                dest.writeStringArray((String[]) sample);
+                break;
+            case ENUM:
                 break;
             default:
         }
@@ -238,7 +243,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, byte sample) {
+    public static Data createPointByteArray(long timestamp, byte sample) {
         return new Data(DataType.POINT, SampleType.BYTE_ARRAY, timestamp, timestamp, new byte[]{sample});
     }
 
@@ -248,7 +253,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, byte[] sample) {
+    public static Data createPointByteArray(long timestamp, byte[] sample) {
         return new Data(DataType.POINT, SampleType.BYTE_ARRAY, timestamp, timestamp, sample);
     }
 
@@ -258,7 +263,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, EnumType sample) {
+    public static Data createPointEnum(long timestamp, EnumType sample) {
         return new Data(DataType.POINT, SampleType.ENUM, timestamp, timestamp, new String[]{String.valueOf(sample.getId()), sample.getName()});
     }
 
@@ -268,7 +273,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, boolean sample) {
+    public static Data createPointBooleanArray(long timestamp, boolean sample) {
         return new Data(DataType.POINT, SampleType.BOOLEAN_ARRAY, timestamp, timestamp, new boolean[]{sample});
     }
 
@@ -278,7 +283,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, boolean[] sample) {
+    public static Data createPointBooleanArray(long timestamp, boolean[] sample) {
         return new Data(DataType.POINT, SampleType.BOOLEAN_ARRAY, timestamp, timestamp, sample);
     }
 
@@ -288,7 +293,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, int sample) {
+    public static Data createPointIntArray(long timestamp, int sample) {
         return new Data(DataType.POINT, SampleType.INT_ARRAY, timestamp, timestamp, new int[]{sample});
     }
 
@@ -298,7 +303,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, int[] sample) {
+    public static Data createPointIntArray(long timestamp, int[] sample) {
         return new Data(DataType.POINT, SampleType.INT_ARRAY, timestamp, timestamp, sample);
     }
 
@@ -308,7 +313,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, long sample) {
+    public static Data createPointLongArray(long timestamp, long sample) {
         return new Data(DataType.POINT, SampleType.LONG_ARRAY, timestamp, timestamp, new long[]{sample});
     }
 
@@ -318,7 +323,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, long[] sample) {
+    public static Data createPointLongArray(long timestamp, long[] sample) {
         return new Data(DataType.POINT, SampleType.LONG_ARRAY, timestamp, timestamp, sample);
     }
 
@@ -328,7 +333,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, double sample) {
+    public static Data createPointDoubleArray(long timestamp, double sample) {
         return new Data(DataType.POINT, SampleType.DOUBLE_ARRAY, timestamp, timestamp, new double[]{sample});
     }
 
@@ -338,7 +343,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, double[] sample) {
+    public static Data createPointDoubleArray(long timestamp, double[] sample) {
         return new Data(DataType.POINT, SampleType.DOUBLE_ARRAY, timestamp, timestamp, sample);
     }
 
@@ -348,7 +353,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, String sample) {
+    public static Data createPointStringArray(long timestamp, String sample) {
         return new Data(DataType.POINT, SampleType.STRING_ARRAY, timestamp, timestamp, new String[]{sample});
     }
 
@@ -358,7 +363,7 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPoint(long timestamp, String[] sample) {
+    public static Data createPointStringArray(long timestamp, String[] sample) {
         return new Data(DataType.POINT, SampleType.STRING_ARRAY, timestamp, timestamp, sample);
     }
 
@@ -368,9 +373,9 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static <T> Data createPoint(long timestamp, T sample) {
+    public static <T> Data createPointObject(long timestamp, T sample) {
         Gson gson = new Gson();
-        String str = gson.toJson(sample);
+        String[] str = new String[]{gson.toJson(sample)};
         return new Data(DataType.POINT, SampleType.OBJECT, timestamp, timestamp, str);
     }
 

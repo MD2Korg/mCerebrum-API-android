@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onSuccess() {
                         Log.d("abc", "Connected");
                         int[] values=new int[]{5,4,2};
-                        Data point = Data.createPoint(System.currentTimeMillis(), values);
+                        Data point = Data.createPointByteArray(System.currentTimeMillis(), values);
                         MCerebrumAPI.insertData(rid, point);
 
                     }
@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 */
 /*
                 Registration r = MCerebrumAPI.mcDataAPI.register(d);
-                Data data = Data.createPoint(DateTime.getCurrentTime(), new int[]{2});
+                Data data = Data.createPointByteArray(DateTime.getCurrentTime(), new int[]{2});
                 MCerebrumAPI.mcDataAPI.insertData(r,data);
 *//*
 

@@ -30,8 +30,8 @@ public class DataLongTest {
     // Create the object.
     @Before
     public void createDataPointLong() {
-        mDataPointLong = Data.createPoint(testTimestamp, testSample);
-        mDataPointLongArray = Data.createPoint(testTimestamp, testSampleArray);
+        mDataPointLong = Data.createPointLongArray(testTimestamp, testSample);
+        mDataPointLongArray = Data.createPointLongArray(testTimestamp, testSampleArray);
     }
 
     @Test
@@ -94,10 +94,10 @@ public class DataLongTest {
         Data dataClone = mDataPointLong.clone();
         assertEquals(mDataPointLong.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentTimestamp = Data.createPoint(testTimestamp + 10, testSample);
+        Data dpbWithDifferentTimestamp = Data.createPointLongArray(testTimestamp + 10, testSample);
         assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentSample = Data.createPoint(testTimestamp, (long) 475894890);
+        Data dpbWithDifferentSample = Data.createPointLongArray(testTimestamp, (long) 475894890);
         assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
     }
 }

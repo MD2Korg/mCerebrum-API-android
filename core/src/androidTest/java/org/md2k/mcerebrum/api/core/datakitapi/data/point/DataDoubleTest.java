@@ -29,8 +29,8 @@ public class DataDoubleTest {
 
     @Before
     public void createDataPointDouble() {
-        mDataPointDouble = Data.createPoint(testTimestamp, testSample);
-        mDataPointDoubleArray = Data.createPoint(testTimestamp, testSampleArray);
+        mDataPointDouble = Data.createPointDoubleArray(testTimestamp, testSample);
+        mDataPointDoubleArray = Data.createPointDoubleArray(testTimestamp, testSampleArray);
     }
 
     @Test
@@ -92,10 +92,10 @@ public class DataDoubleTest {
         Data dataClone = mDataPointDouble.clone();
         assertEquals(mDataPointDouble.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentTimestamp = Data.createPoint(testTimestamp + 10, testSample);
+        Data dpbWithDifferentTimestamp = Data.createPointDoubleArray(testTimestamp + 10, testSample);
         assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentSample = Data.createPoint(testTimestamp, Math.sqrt(2));
+        Data dpbWithDifferentSample = Data.createPointDoubleArray(testTimestamp, Math.sqrt(2));
         assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
     }
 }

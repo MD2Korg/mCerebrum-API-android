@@ -29,8 +29,8 @@ public class DataByteTest {
     // Create the object.
     @Before
     public void createDataPointByte() {
-        mDataPointByte = Data.createPoint(testTimestamp, testSample);
-        mDataPointByteArray = Data.createPoint(testTimestamp, testSampleArray);
+        mDataPointByte = Data.createPointByteArray(testTimestamp, testSample);
+        mDataPointByteArray = Data.createPointByteArray(testTimestamp, testSampleArray);
     }
 
     @Test
@@ -93,10 +93,10 @@ public class DataByteTest {
         Data dataClone = mDataPointByte.clone();
         assertEquals(mDataPointByte.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentTimestamp = Data.createPoint(testTimestamp + 10, testSample);
+        Data dpbWithDifferentTimestamp = Data.createPointByteArray(testTimestamp + 10, testSample);
         assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentSample = Data.createPoint(testTimestamp, (byte) 101);
+        Data dpbWithDifferentSample = Data.createPointByteArray(testTimestamp, (byte) 101);
         assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
     }
 }

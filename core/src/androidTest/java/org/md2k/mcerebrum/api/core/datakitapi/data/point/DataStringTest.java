@@ -32,9 +32,9 @@ public class DataStringTest {
 
     @Before
     public void createDataPointString() {
-        mDataPointString = Data.createPoint(testTimestamp, testSample);
-        mDataPointStringArray = Data.createPoint(testTimestamp, testSampleArray);
-        mDataPointEmptyString = Data.createPoint(testTimestamp, testEmptyString);
+        mDataPointString = Data.createPointStringArray(testTimestamp, testSample);
+        mDataPointStringArray = Data.createPointStringArray(testTimestamp, testSampleArray);
+        mDataPointEmptyString = Data.createPointStringArray(testTimestamp, testEmptyString);
     }
 
     @Test

@@ -1,34 +1,45 @@
 package org.md2k.mcerebrum.api.core.datakitapi.data.point;
 
+import android.os.Parcel;
 import android.support.test.filters.SmallTest;
+
+import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
+import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertThat;
 
 @SmallTest
 public class DataPointObjectAndroidUnitTest {
-/*    // Objects created with a single data point
-    private DataPointObject testDPOByte = DataPointObjectMocker.createDPOByte();
-    private DataPointObject testDPOShort = DataPointObjectMocker.createDPOShort();
-    private DataPointObject testDPOInt = DataPointObjectMocker.createDPOInt();
-    private DataPointObject testDPOLong = DataPointObjectMocker.createDPOLong();
-    private DataPointObject testDPOChar = DataPointObjectMocker.createDPOChar();
-    private DataPointObject testDPOFloat = DataPointObjectMocker.createDPOFloat();
-    private DataPointObject testDPODouble = DataPointObjectMocker.createDPODouble();
-    private DataPointObject testDPOBoolean = DataPointObjectMocker.createDPOBoolean();
+    // Objects created with a single data point
+    private Data testDPOByte = DataPointObjectMocker.createDPOByte();
+    private Data testDPOShort = DataPointObjectMocker.createDPOShort();
+    private Data testDPOInt = DataPointObjectMocker.createDPOInt();
+    private Data testDPOLong = DataPointObjectMocker.createDPOLong();
+    private Data testDPOChar = DataPointObjectMocker.createDPOChar();
+    private Data testDPOFloat = DataPointObjectMocker.createDPOFloat();
+    private Data testDPODouble = DataPointObjectMocker.createDPODouble();
+    private Data testDPOBoolean = DataPointObjectMocker.createDPOBoolean();
 
     // Objects created with an array of data points.
-    private DataPointObject testDPOByteArray = DataPointObjectMocker.createDPOByteArray();
-    private DataPointObject testDPOShortArray = DataPointObjectMocker.createDPOShortArray();
-    private DataPointObject testDPOIntArray = DataPointObjectMocker.createDPOIntArray();
-    private DataPointObject testDPOLongArray = DataPointObjectMocker.createDPOLongArray();
-    private DataPointObject testDPOCharArray = DataPointObjectMocker.createDPOCharArray();
-    private DataPointObject testDPOFloatArray = DataPointObjectMocker.createDPOFloatArray();
-    private DataPointObject testDPODoubleArray = DataPointObjectMocker.createDPODoubleArray();
-    private DataPointObject testDPOBooleanArray = DataPointObjectMocker.createDPOBooleanArray();
-    private DataPointObject testDPOAllTypeArray = DataPointObjectMocker.createDPOAllTypeArray();
-    private DataPointObject testDPOStringArray = DataPointObjectMocker.createDPOStringArray();
+    private Data testDPOByteArray = DataPointObjectMocker.createDPOByteArray();
+    private Data testDPOShortArray = DataPointObjectMocker.createDPOShortArray();
+    private Data testDPOIntArray = DataPointObjectMocker.createDPOIntArray();
+    private Data testDPOLongArray = DataPointObjectMocker.createDPOLongArray();
+    private Data testDPOCharArray = DataPointObjectMocker.createDPOCharArray();
+    private Data testDPOFloatArray = DataPointObjectMocker.createDPOFloatArray();
+    private Data testDPODoubleArray = DataPointObjectMocker.createDPODoubleArray();
+    private Data testDPOBooleanArray = DataPointObjectMocker.createDPOBooleanArray();
+    private Data testDPOAllTypeArray = DataPointObjectMocker.createDPOAllTypeArray();
+    private Data testDPOStringArray = DataPointObjectMocker.createDPOStringArray();
 
-    private DataPointObject[] allTestDPO = {testDPOByte, testDPOShort, testDPOInt, testDPOLong,
+    private Data[] allTestDPO = {testDPOByte, testDPOShort, testDPOInt, testDPOLong,
                                     testDPOChar, testDPOFloat, testDPODouble, testDPOBoolean};
-    private DataPointObject[] allTestDPOArrays = {testDPOByteArray, testDPOShortArray, testDPOIntArray,
+    private Data[] allTestDPOArrays = {testDPOByteArray, testDPOShortArray, testDPOIntArray,
                                           testDPOLongArray, testDPOCharArray, testDPOFloatArray,
                                           testDPODoubleArray, testDPOBooleanArray, testDPOAllTypeArray,
                                           testDPOStringArray};
@@ -36,34 +47,34 @@ public class DataPointObjectAndroidUnitTest {
     public void fieldAccuracyTest() {
         final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
-        for (DataPointObject dataPointObject : allTestDPO) {
+        for (Data dataPointObject : allTestDPO) {
             assertEquals(testTimestamp, dataPointObject.getTimestamp());
         }
 
-        for (DataPointObject dataPointObject : allTestDPOArrays) {
+        for (Data dataPointObject : allTestDPOArrays) {
             assertEquals(testTimestamp, dataPointObject.getTimestamp());
         }
     }
 
     @Test
     public void dataPointObjectCloneTest() {
-        for (DataPointObject dataPointObject : allTestDPO) {
-            DataPointObject dataPointObjectClone = dataPointObject.clone();
+        for (Data dataPointObject : allTestDPO) {
+            Data dataPointObjectClone = dataPointObject.clone();
             assertThat(dataPointObjectClone, is(equalTo(dataPointObject)));
         }
     }
 
     @Test
     public void dataPointObjectArrayCloneTest() {
-        for (DataPointObject dataPointObject : allTestDPOArrays) {
-            DataPointObject dataPointObjectClone = dataPointObject.clone();
+        for (Data dataPointObject : allTestDPOArrays) {
+            Data dataPointObjectClone = dataPointObject.clone();
             assertThat(dataPointObjectClone, is(equalTo(dataPointObject)));
         }
     }
 
     @Test
     public void dataPointObjectParcelableWriteReadTest() {
-        for (DataPointObject dataPointObject : allTestDPO) {
+        for (Data dataPointObject : allTestDPO) {
             // Write data to parcel.
             Parcel parcel = Parcel.obtain();
             dataPointObject.writeToParcel(parcel, dataPointObject.describeContents());
@@ -73,8 +84,8 @@ public class DataPointObjectAndroidUnitTest {
             parcel.setDataPosition(0);
 
             // Read the data.
-            DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
-            DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
+            Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
+            Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
 
             // Verify results.
             assertNotEquals(0, createdFromParcelArray.length);
@@ -84,7 +95,7 @@ public class DataPointObjectAndroidUnitTest {
 
     @Test
     public void dataPointObjectArrayParcelableWriteReadTest() {
-        for (DataPointObject dataPointObject : allTestDPOArrays) {
+        for (Data dataPointObject : allTestDPOArrays) {
             // Write data to parcel.
             Parcel parcel = Parcel.obtain();
             dataPointObject.writeToParcel(parcel, dataPointObject.describeContents());
@@ -93,8 +104,8 @@ public class DataPointObjectAndroidUnitTest {
             parcel.setDataPosition(0);
 
             // Read the data.
-            DataPointObject createdFromParcel = DataPointObject.CREATOR.createFromParcel(parcel);
-            DataPointObject[] createdFromParcelArray = DataPointObject.CREATOR.newArray(1);
+            Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
+            Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
 
             // Verify results.
             assertNotEquals(0, createdFromParcelArray.length);
@@ -105,9 +116,9 @@ public class DataPointObjectAndroidUnitTest {
 
     @Test
     public void dataPointObjectHashcodeTest() {
-        for (DataPointObject dataPointObject : allTestDPOArrays) {
-            DataPointObject dataPointObjectClone = dataPointObject.clone();
+        for (Data dataPointObject : allTestDPOArrays) {
+            Data dataPointObjectClone = dataPointObject.clone();
             assertEquals(dataPointObject.hashCode(), dataPointObjectClone.hashCode());
         }
-    }*/
+    }
 }
