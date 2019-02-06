@@ -1,36 +1,53 @@
-package org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint;
+package org.md2k.mcerebrum.api.core.datakitapi.data.point;
 
+import android.os.Parcel;
 import android.support.test.filters.SmallTest;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
+import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertThat;
+
 @SmallTest
-public class DataPointLongAndroidUnitTest {
-/*    private static final double DELTA = TestingConstants.DELTA;
+public class DataLongTest {
+    private static final double DELTA = TestingConstants.DELTA;
     private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final long testSample = 1;
-    private DataPointLong mDataPointLong;
+    private Data mDataPointLong;
 
     private final long[] testSampleArray = {-3874901, -1, 0, 1, 784309147};
-    private DataPointLong mDataPointLongArray;
+    private Data mDataPointLongArray;
 
     // Create the object.
     @Before
     public void createDataPointLong() {
-        mDataPointLong = new DataPointLong(testTimestamp, testSample);
-        mDataPointLongArray = new DataPointLong(testTimestamp, testSampleArray);
+        mDataPointLong = Data.createPoint(testTimestamp, testSample);
+        mDataPointLongArray = Data.createPoint(testTimestamp, testSampleArray);
     }
 
     @Test
     public void fieldAccuracyTest() {
         assertEquals(testTimestamp, mDataPointLong.getTimestamp());
-        assertEquals(testSample, mDataPointLong.getSample()[0], DELTA);
+        long[] r1, r2;
+        r1 = mDataPointLong.getSample();
+        r2 = mDataPointLongArray.getSample();
+        assertEquals(testSample, r1[0], DELTA);
         assertEquals(testTimestamp, mDataPointLongArray.getTimestamp());
-        assertArrayEquals(testSampleArray, mDataPointLongArray.getSample());
+        assertArrayEquals(testSampleArray, r2);
     }
 
     @Test
     public void dataPointLongCloneTest() {
-        DataPointLong dataPointClone = mDataPointLong.clone();
+        Data dataPointClone = mDataPointLong.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointLong)));
         assertNotSame(mDataPointLong, dataPointClone);
     }
@@ -45,8 +62,8 @@ public class DataPointLongAndroidUnitTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        DataPointLong createdFromParcel = DataPointLong.CREATOR.createFromParcel(parcel);
-        DataPointLong[] createdFromParcelArray = DataPointLong.CREATOR.newArray(1);
+        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
+        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -63,8 +80,8 @@ public class DataPointLongAndroidUnitTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        DataPointLong createdFromParcel = DataPointLong.CREATOR.createFromParcel(parcel);
-        DataPointLong[] createdFromParcelArray = DataPointLong.CREATOR.newArray(1);
+        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
+        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -74,13 +91,13 @@ public class DataPointLongAndroidUnitTest {
 
     @Test
     public void dataPointLongHashcodeTest() {
-        DataPointLong dataClone = mDataPointLong.clone();
+        Data dataClone = mDataPointLong.clone();
         assertEquals(mDataPointLong.hashCode(), dataClone.hashCode());
 
-        DataPointLong dpbWithDifferentTimestamp = new DataPointLong(testTimestamp + 10, testSample);
+        Data dpbWithDifferentTimestamp = Data.createPoint(testTimestamp + 10, testSample);
         assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
 
-        DataPointLong dpbWithDifferentSample = new DataPointLong(testTimestamp, (long)475894890);
+        Data dpbWithDifferentSample = Data.createPoint(testTimestamp, (long) 475894890);
         assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
-    }*/
+    }
 }

@@ -1,42 +1,61 @@
-package org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint;
+package org.md2k.mcerebrum.api.core.datakitapi.data.point;
 
+import android.os.Parcel;
 import android.support.test.filters.SmallTest;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
+import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.hamcrest.text.IsEmptyString.isEmptyString;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertThat;
+
 @SmallTest
-public class DataPointStringAndroidUnitTest {
-/*    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
+public class DataStringTest {
+    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final String testSample = "Hello world";
-    private DataPointString mDataPointString;
+    private Data mDataPointString;
 
     private final String testEmptyString = "";
-    private DataPointString mDataPointEmptyString;
+    private Data mDataPointEmptyString;
 
     private final String[] testSampleArray = {"Test 1", "Test 2", ""};
-    private DataPointString mDataPointStringArray;
+    private Data mDataPointStringArray;
 
     @Before
     public void createDataPointString() {
-        mDataPointString = new DataPointString(testTimestamp, testSample);
-        mDataPointStringArray = new DataPointString(testTimestamp, testSampleArray);
-        mDataPointEmptyString = new DataPointString(testTimestamp, testEmptyString);
+        mDataPointString = Data.createPoint(testTimestamp, testSample);
+        mDataPointStringArray = Data.createPoint(testTimestamp, testSampleArray);
+        mDataPointEmptyString = Data.createPoint(testTimestamp, testEmptyString);
     }
 
     @Test
     public void fieldAccuracyTest() {
+        String[] r1, r2, r3;
+        r1 = mDataPointString.getSample();
+        r2 = mDataPointEmptyString.getSample();
+        r3 = mDataPointStringArray.getSample();
         assertEquals(testTimestamp, mDataPointString.getTimestamp());
-        assertEquals(testSample, mDataPointString.getSample()[0]);
+        assertEquals(testSample, r1[0]);
 
         assertEquals(testTimestamp, mDataPointEmptyString.getTimestamp());
-        assertThat(mDataPointEmptyString.getSample()[0], isEmptyString());
+        assertThat(r2[0], isEmptyString());
 
         assertEquals(testTimestamp, mDataPointStringArray.getTimestamp());
-        assertArrayEquals(testSampleArray, mDataPointStringArray.getSample());
+        assertArrayEquals(testSampleArray, r3);
     }
 
     @Test
     public void dataPointStringCloneTest() {
-        DataPointString dataPointClone = mDataPointString.clone();
+        Data dataPointClone = mDataPointString.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointString)));
         assertNotSame(mDataPointString, dataPointClone);
     }
@@ -51,8 +70,8 @@ public class DataPointStringAndroidUnitTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        DataPointString createdFromParcel = DataPointString.CREATOR.createFromParcel(parcel);
-        DataPointString[] createdFromParcelArray = DataPointString.CREATOR.newArray(1);
+        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
+        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -69,8 +88,8 @@ public class DataPointStringAndroidUnitTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        DataPointString createdFromParcel = DataPointString.CREATOR.createFromParcel(parcel);
-        DataPointString[] createdFromParcelArray = DataPointString.CREATOR.newArray(1);
+        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
+        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -87,11 +106,11 @@ public class DataPointStringAndroidUnitTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        DataPointString createdFromParcel = DataPointString.CREATOR.createFromParcel(parcel);
-        DataPointString[] createdFromParcelArray = DataPointString.CREATOR.newArray(1);
+        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
+        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
         assertThat(createdFromParcel, is(equalTo(mDataPointStringArray)));
-    }*/
+    }
 }

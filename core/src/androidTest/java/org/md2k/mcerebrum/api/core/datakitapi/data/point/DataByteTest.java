@@ -1,35 +1,53 @@
-package org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint;
+package org.md2k.mcerebrum.api.core.datakitapi.data.point;
 
+import android.os.Parcel;
 import android.support.test.filters.SmallTest;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
+import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotSame;
+import static org.junit.Assert.assertThat;
+
 @SmallTest
-public class DataPointByteAndroidUnitTest {
-/*    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
+public class DataByteTest {
+    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final byte testSample = 1;
-    private DataPointByte mDataPointByte;
+    private Data mDataPointByte;
 
     private final byte[] testSampleArray = {-126, -1, 0, 1, 127};
-    private DataPointByte mDataPointByteArray;
+    private Data mDataPointByteArray;
 
     // Create the object.
     @Before
     public void createDataPointByte() {
-        mDataPointByte = new DataPointByte(testTimestamp, testSample);
-        mDataPointByteArray = new DataPointByte(testTimestamp, testSampleArray);
+        mDataPointByte = Data.createPoint(testTimestamp, testSample);
+        mDataPointByteArray = Data.createPoint(testTimestamp, testSampleArray);
     }
 
     @Test
     public void fieldAccuracyTest() {
+        byte[] r1, r2;
+        r1 = mDataPointByte.getSample();
+        r2 = mDataPointByteArray.getSample();
+
         assertEquals(testTimestamp, mDataPointByte.getTimestamp());
-        assertEquals(testSample, mDataPointByte.getSample()[0]);
+        assertEquals(testSample, r1[0]);
         assertEquals(testTimestamp, mDataPointByteArray.getTimestamp());
-        assertArrayEquals(testSampleArray, mDataPointByteArray.getSample());
+        assertArrayEquals(testSampleArray, r2);
     }
 
     @Test
     public void dataPointByteCloneTest() {
-        DataPointByte dataPointClone = mDataPointByte.clone();
+        Data dataPointClone = mDataPointByte.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointByte)));
         assertNotSame(mDataPointByte, dataPointClone);
     }
@@ -44,8 +62,8 @@ public class DataPointByteAndroidUnitTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        DataPointByte createdFromParcel = DataPointByte.CREATOR.createFromParcel(parcel);
-        DataPointByte[] createdFromParcelArray = DataPointByte.CREATOR.newArray(1);
+        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
+        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -62,8 +80,8 @@ public class DataPointByteAndroidUnitTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        DataPointByte createdFromParcel = DataPointByte.CREATOR.createFromParcel(parcel);
-        DataPointByte[] createdFromParcelArray = DataPointByte.CREATOR.newArray(1);
+        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
+        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -72,13 +90,13 @@ public class DataPointByteAndroidUnitTest {
 
     @Test
     public void dataPointByteHashcodeTest() {
-        DataPointByte dataClone = mDataPointByte.clone();
+        Data dataClone = mDataPointByte.clone();
         assertEquals(mDataPointByte.hashCode(), dataClone.hashCode());
 
-        DataPointByte dpbWithDifferentTimestamp = new DataPointByte(testTimestamp + 10, testSample);
+        Data dpbWithDifferentTimestamp = Data.createPoint(testTimestamp + 10, testSample);
         assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
 
-        DataPointByte dpbWithDifferentSample = new DataPointByte(testTimestamp, (byte)101);
+        Data dpbWithDifferentSample = Data.createPoint(testTimestamp, (byte) 101);
         assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
-    }*/
+    }
 }

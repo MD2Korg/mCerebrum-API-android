@@ -20,12 +20,13 @@ public class TestingConstants {
     public static final String TEST_DEVICE_ID = "Test Device ID";
     public static final String TEST_KEY = "Test Key";
     public static final String TEST_VALUE = "Test Value";
+*/
     public static final long TEST_TIMESTAMP = 1268660460;
-
-    public static final int TEST_SAMPLE_NO = 10;
-
+    /*
+        public static final int TEST_SAMPLE_NO = 10;
+    */
     public static final double DELTA = 0.1;
-
+/*
     public static final String[] DATASOURCE_ID_ARRAY = {DATASOURCE.ID.SMOKING,
                                                       DATASOURCE.ID.EATING,
                                                       DATASOURCE.ID.SELF_REPORT};

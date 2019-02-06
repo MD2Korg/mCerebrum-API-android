@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.api.core.datakitapi.datatype;
+package org.md2k.mcerebrum.api.core.datakitapi.data;
 
 public class DataPointMocker {
     /*    *//*

@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.api.core.datakitapi.datatype.dataannotation;
+package org.md2k.mcerebrum.api.core.datakitapi.data.annotation;
 
 import android.support.test.filters.SmallTest;
 

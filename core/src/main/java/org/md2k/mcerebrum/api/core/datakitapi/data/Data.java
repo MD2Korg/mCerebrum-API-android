@@ -34,10 +34,10 @@ import java.util.Arrays;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public class Data implements Parcelable {
-    private DataType dataType;
-    private SampleType sampleType;
     private long startTimestamp;
     private long endTimestamp;
+    private DataType dataType;
+    private SampleType sampleType;
     private Object sample;
 
     /**
@@ -47,23 +47,29 @@ public class Data implements Parcelable {
      * @param in Parceled <code>Data</code> object.
      */
     protected Data(Parcel in) {
+        startTimestamp = in.readLong();
+        endTimestamp = in.readLong();
+        dataType = DataType.getDataType(in.readInt());
+        sampleType = SampleType.getSampleType(in.readInt());
         switch (sampleType) {
             case BYTE_ARRAY:
-                in.readByteArray((byte[]) sample);
+                sample = in.createByteArray();
                 break;
             case INT_ARRAY:
-                in.readIntArray((int[]) sample);
+                sample = in.createIntArray();
                 break;
             case BOOLEAN_ARRAY:
-                in.readBooleanArray((boolean[]) sample);
+                sample = in.createBooleanArray();
                 break;
             case LONG_ARRAY:
-                in.readLongArray((long[]) sample);
+                sample = in.createLongArray();
                 break;
             case DOUBLE_ARRAY:
-                in.readDoubleArray((double[]) sample);
+                sample = in.createDoubleArray();
                 break;
             case STRING_ARRAY:
+                sample = in.createStringArray();
+                break;
             case OBJECT:
             case ENUM:
                 in.readStringArray((String[]) sample);
@@ -196,6 +202,9 @@ public class Data implements Parcelable {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(startTimestamp);
+        dest.writeLong(endTimestamp);
+        dest.writeInt(dataType.getValue());
         dest.writeInt(sampleType.getValue());
         switch (sampleType) {
             case BYTE_ARRAY:
@@ -205,7 +214,8 @@ public class Data implements Parcelable {
                 dest.writeIntArray((int[]) sample);
                 break;
             case BOOLEAN_ARRAY:
-                dest.writeBooleanArray((boolean[]) sample);
+                boolean[] res = (boolean[]) sample;
+                dest.writeBooleanArray(res);
                 break;
             case LONG_ARRAY:
                 dest.writeLongArray((long[]) sample);
@@ -222,6 +232,15 @@ public class Data implements Parcelable {
         }
     }
 
+    /**
+     * Creates a data point where the sample type is byte array.
+     *
+     * @param timestamp The timestamp for when the data was collected.
+     * @param sample    The sample that was collected.
+     */
+    public static Data createPoint(long timestamp, byte sample) {
+        return new Data(DataType.POINT, SampleType.BYTE_ARRAY, timestamp, timestamp, new byte[]{sample});
+    }
 
     /**
      * Creates a data point where the sample type is byte array.
@@ -249,8 +268,28 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
+    public static Data createPoint(long timestamp, boolean sample) {
+        return new Data(DataType.POINT, SampleType.BOOLEAN_ARRAY, timestamp, timestamp, new boolean[]{sample});
+    }
+
+    /**
+     * Creates a data point where the sample type is boolean array.
+     *
+     * @param timestamp The timestamp for when the data was collected.
+     * @param sample    The sample that was collected.
+     */
     public static Data createPoint(long timestamp, boolean[] sample) {
         return new Data(DataType.POINT, SampleType.BOOLEAN_ARRAY, timestamp, timestamp, sample);
+    }
+
+    /**
+     * Creates a data point where the sample type is integer array.
+     *
+     * @param timestamp The timestamp for when the data was collected.
+     * @param sample    The sample that was collected.
+     */
+    public static Data createPoint(long timestamp, int sample) {
+        return new Data(DataType.POINT, SampleType.INT_ARRAY, timestamp, timestamp, new int[]{sample});
     }
 
     /**
@@ -269,6 +308,16 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
+    public static Data createPoint(long timestamp, long sample) {
+        return new Data(DataType.POINT, SampleType.LONG_ARRAY, timestamp, timestamp, new long[]{sample});
+    }
+
+    /**
+     * Creates a data point where the sample type is long array.
+     *
+     * @param timestamp The timestamp for when the data was collected.
+     * @param sample    The sample that was collected.
+     */
     public static Data createPoint(long timestamp, long[] sample) {
         return new Data(DataType.POINT, SampleType.LONG_ARRAY, timestamp, timestamp, sample);
     }
@@ -279,8 +328,28 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
+    public static Data createPoint(long timestamp, double sample) {
+        return new Data(DataType.POINT, SampleType.DOUBLE_ARRAY, timestamp, timestamp, new double[]{sample});
+    }
+
+    /**
+     * Creates a data point where the sample type is double array.
+     *
+     * @param timestamp The timestamp for when the data was collected.
+     * @param sample    The sample that was collected.
+     */
     public static Data createPoint(long timestamp, double[] sample) {
         return new Data(DataType.POINT, SampleType.DOUBLE_ARRAY, timestamp, timestamp, sample);
+    }
+
+    /**
+     * Creates a data point where the sample type is string array.
+     *
+     * @param timestamp The timestamp for when the data was collected.
+     * @param sample    The sample that was collected.
+     */
+    public static Data createPoint(long timestamp, String sample) {
+        return new Data(DataType.POINT, SampleType.STRING_ARRAY, timestamp, timestamp, new String[]{sample});
     }
 
     /**
@@ -402,23 +471,35 @@ public class Data implements Parcelable {
      */
     @Override
     public boolean equals(Object toCompare) {
-        return (toCompare instanceof Data
-                && this.getDataType().equals(((Data) toCompare).getDataType())
-                && this.getSampleType().equals(((Data) toCompare).getSampleType())
+        if (!equalsIgnoreTimestamp(toCompare)) return false;
+        return (this.getDataType().equals(((Data) toCompare).getDataType())
                 && this.getStartTimestamp() == ((Data) toCompare).getStartTimestamp()
                 && this.getEndTimestamp() == ((Data) toCompare).getEndTimestamp()
-                && this.getSample().equals(((Data) toCompare).getSample())
-
         );
     }
-/*
-    public boolean equalsIgnoreTimestamp(Data data){
-        if(toCompare )
-    }
-    private boolean equalsSample(Data ){
 
+    public boolean equalsIgnoreTimestamp(Object toCompare) {
+        if (!(toCompare instanceof Data) || !this.getSampleType().equals(((Data) toCompare).getSampleType()))
+            return false;
+        switch (sampleType) {
+            case BOOLEAN_ARRAY:
+                return Arrays.equals((boolean[]) sample, (boolean[]) (((Data) toCompare).getSample()));
+            case BYTE_ARRAY:
+                return Arrays.equals((byte[]) sample, (byte[]) (((Data) toCompare).getSample()));
+            case INT_ARRAY:
+                return Arrays.equals((int[]) sample, (int[]) (((Data) toCompare).getSample()));
+            case LONG_ARRAY:
+                return Arrays.equals((long[]) sample, (long[]) (((Data) toCompare).getSample()));
+            case DOUBLE_ARRAY:
+                return Arrays.equals((double[]) sample, (double[]) (((Data) toCompare).getSample()));
+            case STRING_ARRAY:
+                return Arrays.equals((String[]) sample, (String[]) (((Data) toCompare).getSample()));
+            case OBJECT:
+                return Arrays.equals((String[]) sample, (String[]) (((Data) toCompare).getSample()));
+            default:
+                return false;
+        }
     }
-*/
 
     /**
      * Calculates and returns a hash code for the calling object.

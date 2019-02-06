@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint;
+package org.md2k.mcerebrum.api.core.datakitapi.data.point;
 
 import android.support.test.filters.SmallTest;
 

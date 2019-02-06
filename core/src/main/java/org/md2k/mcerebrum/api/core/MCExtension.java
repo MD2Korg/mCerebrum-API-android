@@ -227,11 +227,6 @@ public class MCExtension implements Parcelable {
             return this;
         }
 
-        public MCExtensionBuilder setSummary(String summary) {
-            this.summary = summary;
-            return this;
-        }
-
         public MCExtensionBuilder setDescription(String description) {
             this.description = description;
             return this;
