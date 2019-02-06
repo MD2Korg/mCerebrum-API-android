@@ -71,6 +71,7 @@ public abstract class MCExtensionService extends Service {
                     break;
                 case Action.TYPE:
                     runAction(id, param, callback);
+                    break;
                 default:
             }
         }
@@ -126,7 +127,7 @@ public abstract class MCExtensionService extends Service {
         for (int i = 0; i < list.size(); i++) {
             Param uiParam = list.get(i).getParam();
             if (uiParam.getId().equals(id)) {
-                list.get(i).getMcAction().run(iCallback);
+                list.get(i).getMcAction().run(param, iCallback);
                 return;
             }
         }

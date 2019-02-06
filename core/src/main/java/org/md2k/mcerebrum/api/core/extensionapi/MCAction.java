@@ -27,5 +27,5 @@ package org.md2k.mcerebrum.api.core.extensionapi;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public interface MCAction {
-    void run(ICallback callback);
+    void run(String param, ICallback callback);
 }

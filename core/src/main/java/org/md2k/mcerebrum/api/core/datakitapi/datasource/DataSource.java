@@ -296,20 +296,14 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
     }
 
     public boolean isSubset(DataSource master) {
-        if (this.dataSourceType != null && !this.dataSourceType.equals(master.dataSourceType))
-            return false;
-        if (this.dataSourceId != null && !this.dataSourceId.equals(master.dataSourceId))
-            return false;
-        if (this.platformType != null && !this.platformType.equals(master.platformType))
-            return false;
-        if (this.platformId != null && !this.platformId.equals(master.platformId)) return false;
-        if (this.platformAppType != null && !this.platformAppType.equals(master.platformAppType))
-            return false;
-        if (this.platformAppId != null && !this.platformAppId.equals(master.platformAppId))
-            return false;
-        if (this.applicationType != null && !this.applicationType.equals(master.applicationType))
-            return false;
-        return this.applicationId == null || this.applicationId.equals(master.applicationId);
+        return (this.dataSourceType == null || this.dataSourceType.equals(master.dataSourceType))
+                && (this.dataSourceId == null || this.dataSourceId.equals(master.dataSourceId))
+                && (this.platformType == null || this.platformType.equals(master.platformType))
+                && (this.platformId == null || this.platformId.equals(master.platformId))
+                && (this.platformAppType == null || this.platformAppType.equals(master.platformAppType))
+                && (this.platformAppId == null || this.platformAppId.equals(master.platformAppId))
+                && (this.applicationType == null || this.applicationType.equals(master.applicationType))
+                && (this.applicationId == null || this.applicationId.equals(master.applicationId));
     }
 
     public boolean isEqualUUID(DataSource d) {

@@ -26,8 +26,6 @@ package org.md2k.mcerebrum.api.core.datakitapi.datasource.constants;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.ApplicationMetaData;
-
 public final class Application {
     private Application() {
     }
@@ -45,10 +43,6 @@ public final class Application {
      * This embedded class defines the application ids.
      */
     public static class ID {
-    }
-
-    public static ApplicationMetaData.ApplicationMetaDataBuilder builder() {
-        return ApplicationMetaData.builder();
     }
 
 }
