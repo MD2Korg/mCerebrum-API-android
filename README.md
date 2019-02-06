@@ -1,5 +1,7 @@
 # mCerebrum-API-android
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/36f4bb30e9554b34b24220781f77ffe1)](https://app.codacy.com/app/monowar-hossain/mCerebrum-API-android?utm_source=github.com&utm_medium=referral&utm_content=MD2Korg/mCerebrum-API-android&utm_campaign=Badge_Grade_Dashboard)
+
 mCerebrum is a configurable smartphone software platform for mobile and wearable sensors. It provides support for reliable data collection from mobile and wearable sensors, and offers real-time processing of these data.
 
 
