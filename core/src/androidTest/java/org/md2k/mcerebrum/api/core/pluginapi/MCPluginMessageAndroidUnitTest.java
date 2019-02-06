@@ -14,7 +14,7 @@ public class MCPluginMessageAndroidUnitTest {
 
     @Test
     public void objectCreationTest() {
-        assertEquals(testTitle, testMCPluginMessage.getTitle());
+        assertEquals(testTitle, testMCPluginMessage.getName());
         assertEquals(testId, testMCPluginMessage.getId());
         assertEquals(testJSONObject, testMCPluginMessage.getParams());
     }

@@ -14,7 +14,7 @@ public class MCPluginParamAndroidUnitTest {
 
     @Test
     public void objectCreationTest() {
-        assertEquals(testTitle, testMCPluginParam.getTitle());
+        assertEquals(testTitle, testMCPluginParam.getName());
         assertEquals(testId, testMCPluginParam.getId());
         assertEquals(testJSONObject, testMCPluginParam.getParams());
     }

@@ -22,11 +22,11 @@ public class PlatformAppMetaDataAndroidUnitTest {
         testPlatformAppMetaData = new PlatformAppMetaData.builder().setValue(testKey, testValue).build();
         assertEquals(testValue, testPlatformAppMetaData.getValue(testKey));
 
-        testPlatformAppMetaData = new PlatformAppMetaData.builder().setTitle(testTitle).setSummary(testSummary)
+        testPlatformAppMetaData = new PlatformAppMetaData.builder().setName(testTitle).setSummary(testSummary)
                 .setDescription(testDescription).setOperationSystem(testOperationSystem)
                 .setManufacturer(testManufacturer).setModel(testModel).setVersionFirmware(testVersionFirmware)
                 .setVersionHardware(testVersionHardware).setDeviceId(testDeviceId).build();
-        assertEquals(testTitle, testPlatformAppMetaData.getTitle());
+        assertEquals(testTitle, testPlatformAppMetaData.getName());
         assertEquals(testSummary, testPlatformAppMetaData.getSummary());
         assertEquals(testDescription, testPlatformAppMetaData.getDescription());
         assertEquals(testOperationSystem, testPlatformAppMetaData.getOperationSystem());

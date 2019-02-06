@@ -18,10 +18,10 @@ public class ApplicationMetaDataAndroidUnitTest {
         testAppMetaData = new ApplicationMetaData.builder().setMetaData(testKey, testValue).build();
         assertEquals(testValue, testAppMetaData.getMetaData(testKey));
 
-        testAppMetaData = new ApplicationMetaData.builder().setTitle(testTitle).setSummary(testSummary)
+        testAppMetaData = new ApplicationMetaData.builder().setName(testTitle).setSummary(testSummary)
                 .setDescription(testDescription).setVersionName(testVersionName)
                 .setVersionNumber(testVersionNumber).build();
-        assertEquals(testTitle, testAppMetaData.getTitle());
+        assertEquals(testTitle, testAppMetaData.getName());
         assertEquals(testSummary, testAppMetaData.getSummary());
         assertEquals(testDescription, testAppMetaData.getDescription());
         assertEquals(testVersionName, testAppMetaData.getVersionName());

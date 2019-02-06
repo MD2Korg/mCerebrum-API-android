@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.api.core.extensionapi;
+package org.md2k.mcerebrum.api.core.extensionapi.app;
 
 import android.app.Service;
 import android.content.Intent;
@@ -6,6 +6,15 @@ import android.os.IBinder;
 import android.os.RemoteException;
 
 import org.md2k.mcerebrum.api.core.MCExtension;
+import org.md2k.mcerebrum.api.core.extensionapi.Action;
+import org.md2k.mcerebrum.api.core.extensionapi.ConfigState;
+import org.md2k.mcerebrum.api.core.extensionapi.IBackgroundProcess;
+import org.md2k.mcerebrum.api.core.extensionapi.ICallback;
+import org.md2k.mcerebrum.api.core.extensionapi.IConfigure;
+import org.md2k.mcerebrum.api.core.extensionapi.IExtensionRemoteService;
+import org.md2k.mcerebrum.api.core.extensionapi.IPermission;
+import org.md2k.mcerebrum.api.core.extensionapi.Param;
+import org.md2k.mcerebrum.api.core.extensionapi.UserInterface;
 
 import java.util.ArrayList;
 

@@ -47,8 +47,7 @@ import org.md2k.mcerebrum.api.core.extensionapi.UserInterface;
 import java.util.ArrayList;
 
 public class MCExtension implements Parcelable {
-    private String title;
-    private String summary;
+    private String name;
     private String description;
     private String version;
     private String packageName;
@@ -61,8 +60,7 @@ public class MCExtension implements Parcelable {
     private ArrayList<Param> listOfOperations;
 
     private MCExtension(MCExtensionBuilder builder) {
-        title = builder.title;
-        summary = builder.summary;
+        name = builder.name;
         description = builder.description;
         version = builder.version;
         packageName = builder.packageName;
@@ -102,8 +100,7 @@ public class MCExtension implements Parcelable {
     }
 
     protected MCExtension(Parcel in) {
-        title = in.readString();
-        summary = in.readString();
+        name = in.readString();
         description = in.readString();
         version = in.readString();
         packageName = in.readString();
@@ -113,8 +110,7 @@ public class MCExtension implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(title);
-        parcel.writeString(summary);
+        parcel.writeString(name);
         parcel.writeString(description);
         parcel.writeString(version);
         parcel.writeString(packageName);
@@ -134,13 +130,10 @@ public class MCExtension implements Parcelable {
         }
     };
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public String getSummary() {
-        return summary;
-    }
 
     public String getDescription() {
         return description;
@@ -196,8 +189,7 @@ public class MCExtension implements Parcelable {
     }
 
     public static class MCExtensionBuilder {
-        private String title;
-        private String summary;
+        private String name;
         private String description;
         private String version;
         private String packageName;
@@ -209,7 +201,7 @@ public class MCExtension implements Parcelable {
         private ArrayList<Action> actions;
 
         MCExtensionBuilder(Context context) {
-            title = context.getApplicationInfo().name;
+            name = context.getApplicationInfo().name;
             packageName = context.getPackageName();
             try {
                 version = context.getPackageManager().getPackageInfo(packageName, 0).versionName;
@@ -230,8 +222,8 @@ public class MCExtension implements Parcelable {
             actions = new ArrayList<>();
         }
 
-        public MCExtensionBuilder setTitle(String title) {
-            this.title = title;
+        public MCExtensionBuilder setName(String name) {
+            this.name = name;
             return this;
         }
 

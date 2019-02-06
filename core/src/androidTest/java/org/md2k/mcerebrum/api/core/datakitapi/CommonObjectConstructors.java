@@ -4,7 +4,7 @@ public class CommonObjectConstructors {
 
 /*
     public static PlatformMetaData createPlatformMetaData() {
-        return PlatformMetaData.builder().setTitle(TestingConstants.TEST_TITLE)
+        return PlatformMetaData.builder().setName(TestingConstants.TEST_TITLE)
                 .setSummary(TestingConstants.TEST_SUMMARY)
                 .setDescription(TestingConstants.TEST_DESCRIPTION)
                 .setOperationSystem(TestingConstants.TEST_OPERATING_SYSTEM)
@@ -19,7 +19,7 @@ public class CommonObjectConstructors {
 
     public static PlatformAppMetaData createPlatformAppMetaData() {
         PlatformAppMetaData.builder testPlatformAppMetaDataBuilder = PlatformAppMetaData.builder();
-        return testPlatformAppMetaDataBuilder.setTitle(TestingConstants.TEST_TITLE)
+        return testPlatformAppMetaDataBuilder.setName(TestingConstants.TEST_TITLE)
                 .setSummary(TestingConstants.TEST_SUMMARY)
                 .setDescription(TestingConstants.TEST_DESCRIPTION)
                 .setOperationSystem(TestingConstants.TEST_OPERATING_SYSTEM)
@@ -34,7 +34,7 @@ public class CommonObjectConstructors {
 
     public static ApplicationMetaData createApplicationMetaData() {
         ApplicationMetaData.builder testAppMetaDataBuilder = ApplicationMetaData.builder();
-        return testAppMetaDataBuilder.setTitle(TestingConstants.TEST_TITLE)
+        return testAppMetaDataBuilder.setName(TestingConstants.TEST_TITLE)
                 .setSummary(TestingConstants.TEST_SUMMARY)
                 .setDescription(TestingConstants.TEST_DESCRIPTION)
                 .setVersionName(TestingConstants.TEST_VERSION_NAME)
@@ -58,7 +58,7 @@ public class CommonObjectConstructors {
     }
 
     public static DataSourceMetaData createDataSourceMetaData() {
-        return DataSourceMetaData.builder().setTitle(TestingConstants.TEST_TITLE)
+        return DataSourceMetaData.builder().setName(TestingConstants.TEST_TITLE)
                 .setSummary(TestingConstants.TEST_SUMMARY)
                 .setDescription(TestingConstants.TEST_DESCRIPTION)
                 .setDataRate(TestingConstants.TEST_SAMPLE_NO, TestingConstants.TIME_UNITS[0])

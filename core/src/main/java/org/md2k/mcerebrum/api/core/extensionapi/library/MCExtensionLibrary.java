@@ -1,4 +1,6 @@
-package org.md2k.mcerebrum.api.core.extensionapi;
+package org.md2k.mcerebrum.api.core.extensionapi.library;
+
+import org.md2k.mcerebrum.api.core.MCExtension;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -26,25 +28,6 @@ package org.md2k.mcerebrum.api.core.extensionapi;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class Action {
-    public static final String TYPE = "#ACTION#";
-    private String id;
-    private String title;
-    private String summary;
-    private MCAction mcAction;
-
-    public Param getParam() {
-        return new Param(TYPE, id, title, summary);
-    }
-
-    public Action(String id, String title, String summary, MCAction mcAction) {
-        this.id = id;
-        this.title = title;
-        this.summary = summary;
-        this.mcAction = mcAction;
-    }
-
-    public MCAction getMcAction() {
-        return mcAction;
-    }
+public abstract class MCExtensionLibrary {
+    abstract MCExtension createExtension();
 }

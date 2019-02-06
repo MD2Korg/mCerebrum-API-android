@@ -39,8 +39,7 @@ import java.util.Map;
  * These fields are stored in a hash map of strings.
  */
 public class PlatformMetaData {
-    private static final String TITLE = "TITLE";
-    private static final String SUMMARY = "SUMMARY";
+    private static final String NAME = "NAME";
     private static final String DESCRIPTION = "DESCRIPTION";
     private static final String OPERATING_SYSTEM = "OPERATING_SYSTEM";
     private static final String MANUFACTURER = "MANUFACTURER";
@@ -51,21 +50,12 @@ public class PlatformMetaData {
     private HashMap<String, String> metaData;
 
     /**
-     * Returns the title.
+     * Returns the name.
      *
-     * @return The title.
+     * @return The name.
      */
-    public String getTitle() {
-        return metaData.get(TITLE);
-    }
-
-    /**
-     * Returns the summary.
-     *
-     * @return The summary.
-     */
-    public String getSummary() {
-        return metaData.get(SUMMARY);
+    public String getName() {
+        return metaData.get(NAME);
     }
 
     /**
@@ -187,26 +177,14 @@ public class PlatformMetaData {
         }
 
         /**
-         * Sets the <code>TITLE</code> key of the hash map.
+         * Sets the <code>NAME</code> key of the hash map.
          *
-         * @param title Value to associate <code>TITLE</code> to.
+         * @param name Value to associate <code>NAME</code> to.
          * @return The modified <code>builder</code>.
          */
-        public PlatformMetaDataBuilder setTitle(String title) {
-            if (title != null)
-                metaData.put(TITLE, title);
-            return this;
-        }
-
-        /**
-         * Sets the <code>SUMMARY</code> key of the hash map.
-         *
-         * @param summary Value to associate <code>SUMMARY</code> to.
-         * @return The modified <code>builder</code>.
-         */
-        public PlatformMetaDataBuilder setSummary(String summary) {
-            if (summary != null)
-                metaData.put(SUMMARY, summary);
+        public PlatformMetaDataBuilder setName(String name) {
+            if (name != null)
+                metaData.put(NAME, name);
             return this;
         }
 

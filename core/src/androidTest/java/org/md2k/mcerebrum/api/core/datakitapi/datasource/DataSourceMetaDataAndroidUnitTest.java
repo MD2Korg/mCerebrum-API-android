@@ -17,7 +17,7 @@ public class DataSourceMetaDataAndroidUnitTest {
         testDataSourceMetaData = new DataSourceMetaData.builder().setMetaData(testKey, testValue).build();
         assertEquals(testValue, testDataSourceMetaData.getMetaData(testKey));
 
-        testDataSourceMetaData = new DataSourceMetaData.builder().setTitle(testTitle)
+        testDataSourceMetaData = new DataSourceMetaData.builder().setName(testTitle)
                 .setSummary(testSummary).setDescription(testDescription).build();
         assertEquals(testTitle, testDataSourceMetaData.getName());
         assertEquals(testSummary, testDataSourceMetaData.getSummary());
