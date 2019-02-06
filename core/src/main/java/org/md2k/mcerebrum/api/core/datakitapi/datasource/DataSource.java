@@ -88,6 +88,18 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
 
     }
 
+    public static final Creator<DataSource> CREATOR = new Creator<DataSource>() {
+        @Override
+        public DataSource createFromParcel(Parcel in) {
+            return new DataSource(in);
+        }
+
+        @Override
+        public DataSource[] newArray(int size) {
+            return new DataSource[size];
+        }
+    };
+
     public static IDataSourceBuilder.IDataType registerBuilder() {
         return new DataSourceRegisterBuilder();
     }
@@ -187,17 +199,6 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
 
     }
 
-    private static final Creator<DataSource> CREATOR = new Creator<DataSource>() {
-        @Override
-        public DataSource createFromParcel(Parcel in) {
-            return new DataSource(in);
-        }
-
-        @Override
-        public DataSource[] newArray(int size) {
-            return new DataSource[size];
-        }
-    };
 
     @Override
     public int describeContents() {

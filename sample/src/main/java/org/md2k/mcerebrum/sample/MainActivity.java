@@ -42,12 +42,12 @@ public class MainActivity extends AppCompatActivity {
                 DataSourceRegister req = DataSource.RegisterBuilder()
                         .setDataType(DataType.POINT)
                         .setSampleType(SampleType.INT_ARRAY)
-                        .addDataDescriptor(DataDescriptor.Builder().setName("ACL_X").build())
-                        .addDataDescriptor(DataDescriptor.Builder().setName("ACL_Y").build())
-                        .addDataDescriptor(DataDescriptor.Builder().setName("ACL_Z").build())
+                        .addDataDescriptor(DataDescriptor.builder().setName("ACL_X").build())
+                        .addDataDescriptor(DataDescriptor.builder().setName("ACL_Y").build())
+                        .addDataDescriptor(DataDescriptor.builder().setName("ACL_Z").build())
                         .setDataSourceType("ACCELEROMETER")
                         .setPlatformType("PHONE")
-                        .setDataSourceMetaData(DataSourceMetaData.Builder().setUnit("METER_PER_SECOND_SQUARED").build())
+                        .setDataSourceMetaData(DataSourceMetaData.builder().setUnit("METER_PER_SECOND_SQUARED").build())
                         .build();
                Registration r = MCerebrumAPI.registerDataSource(req);
             }
@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         MCerebrumAPI.authenticate(new AuthenticationCallback() {
             @Override
             public void onSuccess() {
-                DataSourceCreator d = DataSourceCreator.Builder(DataSourceType.ACCELEROMETER, DataType.POINT_BOOLEAN_ARRAY).build();
+                DataSourceCreator d = DataSourceCreator.builder(DataSourceType.ACCELEROMETER, DataType.POINT_BOOLEAN_ARRAY).build();
 
 */
 /*
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
 
     /*
             Log.d("abc","createRegister...callback start");
-            MCerebrumAPI.createRegister(DataSourceCreator.Builder("abc",DataType.BOOLEAN).build()).resultCallback(new ConnectionCallback() {
+            MCerebrumAPI.createRegister(DataSourceCreator.builder("abc",DataType.BOOLEAN).build()).resultCallback(new ConnectionCallback() {
                 @Override
                 public void onConnected() {
                     Log.d("abc","createRegister callback received");
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
             // prepare data source
     /*
             Data d;
-            DataSourceCreator c = DataSourceCreator.Builder("ACCELEROMETER", DataType.DATAPOINT_DOUBLE)
+            DataSourceCreator c = DataSourceCreator.builder("ACCELEROMETER", DataType.DATAPOINT_DOUBLE)
                     .setPlatformAsPhone()
                     .build();
             // createRegister dataSource

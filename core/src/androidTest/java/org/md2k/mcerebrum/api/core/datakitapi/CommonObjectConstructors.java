@@ -18,7 +18,7 @@ public class CommonObjectConstructors {
     }
 
     public static PlatformAppMetaData createPlatformAppMetaData() {
-        PlatformAppMetaData.Builder testPlatformAppMetaDataBuilder = PlatformAppMetaData.builder();
+        PlatformAppMetaData.builder testPlatformAppMetaDataBuilder = PlatformAppMetaData.builder();
         return testPlatformAppMetaDataBuilder.setTitle(TestingConstants.TEST_TITLE)
                 .setSummary(TestingConstants.TEST_SUMMARY)
                 .setDescription(TestingConstants.TEST_DESCRIPTION)
@@ -33,7 +33,7 @@ public class CommonObjectConstructors {
     }
 
     public static ApplicationMetaData createApplicationMetaData() {
-        ApplicationMetaData.Builder testAppMetaDataBuilder = ApplicationMetaData.builder();
+        ApplicationMetaData.builder testAppMetaDataBuilder = ApplicationMetaData.builder();
         return testAppMetaDataBuilder.setTitle(TestingConstants.TEST_TITLE)
                 .setSummary(TestingConstants.TEST_SUMMARY)
                 .setDescription(TestingConstants.TEST_DESCRIPTION)
@@ -44,7 +44,7 @@ public class CommonObjectConstructors {
     }
 
     public static DataDescriptor createDataDescriptor() {
-        DataDescriptor.Builder testDataDescriptorBuilder = DataDescriptor.builder();
+        DataDescriptor.builder testDataDescriptorBuilder = DataDescriptor.builder();
         return testDataDescriptorBuilder.setName(TestingConstants.TEST_TITLE)
                 .setSummary(TestingConstants.TEST_SUMMARY)
                 .setDescription(TestingConstants.TEST_DESCRIPTION)
@@ -66,7 +66,7 @@ public class CommonObjectConstructors {
     }
 
     public static DataSourceCreator createDataSourceCreator() {
-        DataSourceCreator.Builder testDataSourceCreatorBuilder =
+        DataSourceCreator.builder testDataSourceCreatorBuilder =
                 DataSourceCreator.builder(TestingConstants.DATA_SOURCE_TYPE_ARRAY[0], TestingConstants.DATA_TYPE_ARRAY[0]);
         return testDataSourceCreatorBuilder.setDataSourceId(TestingConstants.DATASOURCE_ID_ARRAY[0])
                 .setPlatformType(TestingConstants.PLATFORM_TYPE_ARRAY[0])
@@ -117,7 +117,7 @@ public class CommonObjectConstructors {
     }
 
     public static DataSourceRequest createDataSourceRequest() {
-        DataSourceRequest.Builder testDataSourceRequestBuilder = DataSourceRequest.builder();
+        DataSourceRequest.builder testDataSourceRequestBuilder = DataSourceRequest.builder();
         return testDataSourceRequestBuilder.setDataSourceType(TestingConstants.DATA_SOURCE_TYPE_ARRAY[0])
                 .setDataSourceId(TestingConstants.DATASOURCE_ID_ARRAY[0])
                 .setPlatformType(TestingConstants.PLATFORM_TYPE_ARRAY[0])

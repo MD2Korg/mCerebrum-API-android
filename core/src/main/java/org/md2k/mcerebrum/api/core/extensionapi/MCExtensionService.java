@@ -71,6 +71,7 @@ public abstract class MCExtensionService extends Service {
                     break;
                 case Action.TYPE:
                     runAction(id, param, callback);
+                default:
             }
         }
     };
@@ -89,6 +90,7 @@ public abstract class MCExtensionService extends Service {
                 boolean result = getMCExtension().getiBackgroundProcess().isRunning();
                 iCallback.onSuccess(String.valueOf(result));
                 break;
+            default:
         }
     }
 
@@ -102,6 +104,7 @@ public abstract class MCExtensionService extends Service {
                 boolean result = getMCExtension().getiUserPermission().hasPermission();
                 iCallback.onSuccess(String.valueOf(result));
                 break;
+            default:
         }
     }
 
@@ -140,6 +143,7 @@ public abstract class MCExtensionService extends Service {
                 ConfigState c = getMCExtension().getiConfigure().getConfigurationState();
                 iCallback.onSuccess(String.valueOf(c.getValue()));
                 break;
+            default:
         }
     }
 

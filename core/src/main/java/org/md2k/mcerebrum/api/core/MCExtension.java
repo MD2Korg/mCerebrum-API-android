@@ -186,7 +186,7 @@ public class MCExtension implements Parcelable {
         return uiParams;
     }
 
-    public static MCExtensionBuilder Builder(Context context) {
+    public static MCExtensionBuilder builder(Context context) {
         return new MCExtensionBuilder(context);
     }
 

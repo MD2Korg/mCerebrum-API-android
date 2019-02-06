@@ -109,9 +109,9 @@ class DataSubscribers {
 */
 
     class Subscriber {
-        String uuid;
-        int sessionId;
-        SubscribeDataCallback callback;
+        protected String uuid;
+        protected int sessionId;
+        protected SubscribeDataCallback callback;
 
         Subscriber(String uuid, int sessionId, SubscribeDataCallback subscribeDataCallback) {
             this.uuid = uuid;

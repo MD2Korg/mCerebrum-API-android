@@ -67,13 +67,13 @@ import java.util.HashMap;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-class MCData extends Connection {
+final class MCData extends Connection {
     private static final String TAG = MCData.class.getName();
     private HashMap<SubscribeDataSourceCallback, IDataKitRemoteCallback.Stub> subscriptionDataSourceList;
     private HashMap<SubscribeDataCallback, IDataKitRemoteCallback.Stub> subscriptionDataList;
     private _InsertDataExec insertDataExec;
 
-    MCData() {
+    protected MCData() {
         subscriptionDataSourceList = new HashMap<>();
         subscriptionDataList = new HashMap<>();
         insertDataExec = new _InsertDataExec(new SyncCallback() {
@@ -90,7 +90,7 @@ class MCData extends Connection {
         });
     }
 
-    Registration registerDataSource(DataSourceRegister dataSourceRegister) {
+    protected Registration registerDataSource(DataSourceRegister dataSourceRegister) {
         _Session in = _InsertDataSourceIn.create(createSessionId(), (DataSource) dataSourceRegister);
         _Session out;
         try {
@@ -102,7 +102,7 @@ class MCData extends Connection {
         return new Registration(_InsertDataSourceOut.getDataSourceResult(out.getBundle()));
     }
 
-    void registerDataSourceAsync(DataSourceRegister dataSourceRegister, final RegisterCallback registerCallback) {
+    protected void registerDataSourceAsync(DataSourceRegister dataSourceRegister, final RegisterCallback registerCallback) {
         _Session in = _InsertDataSourceIn.create(createSessionId(), (DataSource) dataSourceRegister);
         try {
             executeAsync(in, new IDataKitRemoteCallback.Stub() {
@@ -118,7 +118,7 @@ class MCData extends Connection {
         }
     }
 
-    ArrayList<DataSourceResult> queryDataSource(DataSourceQuery dataSourceQuery) {
+    protected ArrayList<DataSourceResult> queryDataSource(DataSourceQuery dataSourceQuery) {
         _Session in = _QueryDataSourceIn.create(createSessionId(), (DataSource) dataSourceQuery);
         _Session session;
         try {
@@ -131,7 +131,7 @@ class MCData extends Connection {
         return _QueryDataSourceOut.getDataSourceResults(session.getBundle());
     }
 
-    void queryDataSourceAsync(DataSourceQuery dataSourceQuery, final QueryDataSourceCallback queryDataSourceCallback) {
+    protected void queryDataSourceAsync(DataSourceQuery dataSourceQuery, final QueryDataSourceCallback queryDataSourceCallback) {
         _Session in = _QueryDataSourceIn.create(createSessionId(), (DataSource) dataSourceQuery);
 
         try {
@@ -148,7 +148,7 @@ class MCData extends Connection {
         }
     }
 
-    void subscribeDataSourceAsync(DataSourceQuery dataSourceQuery, final SubscribeDataSourceCallback subscribeDataSourceCallback) {
+    protected void subscribeDataSourceAsync(DataSourceQuery dataSourceQuery, final SubscribeDataSourceCallback subscribeDataSourceCallback) {
         if (subscriptionDataSourceList.containsKey(subscribeDataSourceCallback)) return;
         _Session in = _SubscribeDataSourceIn.create(createSessionId(), (DataSource) dataSourceQuery);
         IDataKitRemoteCallback.Stub iDataKitRemoteCallback = new IDataKitRemoteCallback.Stub() {
@@ -167,7 +167,7 @@ class MCData extends Connection {
         }
     }
 
-    void unsubscribeDataSourceAsync(SubscribeDataSourceCallback subscribeDataSourceCallback) {
+    protected void unsubscribeDataSourceAsync(SubscribeDataSourceCallback subscribeDataSourceCallback) {
         if (!subscriptionDataSourceList.containsKey(subscribeDataSourceCallback)) return;
         try {
             executeAsync(_UnsubscribeDataSourceIn.create(createSessionId()), subscriptionDataSourceList.get(subscribeDataSourceCallback));
@@ -178,7 +178,7 @@ class MCData extends Connection {
     }
 
 
-    ArrayList<Data> queryDataByTime(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
+    protected ArrayList<Data> queryDataByTime(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
         insertDataExec.syncIfRequired(dataSourceResult.getDsId());
         _Session in = _QueryDataByTimeIn.create(createSessionId(), dataSourceResult.getDsId(), startTimestamp, endTimestamp);
         try {
@@ -191,7 +191,7 @@ class MCData extends Connection {
     }
 
 
-    void queryDataByTimeAsync(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp, final QueryDataCallback queryCallback) {
+    protected void queryDataByTimeAsync(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp, final QueryDataCallback queryCallback) {
         insertDataExec.syncIfRequired(dataSourceResult.getDsId());
         _Session in = _QueryDataByTimeIn.create(createSessionId(), dataSourceResult.getDsId(), startTimestamp, endTimestamp);
         try {
@@ -209,7 +209,7 @@ class MCData extends Connection {
     }
 
 
-    ArrayList<Data> queryDataByNumber(DataSourceResult dataSourceResult, int lastNData) {
+    protected ArrayList<Data> queryDataByNumber(DataSourceResult dataSourceResult, int lastNData) {
         insertDataExec.syncIfRequired(dataSourceResult.getDsId());
         _Session in = _QueryDataByNumberIn.create(createSessionId(), dataSourceResult.getDsId(), lastNData);
         try {
@@ -222,7 +222,7 @@ class MCData extends Connection {
     }
 
 
-    void queryDataByNumberAsync(DataSourceResult dataSourceResult, int lastNData, final QueryDataCallback queryCallback) {
+    protected void queryDataByNumberAsync(DataSourceResult dataSourceResult, int lastNData, final QueryDataCallback queryCallback) {
         insertDataExec.syncIfRequired(dataSourceResult.getDsId());
         _Session in = _QueryDataByNumberIn.create(createSessionId(), dataSourceResult.getDsId(), lastNData);
         try {
@@ -239,7 +239,7 @@ class MCData extends Connection {
         }
     }
 
-    int queryDataCount(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
+    protected int queryDataCount(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
         insertDataExec.syncIfRequired(dataSourceResult.getDsId());
         _Session in = _QueryDataCountIn.create(createSessionId(), dataSourceResult.getDsId(), startTimestamp, endTimestamp);
         try {
@@ -251,7 +251,7 @@ class MCData extends Connection {
         }
     }
 
-    void queryDataCountAsync(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp, final CountDataCallback callback) {
+    protected void queryDataCountAsync(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp, final CountDataCallback callback) {
         insertDataExec.syncIfRequired(dataSourceResult.getDsId());
         _Session in = _QueryDataCountIn.create(createSessionId(), dataSourceResult.getDsId(), startTimestamp, endTimestamp);
         try {
@@ -268,7 +268,7 @@ class MCData extends Connection {
         }
     }
 
-    int insertData(Registration registration, Data[] data) {
+    protected int insertData(Registration registration, Data[] data) {
         for (Data aData : data)
             if (registration.getDataSource().getSampleType() != aData.getSampleType() || registration.getDataSource().getDataType() != aData.getDataType())
                 return MCStatus.INVALID_DATA;
@@ -276,7 +276,7 @@ class MCData extends Connection {
         return MCStatus.SUCCESS;
     }
 
-    void subscribeDataAsync(DataSourceResult dataSourceResult, final SubscribeDataCallback subscribeDataCallback) {
+    protected void subscribeDataAsync(DataSourceResult dataSourceResult, final SubscribeDataCallback subscribeDataCallback) {
         if (subscriptionDataList.containsKey(subscribeDataCallback)) return;
         _Session in = _SubscribeDataIn.create(createSessionId(), dataSourceResult);
         IDataKitRemoteCallback.Stub iDataKitRemoteCallback = new IDataKitRemoteCallback.Stub() {
@@ -297,7 +297,7 @@ class MCData extends Connection {
         }
     }
 
-    void unsubscribeDataAsync(SubscribeDataCallback subscribeDataCallback) {
+    protected void unsubscribeDataAsync(SubscribeDataCallback subscribeDataCallback) {
         if (!subscriptionDataList.containsKey(subscribeDataCallback)) return;
         try {
             executeAsync(_UnsubscribeDataIn.create(createSessionId()), subscriptionDataList.get(subscribeDataCallback));

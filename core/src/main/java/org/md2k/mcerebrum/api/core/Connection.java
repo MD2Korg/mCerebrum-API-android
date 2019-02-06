@@ -57,7 +57,7 @@ abstract class Connection {
     private int authenticated;
     private Intent serverIntent;
 
-    Connection() {
+    protected Connection() {
         connectionCallbacks = new ArrayList<>();
         iDataKitRemoteService = null;
         connected = false;
@@ -65,7 +65,7 @@ abstract class Connection {
 
     }
 
-    void connect(final ConnectionCallback connectionCallback) {
+    protected void connect(final ConnectionCallback connectionCallback) {
         if (!connectionCallbacks.contains(connectionCallback))
             connectionCallbacks.add(connectionCallback);
         if (!connected)
@@ -77,17 +77,18 @@ abstract class Connection {
         }
     }
 
-    void disconnect(ConnectionCallback connectionCallback) {
+    protected void disconnect(ConnectionCallback connectionCallback) {
         connectionCallbacks.remove(connectionCallback);
         if (connectionCallbacks.size() == 0) {
             disconnectFromServer();
         }
     }
-    boolean isConnected(){
+
+    protected boolean isConnected() {
         return connected;
     }
 
-    void disconnectAll() {
+    protected void disconnectAll() {
         connectionCallbacks.clear();
 
         disconnectFromServer();
@@ -208,7 +209,7 @@ abstract class Connection {
     }
 
 
-    synchronized int createSessionId() {
+    protected synchronized int createSessionId() {
         if (sessionId == null) {
             sessionId = new Random().nextInt();
         } else sessionId++;

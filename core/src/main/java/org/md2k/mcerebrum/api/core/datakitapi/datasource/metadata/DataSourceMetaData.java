@@ -42,8 +42,6 @@ import java.util.Map;
 public class DataSourceMetaData {
     private static final String NAME = "NAME";
     private static final String DESCRIPTION = "DESCRIPTION";
-    private static final String DATA_RATE_TYPE = "DATA_RATE_TYPE";
-    private static final String DATA_RATE_VALUE = "DATA_RATE_VALUE";
     private static final String UNIT = "UNIT";
 
     private HashMap<String, String> metaData;

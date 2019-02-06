@@ -82,11 +82,11 @@ class _DataBuffer {
             tail = (tail + 1) % buffer.length;
         }
 
-        long getTop() {
+        protected long getTop() {
             return buffer[head];
         }
 
-        long getBottom() {
+        protected long getBottom() {
             return buffer[tail];
         }
     }
