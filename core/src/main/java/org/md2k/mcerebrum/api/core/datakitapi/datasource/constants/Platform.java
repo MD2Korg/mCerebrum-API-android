@@ -26,8 +26,6 @@ package org.md2k.mcerebrum.api.core.datakitapi.datasource.constants;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.PlatformMetaData;
-
 /**
  * This class defines constants for Platform Metadata denoting the type and id.
  * The type denotes what type of sensor (AutoSense, Phone, Omron, EasySense,
@@ -122,9 +120,5 @@ public final class Platform {
          */
         public static final String RIGHT_WRIST = "RIGHT_WRIST";
 
-    }
-
-    public static PlatformMetaData.PlatformMetaDataBuilder MetaDataBuilder() {
-        return PlatformMetaData.builder();
     }
 }

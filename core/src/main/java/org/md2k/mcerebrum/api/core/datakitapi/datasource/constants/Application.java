@@ -47,7 +47,7 @@ public final class Application {
     public static class ID {
     }
 
-    public static ApplicationMetaData.ApplicationMetaDataBuilder MetaDataBuilder() {
+    public static ApplicationMetaData.ApplicationMetaDataBuilder builder() {
         return ApplicationMetaData.builder();
     }
 

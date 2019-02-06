@@ -122,7 +122,7 @@ public final class PlatformApp {
 
     }
 
-    public static PlatformAppMetaData.PlatformAppMetaDataBuilder MetaDataBuilder() {
+    public static PlatformAppMetaData.PlatformAppMetaDataBuilder builder() {
         return PlatformAppMetaData.builder();
     }
 

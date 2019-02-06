@@ -166,7 +166,7 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
 
     public ArrayList<DataDescriptor> getDataDescriptors() {
         ArrayList<DataDescriptor> dds = new ArrayList<>();
-        for(int i=0;i<dataDescriptors.size();i++){
+        for (int i = 0; i < dataDescriptors.size(); i++) {
             dds.add(DataDescriptor.builder().setDescriptor(dataDescriptors.get(i)).build());
         }
         return dds;
@@ -265,14 +265,14 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
         if (!(obj instanceof DataSource))
             return false;
         DataSource d = (DataSource) obj;
-        if (!toUUID().equals(d.toUUID())) return false;
-        if (!dataSourceMetaData.equals(d.dataSourceMetaData)) return false;
-        if (!platformMetaData.equals(d.platformMetaData)) return false;
-        if (!platformAppMetaData.equals(d.platformAppMetaData)) return false;
-        if (!applicationMetaData.equals(d.applicationMetaData)) return false;
-        if (!dataDescriptors.equals(d.dataDescriptors)) return false;
-        if (dataType != d.dataType) return false;
-        return sampleType == d.sampleType;
+        return toUUID().equals(d.toUUID())
+                && dataSourceMetaData.equals(d.dataSourceMetaData)
+                && platformMetaData.equals(d.platformMetaData)
+                && platformAppMetaData.equals(d.platformAppMetaData)
+                && applicationMetaData.equals(d.applicationMetaData)
+                && dataDescriptors.equals(d.dataDescriptors)
+                && dataType == d.dataType
+                && sampleType == d.sampleType;
     }
 
     public String toUUID() {
