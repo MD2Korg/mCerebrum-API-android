@@ -1,22 +1,10 @@
 package org.md2k.mcerebrum.api.core.datakitapi.datatype;
 
-import android.os.Parcel;
 import android.support.test.filters.SmallTest;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertThat;
 
 @SmallTest
 public class DataAndroidUnitTest {
-    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
+/*    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
     private Data mData;
 
     // Create the object.
@@ -59,5 +47,5 @@ public class DataAndroidUnitTest {
     public void dataHashcodeTest() {
         Data dataClone = mData.clone();
         assertEquals(mData.hashCode(), dataClone.hashCode());
-    }
+    }*/
 }

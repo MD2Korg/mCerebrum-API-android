@@ -28,7 +28,7 @@
 package org.md2k.mcerebrum.api.core.exception;
 
 
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 /**
  * Generic <code>MCerebrumException</code>.
@@ -72,7 +72,7 @@ public class MCerebrumException extends Exception {
      * @param status <code>MCerebrumStatus</code> that triggered the exception.
      */
     public MCerebrumException(int status) {
-        super(Status.getMessage(status));
+        super(MCStatus.getMessage(status));
         this.status = status;
     }
 

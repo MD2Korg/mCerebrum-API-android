@@ -6,7 +6,6 @@ import android.util.SparseArray;
 
 import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
 import org.md2k.mcerebrum.api.core.datakitapi.data.DataArray;
-import org.md2k.mcerebrum.api.core.datakitapi.data.DataType;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.data.SyncCallback;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.insert_datasource.Registration;
 
@@ -63,23 +62,17 @@ public class _InsertDataExec {
         DataArray d = dataArrays.get(registration.getDsId(), new DataArray());
         d.add(data);
         dataArrays.put(registration.getDsId(), d);
-        if (data[0].getDataType() == DataType.POINT) {
-            dataBuffer.add(registration.getDsId(), data);
-            if (!dataBuffer.isHighFrequency(registration.getDsId())) {
-                handler.removeCallbacks(runnable);
-                isSyncScheduled = false;
-                syncCallback.sync();
-            } else {
-                if (!isSyncScheduled)
-                    handler.postDelayed(runnable, SYNC_TIME);
-                isSyncScheduled = true;
-            }
-
+        for (Data aData : data) dataBuffer.add(registration.getDsId(), aData.getTimestamp());
+        if (dataBuffer.isHighFrequency(registration.getDsId())) {
+            if (!isSyncScheduled)
+                handler.postDelayed(runnable, SYNC_TIME);
+            isSyncScheduled = true;
         } else {
             handler.removeCallbacks(runnable);
             isSyncScheduled = false;
             syncCallback.sync();
         }
+
         lock.unlock();
     }
 

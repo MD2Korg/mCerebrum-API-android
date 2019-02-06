@@ -5,7 +5,7 @@ import android.os.Bundle;
 import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 import java.util.ArrayList;
 
@@ -39,7 +39,7 @@ public class _QueryDataByNumberOut {
     public static _Session create(int session, ArrayList<Data> data) {
         Bundle b = new Bundle();
         b.putParcelableArrayList(Data.class.getSimpleName(), data);
-        return new _Session(session, OperationType.QUERY_DATA_BY_NUMBER, Status.SUCCESS, b);
+        return new _Session(session, OperationType.QUERY_DATA_BY_NUMBER, MCStatus.SUCCESS, b);
     }
 
     public static ArrayList<Data> getData(Bundle b) {

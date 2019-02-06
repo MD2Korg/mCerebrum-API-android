@@ -28,15 +28,15 @@ package org.md2k.mcerebrum.api.core.datakitapi.datasource.constants;
  */
 public class DataSourceType {
 
-    /**
-     * Accelerometer sensor <p><code>"ACCELEROMETER"</code></p>
-     */
     public static final String ACCELEROMETER = "ACCELEROMETER";
+    public static final String ACCELEROMETER_UNCALIBRATED = "ACCELEROMETER_UNCALIBRATED";
+    public static final String ACCELEROMETER_LINEAR = "ACCELEROMETER_LINEAR";
 
-    /**
-     * Gyroscope sensor <p><code>"GYROSCOPE"</code></p>
-     */
+    public static final String BATTERY = "BATTERY";
+
+    public static final String GRAVITY = "GRAVITY";
     public static final String GYROSCOPE = "GYROSCOPE";
+    public static final String GYROSCOPE_UNCALIBRATED = "GYROSCOPE_UNCALIBRATED";
 
     /**
      * Compass sensor <p><code>"COMPASS"</code></p>
@@ -159,10 +159,6 @@ public class DataSourceType {
      */
     public static final String SKIN_TEMPERATURE = "SKIN_TEMPERATURE";
 
-    /**
-     * Battery usage <p><code>"BATTERY"</code></p>
-     */
-    public static final String BATTERY = "BATTERY";
 
     /**
      * CPU usage <p><code>"CPU"</code></p>

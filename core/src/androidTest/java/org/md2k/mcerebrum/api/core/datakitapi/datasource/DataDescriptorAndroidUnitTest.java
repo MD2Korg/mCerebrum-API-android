@@ -1,22 +1,10 @@
 package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
-import android.os.Parcel;
 import android.support.test.filters.SmallTest;
-
-import org.junit.Test;
-import org.md2k.mcerebrum.api.core.datakitapi.CommonObjectConstructors;
-import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
 
 @SmallTest
 public class DataDescriptorAndroidUnitTest {
+/*
     private static final double DELTA = TestingConstants.DELTA;
     private final String testTitle = TestingConstants.TEST_TITLE;
     private final String testSummary = TestingConstants.TEST_SUMMARY;
@@ -32,14 +20,14 @@ public class DataDescriptorAndroidUnitTest {
 
     @Test
     public void dataDescriptorBuilderTest() {
-        testDataDescriptor = new DataDescriptor.Builder().setValue(testKey, testValue).build();
+        testDataDescriptor = new DataDescriptor.builder().setValue(testKey, testValue).build();
         assertEquals(testValue, testDataDescriptor.getValue(testKey));
 
-        testDataDescriptor = new DataDescriptor.Builder().setTitle(testTitle)
+        testDataDescriptor = new DataDescriptor.builder().setName(testTitle)
                 .setSummary(testSummary).setDescription(testDescription).setMinValue(testMinValue)
                 .setMaxValue(testMaxValue).setPossibleValues(testPossibleValuesAsString)
                 .setPossibleValues(testPossibleValuesAsInt).setUnit(testUnit).build();
-        assertEquals(testTitle, testDataDescriptor.getTitle());
+        assertEquals(testTitle, testDataDescriptor.getName());
         assertEquals(testSummary, testDataDescriptor.getSummary());
         assertEquals(testDescription, testDataDescriptor.getDescription());
         assertEquals(testMinValue, testDataDescriptor.getMinValue(), DELTA);
@@ -76,4 +64,5 @@ public class DataDescriptorAndroidUnitTest {
         DataDescriptor testDataDescriptor2 = CommonObjectConstructors.createDataDescriptor();
         assertEquals(testDataDescriptor.hashCode(), testDataDescriptor2.hashCode());
     }
+*/
 }

@@ -15,8 +15,7 @@ import org.md2k.mcerebrum.api.core.datakitapi.ipc.IDataKitRemoteCallback;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.authenticate.ConnectionCallback;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.authenticate._AuthenticateIn;
-import org.md2k.mcerebrum.api.core.datakitapi.ipc.authenticate._AuthenticateOut;
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +61,7 @@ abstract class Connection {
         connectionCallbacks = new ArrayList<>();
         iDataKitRemoteService = null;
         connected = false;
-        authenticated = Status.AUTHENTICATION_REQUIRED;
+        authenticated = MCStatus.AUTHENTICATION_REQUIRED;
 
     }
 
@@ -72,7 +71,7 @@ abstract class Connection {
         if (!connected)
             connectToServer();
         else {
-            if (authenticated == Status.SUCCESS)
+            if (authenticated == MCStatus.SUCCESS)
                 connectionCallback.onSuccess();
             else connectionCallback.onError(authenticated);
         }
@@ -97,7 +96,7 @@ abstract class Connection {
     private void disconnectFromServer() {
         if (!connected) return;
         connected = false;
-        authenticated = Status.AUTHENTICATION_REQUIRED;
+        authenticated = MCStatus.AUTHENTICATION_REQUIRED;
         if (serverIntent != null) {
             assert MCerebrumAPI.getContext() != null;
             MCerebrumAPI.getContext().stopService(serverIntent);
@@ -120,18 +119,18 @@ abstract class Connection {
     private void connectToServer() {
         serverIntent = findServer();
         if (serverIntent == null) {
-            sendConnectionError(Status.MCEREBRUM_APP_NOT_INSTALLED);
+            sendConnectionError(MCStatus.MCEREBRUM_APP_NOT_INSTALLED);
             return;
         }
         try {
             assert MCerebrumAPI.getContext() != null;
             boolean res = MCerebrumAPI.getContext().bindService(serverIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
             if (!res) {
-                sendConnectionError(Status.MCEREBRUM_BIND_ERROR);
+                sendConnectionError(MCStatus.MCEREBRUM_BIND_ERROR);
             }
 
         } catch (SecurityException e) {
-            sendConnectionError(Status.MCEREBRUM_BIND_ERROR);
+            sendConnectionError(MCStatus.MCEREBRUM_BIND_ERROR);
         }
     }
 
@@ -149,7 +148,7 @@ abstract class Connection {
             Log.d("abc", "onServiceDisconnected()");
             iDataKitRemoteService = null;
             connected = false;
-            if (authenticated == Status.SUCCESS)
+            if (authenticated == MCStatus.SUCCESS)
                 connectToServer();
         }
     };
@@ -162,7 +161,7 @@ abstract class Connection {
                 @Override
                 public void onReceived(_Session _session) {
                     int authenticated = _session.getStatus();
-                    if (authenticated == Status.SUCCESS) {
+                    if (authenticated == MCStatus.SUCCESS) {
                         sendConnectionSuccess();
                     } else {
                         sendConnectionError(authenticated);
@@ -171,7 +170,7 @@ abstract class Connection {
                 }
             });
         } catch (RemoteException e) {
-            sendConnectionError(Status.MCEREBRUM_BIND_ERROR);
+            sendConnectionError(MCStatus.MCEREBRUM_BIND_ERROR);
         }
 
     }

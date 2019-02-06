@@ -48,7 +48,7 @@ public final class Application {
     }
 
     public static ApplicationMetaData.ApplicationMetaDataBuilder MetaDataBuilder() {
-        return ApplicationMetaData.Builder();
+        return ApplicationMetaData.builder();
     }
 
 }

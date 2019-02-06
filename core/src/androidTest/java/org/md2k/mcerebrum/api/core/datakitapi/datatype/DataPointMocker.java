@@ -1,19 +1,9 @@
 package org.md2k.mcerebrum.api.core.datakitapi.datatype;
 
-import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.dataannotation.DataAnnotationEnum;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointBoolean;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointByte;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointDouble;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointEnum;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointInt;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointLong;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString;
-
 public class DataPointMocker {
-    /*
+    /*    *//*
         This class creates DataPoint objects of various types for the DataSet tests.
-     */
+     *//*
 
     private static long testStartTimestamp = 1268660060;
     private static long testEndTimestamp = 1268660460;
@@ -98,5 +88,5 @@ public class DataPointMocker {
 
     public static DataPointString createDataPointStringArray() {
         return new DataPointString(TEST_TIMESTAMP, TEST_STRING_ARRAY);
-    }
+    }*/
 }

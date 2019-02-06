@@ -36,7 +36,7 @@ import org.md2k.mcerebrum.api.core.datakitapi.ipc.subscribe_datasource.Subscribe
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.subscribe_datasource._SubscribeDataSourceIn;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.subscribe_datasource._SubscribeDataSourceOut;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.subscribe_datasource._UnsubscribeDataSourceIn;
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -68,6 +68,7 @@ import java.util.HashMap;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 class MCData extends Connection {
+    private static final String TAG = MCData.class.getName();
     private HashMap<SubscribeDataSourceCallback, IDataKitRemoteCallback.Stub> subscriptionDataSourceList;
     private HashMap<SubscribeDataCallback, IDataKitRemoteCallback.Stub> subscriptionDataList;
     private _InsertDataExec insertDataExec;
@@ -79,10 +80,10 @@ class MCData extends Connection {
             @Override
             public void sync() {
                 _Session in = _InsertDataIn.create(createSessionId(), insertDataExec.getData());
-
                 try {
                     execute(in);
                 } catch (RemoteException e) {
+                    Log.e(TAG, "insert error e=" + e.getMessage());
                     //TODO:
                 }
             }
@@ -107,13 +108,13 @@ class MCData extends Connection {
             executeAsync(in, new IDataKitRemoteCallback.Stub() {
                 @Override
                 public void onReceived(_Session _session) throws RemoteException {
-                    if (Status.isSuccessful(_session.getStatus()))
+                    if (MCStatus.isSuccessful(_session.getStatus()))
                         registerCallback.onRegister(new Registration(_InsertDataSourceOut.getDataSourceResult(_session.getBundle())), _session.getStatus());
                     else registerCallback.onRegister(null, _session.getStatus());
                 }
             });
         } catch (Exception e) {
-            registerCallback.onRegister(null, Status.CONNECTION_ERROR);
+            registerCallback.onRegister(null, MCStatus.CONNECTION_ERROR);
         }
     }
 
@@ -137,13 +138,13 @@ class MCData extends Connection {
             executeAsync(in, new IDataKitRemoteCallback.Stub() {
                 @Override
                 public void onReceived(_Session _session) throws RemoteException {
-                    if (Status.isSuccessful(_session.getStatus()))
+                    if (MCStatus.isSuccessful(_session.getStatus()))
                         queryDataSourceCallback.onReceive(_QueryDataSourceOut.getDataSourceResults(_session.getBundle()), _session.getStatus());
                     else queryDataSourceCallback.onReceive(null, _session.getStatus());
                 }
             });
         } catch (Exception e) {
-            queryDataSourceCallback.onReceive(null, Status.CONNECTION_ERROR);
+            queryDataSourceCallback.onReceive(null, MCStatus.CONNECTION_ERROR);
         }
     }
 
@@ -162,7 +163,7 @@ class MCData extends Connection {
             executeAsync(in, iDataKitRemoteCallback);
         } catch (RemoteException e) {
             //TODO:
-            subscribeDataSourceCallback.onError(Status.CONNECTION_ERROR);
+            subscribeDataSourceCallback.onError(MCStatus.CONNECTION_ERROR);
         }
     }
 
@@ -197,13 +198,13 @@ class MCData extends Connection {
             executeAsync(in, new IDataKitRemoteCallback.Stub() {
                 @Override
                 public void onReceived(_Session _session) throws RemoteException {
-                    if (Status.isSuccessful(_session.getStatus()))
+                    if (MCStatus.isSuccessful(_session.getStatus()))
                         queryCallback.onReceive(_QueryDataByTimeOut.getData(_session.getBundle()), _session.getStatus());
                     else queryCallback.onReceive(null, _session.getStatus());
                 }
             });
         } catch (Exception e) {
-            queryCallback.onReceive(null, Status.CONNECTION_ERROR);
+            queryCallback.onReceive(null, MCStatus.CONNECTION_ERROR);
         }
     }
 
@@ -228,13 +229,13 @@ class MCData extends Connection {
             executeAsync(in, new IDataKitRemoteCallback.Stub() {
                 @Override
                 public void onReceived(_Session _session) throws RemoteException {
-                    if (Status.isSuccessful(_session.getStatus()))
+                    if (MCStatus.isSuccessful(_session.getStatus()))
                         queryCallback.onReceive(_QueryDataByNumberOut.getData(_session.getBundle()), _session.getStatus());
                     else queryCallback.onReceive(null, _session.getStatus());
                 }
             });
         } catch (Exception e) {
-            queryCallback.onReceive(null, Status.CONNECTION_ERROR);
+            queryCallback.onReceive(null, MCStatus.CONNECTION_ERROR);
         }
     }
 
@@ -257,22 +258,22 @@ class MCData extends Connection {
             executeAsync(in, new IDataKitRemoteCallback.Stub() {
                 @Override
                 public void onReceived(_Session _session) throws RemoteException {
-                    if (Status.isSuccessful(_session.getStatus()))
+                    if (MCStatus.isSuccessful(_session.getStatus()))
                         callback.onReceive(_QueryDataCountOut.getCount(_session.getBundle()), _session.getStatus());
                     else callback.onReceive(-1, _session.getStatus());
                 }
             });
         } catch (Exception e) {
-            callback.onReceive(-1, Status.CONNECTION_ERROR);
+            callback.onReceive(-1, MCStatus.CONNECTION_ERROR);
         }
     }
 
     int insertData(Registration registration, Data[] data) {
         for (Data aData : data)
             if (registration.getDataSource().getSampleType() != aData.getSampleType() || registration.getDataSource().getDataType() != aData.getDataType())
-                return Status.INVALID_DATA;
+                return MCStatus.INVALID_DATA;
         insertDataExec.addData(registration, data);
-        return Status.SUCCESS;
+        return MCStatus.SUCCESS;
     }
 
     void subscribeDataAsync(DataSourceResult dataSourceResult, final SubscribeDataCallback subscribeDataCallback) {
@@ -292,7 +293,7 @@ class MCData extends Connection {
             executeAsync(in, iDataKitRemoteCallback);
         } catch (RemoteException e) {
             //TODO:
-            subscribeDataCallback.onError(Status.CONNECTION_ERROR);
+            subscribeDataCallback.onError(MCStatus.CONNECTION_ERROR);
         }
     }
 

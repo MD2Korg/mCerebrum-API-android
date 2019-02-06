@@ -155,7 +155,7 @@ public class PlatformMetaData {
     /**
      * Constructor
      *
-     * @param builder Builder object defining how to construct the <code>PlatformMetaData</code>.
+     * @param builder builder object defining how to construct the <code>PlatformMetaData</code>.
      */
     private PlatformMetaData(PlatformMetaDataBuilder builder) {
         this.metaData = new HashMap<>(builder.metaData);
@@ -163,17 +163,17 @@ public class PlatformMetaData {
 
 
     /**
-     * Creates a new <code>Builder</code> object to define an <code>PlatformMetaData</code> object.
+     * Creates a new <code>builder</code> object to define an <code>PlatformMetaData</code> object.
      *
-     * @return A new <code>Builder</code>.
+     * @return A new <code>builder</code>.
      */
-    public static PlatformMetaDataBuilder Builder() {
+    public static PlatformMetaDataBuilder builder() {
         return new PlatformMetaDataBuilder();
     }
 
 
     /**
-     * Embedded class that defines the <code>Builder</code> for <code>PlatformMetaData</code>.
+     * Embedded class that defines the <code>builder</code> for <code>PlatformMetaData</code>.
      */
     public static class PlatformMetaDataBuilder {
         private HashMap<String, String> metaData;
@@ -190,7 +190,7 @@ public class PlatformMetaData {
          * Sets the <code>TITLE</code> key of the hash map.
          *
          * @param title Value to associate <code>TITLE</code> to.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public PlatformMetaDataBuilder setTitle(String title) {
             if (title != null)
@@ -202,7 +202,7 @@ public class PlatformMetaData {
          * Sets the <code>SUMMARY</code> key of the hash map.
          *
          * @param summary Value to associate <code>SUMMARY</code> to.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public PlatformMetaDataBuilder setSummary(String summary) {
             if (summary != null)
@@ -214,7 +214,7 @@ public class PlatformMetaData {
          * Sets the <code>DESCRIPTION</code> key of the hash map.
          *
          * @param description Value to associate <code>DESCRIPTION</code> to.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public PlatformMetaDataBuilder setDescription(String description) {
             if (description != null)
@@ -226,7 +226,7 @@ public class PlatformMetaData {
          * Sets the <code>OPERATING_SYSTEM</code> key of the hash map.
          *
          * @param operationSystem Value to associate <code>OPERATING_SYSTEM</code> to.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public PlatformMetaDataBuilder setOperationSystem(String operationSystem) {
             if (operationSystem != null)
@@ -238,7 +238,7 @@ public class PlatformMetaData {
          * Sets the <code>MANUFACTURER</code> key of the hash map.
          *
          * @param manufacturer Value to associate <code>MANUFACTURER</code> to.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public PlatformMetaDataBuilder setManufacturer(String manufacturer) {
             if (manufacturer != null)
@@ -250,7 +250,7 @@ public class PlatformMetaData {
          * Sets the <code>MODEL</code> key of the hash map.
          *
          * @param model Value to associate <code>MODEL</code> to.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public PlatformMetaDataBuilder setModel(String model) {
             if (model != null)
@@ -262,7 +262,7 @@ public class PlatformMetaData {
          * Sets the <code>VERSION_FIRMWARE</code> key of the hash map.
          *
          * @param versionFirmware Value to associate <code>VERSION_FIRMWARE</code> to.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public PlatformMetaDataBuilder setVersionFirmware(String versionFirmware) {
             if (versionFirmware != null)
@@ -274,7 +274,7 @@ public class PlatformMetaData {
          * Sets the <code>VERSION_HARDWARE</code> key of the hash map.
          *
          * @param versionHardware Value to associate <code>VERSION_HARDWARE</code> to.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public PlatformMetaDataBuilder setVersionHardware(String versionHardware) {
             if (versionHardware != null)
@@ -286,7 +286,7 @@ public class PlatformMetaData {
          * Sets the <code>DEVICE_ID</code> key of the hash map.
          *
          * @param deviceId Value to associate <code>DEVICE_ID</code> to.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public PlatformMetaDataBuilder setDeviceId(String deviceId) {
             if (deviceId != null)
@@ -299,7 +299,7 @@ public class PlatformMetaData {
          *
          * @param key   Key to add to the hash map.
          * @param value Value to add to the hash map.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public PlatformMetaDataBuilder setMetaData(String key, String value) {
             if (key != null && value != null)
@@ -308,10 +308,10 @@ public class PlatformMetaData {
         }
 
         /**
-         * Takes an existing hash map and merges it into the <code>Builder</code>'s hash map.
+         * Takes an existing hash map and merges it into the <code>builder</code>'s hash map.
          *
-         * @param metaData Hash map to add to the <code>Builder</code>.
-         * @return The modified <code>Builder</code>.
+         * @param metaData Hash map to add to the <code>builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public PlatformMetaDataBuilder setMetaData(HashMap<String, String> metaData) {
             if (metaData == null) return this;
@@ -323,7 +323,7 @@ public class PlatformMetaData {
         }
 
         /**
-         * Passes the <code>Builder</code> to the <code>PlatformMetaData</code> constructor.
+         * Passes the <code>builder</code> to the <code>PlatformMetaData</code> constructor.
          *
          * @return The resulting <code>PlatformMetaData</code> object.
          */

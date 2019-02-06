@@ -31,13 +31,13 @@ import android.os.Bundle;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSource;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 public class _SubscribeDataSourceIn {
     public static _Session create(int session, DataSource dataSourceBase) {
         Bundle b = new Bundle();
         b.putParcelable(DataSource.class.getSimpleName(), dataSourceBase);
-        return new _Session(session, OperationType.SUBSCRIBE_DATASOURCE, Status.SUCCESS, b);
+        return new _Session(session, OperationType.SUBSCRIBE_DATASOURCE, MCStatus.SUCCESS, b);
     }
 
     public static DataSource getDataSource(Bundle b) {

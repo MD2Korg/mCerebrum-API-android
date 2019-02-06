@@ -27,7 +27,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi.callback;
 
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 /**
  * Callback interface for receiving session information.
@@ -41,6 +41,6 @@ public interface ResultCallback {
     /**
      * @param status The error code.
      */
-    void onError(Status status);
+    void onError(MCStatus status);
 
 }

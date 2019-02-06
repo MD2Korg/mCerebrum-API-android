@@ -27,6 +27,8 @@
 
 package org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata;
 
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.unit.MCUnit;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,30 +40,21 @@ import java.util.Map;
  * and data collection rate (denoted as data rate). These fields are stored in a hash map of strings.
  */
 public class DataSourceMetaData {
-    private static final String TITLE = "TITLE";
-    private static final String SUMMARY = "SUMMARY";
+    private static final String NAME = "NAME";
     private static final String DESCRIPTION = "DESCRIPTION";
     private static final String DATA_RATE_TYPE = "DATA_RATE_TYPE";
     private static final String DATA_RATE_VALUE = "DATA_RATE_VALUE";
+    private static final String UNIT = "UNIT";
 
     private HashMap<String, String> metaData;
 
     /**
-     * Returns the title.
+     * Returns the name.
      *
-     * @return The title.
+     * @return The name.
      */
-    public String getTitle() {
-        return metaData.get(TITLE);
-    }
-
-    /**
-     * Returns the summary.
-     *
-     * @return The summary.
-     */
-    public String getSummary() {
-        return metaData.get(SUMMARY);
+    public String getName() {
+        return metaData.get(NAME);
     }
 
     /**
@@ -71,6 +64,15 @@ public class DataSourceMetaData {
      */
     public String getDescription() {
         return metaData.get(DESCRIPTION);
+    }
+
+    /**
+     * Returns the unit of measurement for the data.
+     *
+     * @return The unit of measurement.
+     */
+    public String getUnit() {
+        return metaData.get(UNIT);
     }
 
     /**
@@ -91,23 +93,23 @@ public class DataSourceMetaData {
     /**
      * Constructor
      *
-     * @param builder Builder object defining how to construct the <code>DataSourceMetaData</code>.
+     * @param builder builder object defining how to construct the <code>DataSourceMetaData</code>.
      */
     private DataSourceMetaData(DataSourceMetaDataBuilder builder) {
         this.metaData = new HashMap<>(builder.metaData);
     }
 
     /**
-     * Creates a new <code>Builder</code> object to define an <code>DataSourceMetaData</code> object.
+     * Creates a new <code>builder</code> object to define an <code>DataSourceMetaData</code> object.
      *
-     * @return A new <code>Builder</code>.
+     * @return A new <code>builder</code>.
      */
-    public static DataSourceMetaDataBuilder Builder() {
+    public static DataSourceMetaDataBuilder builder() {
         return new DataSourceMetaDataBuilder();
     }
 
     /**
-     * Embedded class that defines the <code>Builder</code> for <code>DataSourceMetaData</code>.
+     * Embedded class that defines the <code>builder</code> for <code>DataSourceMetaData</code>.
      */
     public static class DataSourceMetaDataBuilder {
         private HashMap<String, String> metaData;
@@ -123,7 +125,7 @@ public class DataSourceMetaData {
         /**
          * Constructor
          *
-         * @param metaData Hash map of metadata to add to the <code>Builder</code>.
+         * @param metaData Hash map of metadata to add to the <code>builder</code>.
          */
         DataSourceMetaDataBuilder(HashMap<String, String> metaData) {
             this.metaData = new HashMap<>();
@@ -131,34 +133,23 @@ public class DataSourceMetaData {
         }
 
         /**
-         * Sets the <code>TITLE</code> key of the hash map.
+         * Sets the <code>NAME</code> key of the hash map.
          *
-         * @param title Value to associate <code>TITLE</code> to.
-         * @return The modified <code>Builder</code>.
+         * @param name Value to associate <code>NAME</code> to.
+         * @return The modified <code>builder</code>.
          */
-        public DataSourceMetaDataBuilder setTitle(String title) {
-            if (title != null)
-                this.metaData.put(TITLE, title);
+        public DataSourceMetaDataBuilder setName(String name) {
+            if (name != null)
+                this.metaData.put(NAME, name);
             return this;
         }
 
-        /**
-         * Sets the <code>SUMMARY</code> key of the hash map.
-         *
-         * @param summary Value to associate <code>SUMMARY</code> to.
-         * @return The modified <code>Builder</code>.
-         */
-        public DataSourceMetaDataBuilder setSummary(String summary) {
-            if (summary != null)
-                this.metaData.put(SUMMARY, summary);
-            return this;
-        }
 
         /**
          * Sets the <code>DESCRIPTION</code> key of the hash map.
          *
          * @param description Value to associate <code>DESCRIPTION</code> to.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public DataSourceMetaDataBuilder setDescription(String description) {
             if (description != null)
@@ -167,11 +158,33 @@ public class DataSourceMetaData {
         }
 
         /**
+         * Sets the <code>unit</code> field, which defines the unit of measure used for the data.
+         *
+         * @param unit Unit of measure used.
+         * @return The modified <code>builder</code>.
+         */
+        public DataSourceMetaDataBuilder setUnit(MCUnit unit) {
+            this.metaData.put(UNIT, unit.name());
+            return this;
+        }
+
+        /**
+         * Sets the <code>unit</code> field, which defines the unit of measure used for the data.
+         *
+         * @param unit Unit of measure used.
+         * @return The modified <code>builder</code>.
+         */
+        public DataSourceMetaDataBuilder setUnit(String unit) {
+            this.metaData.put(UNIT, unit);
+            return this;
+        }
+
+        /**
          * Puts a custom key and value into the hash map.
          *
          * @param key   Key to add to the hash map.
          * @param value Value to add to the hash map.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public DataSourceMetaDataBuilder setMetaData(String key, String value) {
             this.metaData.put(key, value);
@@ -179,10 +192,10 @@ public class DataSourceMetaData {
         }
 
         /**
-         * Takes an existing hash map and merges it into the <code>Builder</code>'s hash map.
+         * Takes an existing hash map and merges it into the <code>builder</code>'s hash map.
          *
-         * @param metaData Hash map to add to the <code>Builder</code>.
-         * @return The modified <code>Builder</code>.
+         * @param metaData Hash map to add to the <code>builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public DataSourceMetaDataBuilder setMetaData(HashMap<String, String> metaData) {
             for (HashMap.Entry<String, String> entry : metaData.entrySet())
@@ -191,7 +204,7 @@ public class DataSourceMetaData {
         }
 
         /**
-         * Passes the <code>Builder</code> to the <code>DataSourceMetaData</code> constructor.
+         * Passes the <code>builder</code> to the <code>DataSourceMetaData</code> constructor.
          *
          * @return The resulting <code>DataSourceMetaData</code> object.
          */

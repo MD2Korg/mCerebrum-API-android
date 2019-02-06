@@ -30,7 +30,7 @@ package org.md2k.mcerebrum.api.core.status;
 /**
  * This class defines various status that can occur in the system.
  */
-public final class Status {
+public final class MCStatus {
     public static final int UNKNOWN_ERROR = 100;
     public static final int SUCCESS = 0;
     public static final int MCEREBRUM_API_NOT_INITIALIZED = 1;
@@ -54,7 +54,7 @@ public final class Status {
     public static final int DATAKIT_STOPPED = 19;
     public static final int DATAKIT_CONNECTION_ERROR = 20;
 
-    private Status() {
+    private MCStatus() {
     }
 
     public static boolean isSuccessful(int status) {

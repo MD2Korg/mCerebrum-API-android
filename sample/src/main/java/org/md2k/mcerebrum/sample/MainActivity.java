@@ -2,13 +2,7 @@ package org.md2k.mcerebrum.sample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.View;
 import android.widget.Button;
-
-import org.md2k.mcerebrum.api.core.MCerebrumAPI;
-import org.md2k.mcerebrum.api.core.datakitapi.ipc.authenticate.ConnectionCallback;
-import org.md2k.mcerebrum.api.core.status.Status;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +11,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button b = findViewById(R.id.button);
+/*
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -24,17 +19,47 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess() {
                         Log.d("abc", "Connected");
+                        int[] values=new int[]{5,4,2};
+                        Data point = Data.createPoint(System.currentTimeMillis(), values);
+                        MCerebrumAPI.insertData(rid, point);
 
                     }
 
                     @Override
                     public void onError(int status) {
-                        Log.d("abc", "connection on error: " + status + " " + Status.getMessage(status));
+                        Log.d("abc", "connection on error: " + status + " " + MCStatus.getMessage(status));
                     }
                 });
             }
         });
+*/
     }
+/*
+    public void connect(){
+        MCerebrumAPI.connect(new ConnectionCallback() {
+            @Override
+            public void onSuccess() {
+                DataSourceRegister req = DataSource.RegisterBuilder()
+                        .setDataType(DataType.POINT)
+                        .setSampleType(SampleType.INT_ARRAY)
+                        .addDataDescriptor(DataDescriptor.Builder().setName("ACL_X").build())
+                        .addDataDescriptor(DataDescriptor.Builder().setName("ACL_Y").build())
+                        .addDataDescriptor(DataDescriptor.Builder().setName("ACL_Z").build())
+                        .setDataSourceType("ACCELEROMETER")
+                        .setPlatformType("PHONE")
+                        .setDataSourceMetaData(DataSourceMetaData.Builder().setUnit("METER_PER_SECOND_SQUARED").build())
+                        .build();
+               Registration r = MCerebrumAPI.registerDataSource(req);
+            }
+
+            @Override
+            public void onError(int status) {
+                String errorMessage = MCStatus.getMessage(status);
+                Log.e("abc","error: "+errorMessage);
+            }
+        });
+    }
+*/
 /*
     public void insert(){
         MCerebrumAPI.authenticate(new AuthenticationCallback() {

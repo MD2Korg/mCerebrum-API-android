@@ -1,24 +1,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
-import android.os.Parcel;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
-
-import java.util.ArrayList;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-
 public class DataSourceReadWriteAndroidUnitTest {
-    private final String[] dataSourceTypeArray = TestingConstants.DATA_SOURCE_TYPE_ARRAY;
+/*    private final String[] dataSourceTypeArray = TestingConstants.DATA_SOURCE_TYPE_ARRAY;
     private final String[] dataSourceIdArray = TestingConstants.DATASOURCE_ID_ARRAY;
     private final String[] platformTypeArray = TestingConstants.PLATFORM_TYPE_ARRAY;
     private final String[] platformIdArray = TestingConstants.PLATFORM_ID_ARRAY;
@@ -178,5 +161,5 @@ public class DataSourceReadWriteAndroidUnitTest {
         testDataSourceReadWrite = CommonObjectConstructors.createDataSourceReadWrite();
         DataSourceReadWrite testDataSourceReadWrite2 = CommonObjectConstructors.createDataSourceReadWrite();
         assertEquals(testDataSourceReadWrite.hashCode(), testDataSourceReadWrite2.hashCode());
-    }
+    }*/
 }

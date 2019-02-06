@@ -31,7 +31,7 @@ import android.os.Bundle;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceResult;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 import java.util.ArrayList;
 
@@ -39,7 +39,7 @@ public class _QueryDataSourceOut {
     public static _Session create(int session, ArrayList<DataSourceResult> dataSourceResults) {
         Bundle b = new Bundle();
         b.putParcelableArrayList(DataSourceResult.class.getSimpleName(), dataSourceResults);
-        return new _Session(session, OperationType.QUERY_DATASOURCE, Status.SUCCESS, b);
+        return new _Session(session, OperationType.QUERY_DATASOURCE, MCStatus.SUCCESS, b);
     }
 
     public static ArrayList<DataSourceResult> getDataSourceResults(Bundle b) {

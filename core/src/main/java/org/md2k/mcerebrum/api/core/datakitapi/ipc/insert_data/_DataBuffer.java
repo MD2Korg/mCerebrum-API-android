@@ -2,8 +2,6 @@ package org.md2k.mcerebrum.api.core.datakitapi.ipc.insert_data;
 
 import android.util.SparseArray;
 
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
-
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -38,9 +36,10 @@ class _DataBuffer {
         circularBuffer = new SparseArray<>();
     }
 
-    public void add(int dsId, Data[] data) {
+    public void add(int dsId, long timestamp) {
         CircularBuffer c = circularBuffer.get(dsId, new CircularBuffer());
-        for (Data aData1 : data) c.add(aData1.getTimestamp());
+        c.add(timestamp);
+        circularBuffer.put(dsId, c);
     }
 
     boolean isHighFrequency(int dsId) {
@@ -83,11 +82,11 @@ class _DataBuffer {
             tail = (tail + 1) % buffer.length;
         }
 
-        public long getTop() {
+        long getTop() {
             return buffer[head];
         }
 
-        public long getBottom() {
+        long getBottom() {
             return buffer[tail];
         }
     }

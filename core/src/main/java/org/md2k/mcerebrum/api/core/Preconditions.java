@@ -1,6 +1,6 @@
 package org.md2k.mcerebrum.api.core;
 
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -37,7 +37,7 @@ public class Preconditions {
 
     public static <T> void checkAPIInitialized(final T reference) {
         if (reference == null)
-            throw new NullPointerException(Status.getMessage(Status.MCEREBRUM_API_NOT_INITIALIZED));
+            throw new NullPointerException(MCStatus.getMessage(MCStatus.MCEREBRUM_API_NOT_INITIALIZED));
     }
 
 }

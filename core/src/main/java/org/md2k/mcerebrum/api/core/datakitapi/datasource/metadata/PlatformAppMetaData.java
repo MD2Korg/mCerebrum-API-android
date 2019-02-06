@@ -30,7 +30,7 @@ package org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata;
 import java.util.HashMap;
 
 /**
- * Builder class for <code>DataSource</code> objects
+ * builder class for <code>DataSource</code> objects
  */
 public class PlatformAppMetaData {
     /**
@@ -102,7 +102,7 @@ public class PlatformAppMetaData {
     }
 
 
-    public static PlatformAppMetaDataBuilder Builder() {
+    public static PlatformAppMetaDataBuilder builder() {
         return new PlatformAppMetaDataBuilder();
     }
 

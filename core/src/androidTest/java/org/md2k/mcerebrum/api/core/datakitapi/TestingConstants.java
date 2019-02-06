@@ -1,19 +1,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
-import android.os.Build;
-
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.APPLICATION;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.DATASOURCE;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PLATFORM_APP;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.DataType;
-import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
-
-import java.util.HashMap;
-import java.util.concurrent.TimeUnit;
-
 public class TestingConstants {
-    // Variable for Platform and Application metadata objects
+/*    // Variable for Platform and Application metadata objects
     public static final String TEST_TITLE = "Android Phone";
     public static final String TEST_SUMMARY = "Android Phone";
     public static final String TEST_DESCRIPTION = "Test Description";
@@ -248,5 +236,5 @@ public class TestingConstants {
             hashMap.put(platformType, platformType);
         }
         return hashMap;
-    }
+    }*/
 }

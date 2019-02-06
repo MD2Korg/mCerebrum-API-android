@@ -1,23 +1,10 @@
 package org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint;
 
-import android.os.Parcel;
 import android.support.test.filters.SmallTest;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotSame;
 
 @SmallTest
 public class DataPointDoubleAndroidUnitTest {
-    private static final double DELTA = TestingConstants.DELTA;
+/*    private static final double DELTA = TestingConstants.DELTA;
     private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final double testSample = 6.2831853071;
@@ -93,5 +80,5 @@ public class DataPointDoubleAndroidUnitTest {
 
         DataPointDouble dpbWithDifferentSample = new DataPointDouble(testTimestamp, Math.sqrt(2));
         assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
-    }
+    }*/
 }

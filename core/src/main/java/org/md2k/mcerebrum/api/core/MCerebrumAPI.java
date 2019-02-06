@@ -82,9 +82,11 @@ public final class MCerebrumAPI {
         mcDataAPI.disconnect(connectionCallback);
     }
 
+/*
     public static void disconnectAll() {
         mcDataAPI.disconnectAll();
     }
+*/
 
     public static Registration registerDataSource(final DataSourceRegister dataSourceRegister) {
         Preconditions.checkAPIInitialized(instance);

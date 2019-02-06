@@ -6,7 +6,7 @@ import android.util.SparseArray;
 import org.md2k.mcerebrum.api.core.datakitapi.data.DataArray;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 
 /*
@@ -40,7 +40,7 @@ public class _InsertDataIn {
     public static _Session create(int session, SparseArray<DataArray> data) {
         Bundle b = new Bundle();
         b.putSparseParcelableArray(DataArray.class.getSimpleName(), data);
-        return new _Session(session, OperationType.INSERT_DATA, Status.SUCCESS, b);
+        return new _Session(session, OperationType.INSERT_DATA, MCStatus.SUCCESS, b);
     }
 
     public static SparseArray<DataArray> getData(Bundle b) {

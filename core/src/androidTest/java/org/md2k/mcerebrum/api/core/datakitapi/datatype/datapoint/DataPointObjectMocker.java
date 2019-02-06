@@ -1,11 +1,9 @@
 package org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint;
 
-import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-
 public class DataPointObjectMocker {
-    /*
+    /*    *//*
         This class creates an object with several primitive type fields to test DataPointObject.
-     */
+     *//*
 
     private static final long TEST_TIMESTAMP = TestingConstants.TEST_TIMESTAMP;
     private static final byte TEST_BYTE = 23;
@@ -111,5 +109,5 @@ public class DataPointObjectMocker {
     // Constructor for String array
     public static DataPointObject createDPOStringArray() {
         return new DataPointObject(TEST_TIMESTAMP, TEST_STRING_ARRAY);
-    }
+    }*/
 }

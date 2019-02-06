@@ -1,20 +1,10 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
-import android.os.Parcel;
 import android.support.test.filters.SmallTest;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 @SmallTest
 public class DataSourceRequestAndroidUnitTest {
-    private DataSourceRequest testDataSourceRequest;
+/*    private DataSourceRequest testDataSourceRequest;
 
     @Before
     public void createDataSourceRequest() {
@@ -54,5 +44,5 @@ public class DataSourceRequestAndroidUnitTest {
     public void dataSourceRequestHashCodeTest() {
         DataSourceRequest testDataSourceRequest2 = CommonObjectConstructors.createDataSourceRequest();
         assertEquals(testDataSourceRequest.hashCode(), testDataSourceRequest2.hashCode());
-    }
+    }*/
 }

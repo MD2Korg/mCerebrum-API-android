@@ -30,7 +30,7 @@ import android.os.Bundle;
 
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 public class _AuthenticateIn {
     private static final String PACKAGE_NAME = "package_name";
@@ -38,7 +38,7 @@ public class _AuthenticateIn {
     public static _Session create(int session, String packageName) {
         Bundle b = new Bundle();
         b.putCharSequence(PACKAGE_NAME, packageName);
-        return new _Session(session, OperationType.AUTHENTICATE, Status.SUCCESS, b);
+        return new _Session(session, OperationType.AUTHENTICATE, MCStatus.SUCCESS, b);
     }
 
     public static String getPackageName(Bundle b) {

@@ -28,6 +28,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata;
 
 import org.md2k.mcerebrum.api.core.datakitapi.data.EnumType;
+import org.md2k.mcerebrum.api.core.datakitapi.datasource.unit.MCUnit;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -42,8 +43,7 @@ import java.util.Map;
  * stored in the hash map.
  */
 public class DataDescriptor {
-    private static final String TITLE = "TITLE";
-    private static final String SUMMARY = "SUMMARY";
+    private static final String NAME = "NAME";
     private static final String DESCRIPTION = "DESCRIPTION";
     private static final String MIN_VALUE = "MIN_VALUE";
     private static final String MAX_VALUE = "MAX_VALUE";
@@ -55,22 +55,12 @@ public class DataDescriptor {
 
 
     /**
-     * Returns the title.
+     * Returns the name.
      *
-     * @return The title.
+     * @return The name.
      */
-    public String getTitle() {
-        return descriptor.get(TITLE);
-    }
-
-
-    /**
-     * Returns the summary.
-     *
-     * @return The summary
-     */
-    public String getSummary() {
-        return descriptor.get(SUMMARY);
+    public String getName() {
+        return descriptor.get(NAME);
     }
 
 
@@ -138,23 +128,23 @@ public class DataDescriptor {
     /**
      * Constructor
      *
-     * @param builder Builder object defining how to construct the <code>DataDescriptor</code>.
+     * @param builder builder object defining how to construct the <code>DataDescriptor</code>.
      */
     private DataDescriptor(Builder builder) {
         descriptor = builder.descriptor;
     }
 
     /**
-     * Creates a new <code>Builder</code> object to define an <code>DataDescriptor</code> object.
+     * Creates a new <code>builder</code> object to define an <code>DataDescriptor</code> object.
      *
-     * @return A new <code>Builder</code>.
+     * @return A new <code>builder</code>.
      */
-    public static Builder Builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
     /**
-     * Embedded class that defines the <code>Builder</code> for <code>DataDescriptor</code>.
+     * Embedded class that defines the <code>builder</code> for <code>DataDescriptor</code>.
      */
     public static class Builder {
         private HashMap<String, String> descriptor = new HashMap<>();
@@ -163,32 +153,22 @@ public class DataDescriptor {
         }
 
         /**
-         * Sets the <code>TITLE</code> key of the hash map.
+         * Sets the <code>NAME</code> key of the hash map.
          *
-         * @param title Value to associate <code>TITLE</code> to.
-         * @return The modified <code>Builder</code>.
+         * @param name Value to associate <code>NAME</code> to.
+         * @return The modified <code>builder</code>.
          */
-        public Builder setTitle(String title) {
-            descriptor.put(TITLE, title);
+        public Builder setName(String name) {
+            descriptor.put(NAME, name);
             return this;
         }
 
-        /**
-         * Sets the <code>SUMMARY</code> key of the hash map.
-         *
-         * @param summary Value to associate <code>SUMMARY</code> to.
-         * @return The modified <code>Builder</code>.
-         */
-        public Builder setSummary(String summary) {
-            descriptor.put(SUMMARY, summary);
-            return this;
-        }
 
         /**
          * Sets the <code>DESCRIPTION</code> key of the hash map.
          *
          * @param description Value to associate <code>DESCRIPTION</code> to.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public Builder setDescription(String description) {
             descriptor.put(DESCRIPTION, description);
@@ -200,7 +180,7 @@ public class DataDescriptor {
          *
          * @param minValue Minimum allowable value for the data point.
          * @param maxValue Maximum allowable value for the data point.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public Builder setRange(double minValue, double maxValue) {
             descriptor.put(MIN_VALUE, String.valueOf(minValue));
@@ -213,7 +193,7 @@ public class DataDescriptor {
          *
          * @param key   Key to add to the hash map.
          * @param value Value to add to the hash map.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
          */
         public Builder setDescriptor(String key, String value) {
             this.descriptor.put(key, value);
@@ -232,7 +212,18 @@ public class DataDescriptor {
          * Sets the <code>unit</code> field, which defines the unit of measure used for the data.
          *
          * @param unit Unit of measure used.
-         * @return The modified <code>Builder</code>.
+         * @return The modified <code>builder</code>.
+         */
+        public Builder setUnit(MCUnit unit) {
+            this.descriptor.put(UNIT, unit.name());
+            return this;
+        }
+
+        /**
+         * Sets the <code>unit</code> field, which defines the unit of measure used for the data.
+         *
+         * @param unit Unit of measure used.
+         * @return The modified <code>builder</code>.
          */
         public Builder setUnit(String unit) {
             this.descriptor.put(UNIT, unit);
@@ -250,7 +241,7 @@ public class DataDescriptor {
         }
 
         /**
-         * Passes the <code>Builder</code> to the <code>DataDescriptor</code> constructor.
+         * Passes the <code>builder</code> to the <code>DataDescriptor</code> constructor.
          *
          * @return The resulting <code>DataDescriptor</code> object.
          */

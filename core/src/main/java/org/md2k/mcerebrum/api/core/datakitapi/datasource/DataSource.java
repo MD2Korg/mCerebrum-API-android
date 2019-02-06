@@ -54,6 +54,7 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
     protected String applicationType = null;
     protected String applicationId = null;
 
+
     protected int dataType = DataType.POINT.getValue();
     protected int sampleType = SampleType.INT_ARRAY.getValue();
 
@@ -64,7 +65,6 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
     protected ArrayList<HashMap<String, String>> dataDescriptors = new ArrayList<>();
 
     protected DataSource() {
-
     }
 
     protected DataSource(String uuid) {
@@ -88,11 +88,11 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
 
     }
 
-    public static IDataSourceBuilder.IDataType RegisterBuilder() {
+    public static IDataSourceBuilder.IDataType registerBuilder() {
         return new DataSourceRegisterBuilder();
     }
 
-    public static IDataSourceBuilder.IQuery QueryBuilder() {
+    public static IDataSourceBuilder.IQuery queryBuilder() {
         return new DataSourceQueryBuilder();
     }
 
@@ -137,25 +137,25 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
     }
 
     public DataSourceMetaData getDataSourceMetaData() {
-        return DataSourceMetaData.Builder().setMetaData(dataSourceMetaData).build();
+        return DataSourceMetaData.builder().setMetaData(dataSourceMetaData).build();
     }
 
     public PlatformMetaData getPlatformMetaData() {
-        return PlatformMetaData.Builder().setMetaData(platformMetaData).build();
+        return PlatformMetaData.builder().setMetaData(platformMetaData).build();
     }
 
     public PlatformAppMetaData getPlatformAppMetaData() {
-        return PlatformAppMetaData.Builder().setMetaData(platformAppMetaData).build();
+        return PlatformAppMetaData.builder().setMetaData(platformAppMetaData).build();
     }
 
     public ApplicationMetaData getApplicationMetaData() {
-        return ApplicationMetaData.Builder().setMetaData(applicationMetaData).build();
+        return ApplicationMetaData.builder().setMetaData(applicationMetaData).build();
     }
 
     public ArrayList<DataDescriptor> getDataDescriptors() {
         ArrayList<DataDescriptor> dds = new ArrayList<>();
         for(int i=0;i<dataDescriptors.size();i++){
-            dds.add(DataDescriptor.Builder().setDescriptor(dataDescriptors.get(i)).build());
+            dds.add(DataDescriptor.builder().setDescriptor(dataDescriptors.get(i)).build());
         }
         return dds;
     }
@@ -229,7 +229,6 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
         ArrayList<HashMap<String, String>> dataDescriptors;
         int size = in.readInt();
         dataDescriptors = new ArrayList<>();
-        ;
         for (int i = 0; i < size; i++)
             dataDescriptors.add(readHashMapFromParcel(in));
         return dataDescriptors;

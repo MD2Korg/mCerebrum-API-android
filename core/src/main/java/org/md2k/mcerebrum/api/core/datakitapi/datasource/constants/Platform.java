@@ -125,6 +125,6 @@ public final class Platform {
     }
 
     public static PlatformMetaData.PlatformMetaDataBuilder MetaDataBuilder() {
-        return PlatformMetaData.Builder();
+        return PlatformMetaData.builder();
     }
 }

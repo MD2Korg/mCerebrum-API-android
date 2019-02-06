@@ -2,9 +2,7 @@ package org.md2k.mcerebrum.api.core.datakitapi.ipc.query_data_summary;
 
 import android.os.Parcel;
 
-import org.md2k.mcerebrum.api.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
-import org.md2k.mcerebrum.api.core.status.Status;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center

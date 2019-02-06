@@ -5,6 +5,8 @@ import android.os.Parcelable;
 
 import com.google.gson.Gson;
 
+import java.util.Arrays;
+
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -407,6 +409,14 @@ public class Data implements Parcelable {
 
         );
     }
+/*
+    public boolean equalsIgnoreTimestamp(Data data){
+        if(toCompare )
+    }
+    private boolean equalsSample(Data ){
+
+    }
+*/
 
     /**
      * Calculates and returns a hash code for the calling object.
@@ -422,7 +432,30 @@ public class Data implements Parcelable {
         result = 31 * result + sampleType.hashCode();
         result = 31 * result + (int) (startTimestamp ^ (startTimestamp >>> 32));
         result = 31 * result + (int) (endTimestamp ^ (endTimestamp >>> 32));
-        result = 31 * result + sample.hashCode();
+        switch (sampleType) {
+            case INT_ARRAY:
+                result = 31 * result + Arrays.hashCode((int[]) sample);
+                break;
+            case LONG_ARRAY:
+                result = 31 * result + Arrays.hashCode((long[]) sample);
+                break;
+            case DOUBLE_ARRAY:
+                result = 31 * result + Arrays.hashCode((double[]) sample);
+                break;
+            case BYTE_ARRAY:
+                result = 31 * result + Arrays.hashCode((byte[]) sample);
+                break;
+            case BOOLEAN_ARRAY:
+                result = 31 * result + Arrays.hashCode((boolean[]) sample);
+                break;
+            case STRING_ARRAY:
+                result = 31 * result + Arrays.hashCode((String[]) sample);
+                break;
+            case OBJECT:
+                result = 31 * result + sample.hashCode();
+                break;
+        }
+//        result = 31 * result + sample.hashCode();
         return result;
     }
 

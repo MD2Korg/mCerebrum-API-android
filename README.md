@@ -7,32 +7,32 @@ This Android library is the communication API for mCerebrum and is utilized by a
 
 You can find more information about MD2K software on our [software website](https://md2k.org/software) or the MD2K organization on our [MD2K website](https://md2k.org/).
 
-## Examples
+## Usage
 
-### Setting up the dependency
-The first step is to include mCerebrumAPI into your project for example, as a gradle compile dependancy:
-
+### Dependency
+Include the library in your `build.gradle`
 ```groovy
 implementation "org.md2k.mcerebrum.api:core:<latest_version>"
 ```
 (Please replace `<latest_version>` with this: [ ![Download](https://api.bintray.com/packages/md2korg/mCerebrum/core/images/download.svg) ](https://bintray.com/md2korg/mCerebrum/core/_latestVersion)
 )
 
-### Initialize mCerebrumAPI
-The second is to initialize mCerebrumAPI once in `Application.onCreate():`
-```
-mCerebrumAPI.init(context); // access mCerebrum Data
-```
 
 ### Using mCerebrumAPI
 
-To access the data, first you need to connect with mCerebrum. Then, you can insert, query or subscribe any datastream. Functions supported by mCerebrum: `connect()`, `disconnect()`, `registerDataSource()`, `find()`, `insert()`, `query()`, `querySummary()`, `queryCount()`, `subscribe()`, `unsubscribe()`
+- Step 1: initialize MCerebrumAPI
+- Step 2: Connect to mCerebrum through ``connect()`` function.
+- Step 3: InThen, you can insert, query or subscribe any datastream. Functions supported by mCerebrum: `connect()`, `disconnect()`, `registerDataSource()`, `queryDataSource()`, `subscribeDataSourceAsync()`, `queryData()`, `queryCount()`, `subscribe()`, `unsubscribe()`
 
-#### [connect]Connect to mCerebrum
-Step 1: Use connect() function to connect to `mCerebrum`
+#### Initialize mCerebrumAPI
+Initialize MCerebrumAPI before using it.
+```java
+mCerebrumAPI.init(context);
 ```
- //...
 
+#### Connect to mCerebrum
+Step 1: Use connect() function to connect to `mCerebrum`
+```java
  MCerebrumAPI.connect(new ConnectionCallback() {
      @Override
      public void onSuccess() {

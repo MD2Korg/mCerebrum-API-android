@@ -1,24 +1,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
-import android.content.Context;
-import android.support.test.InstrumentationRegistry;
-
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
-import org.md2k.mcerebrum.api.core.MCerebrumAPI;
-import org.md2k.mcerebrum.api.core.datakitapi.callback.ConnectionCallback;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
-import org.md2k.mcerebrum.api.core.datakitapi.exception.MCerebrumException;
-import org.md2k.mcerebrum.api.core.datakitapi.status.MCerebrumStatus;
-
-import java.util.ArrayList;
-
 public class MyServiceConnectionAndroidUnitTest {
-    ConnectionCallback testConnectionCallback;
+/*    ConnectionCallback testConnectionCallback;
     MyServiceConnection testServiceConnection;
     DataSourceReadWrite testDataSourceReadWrite;
     MCerebrumAPI testmCerebrumAPI;
@@ -111,10 +94,10 @@ public class MyServiceConnectionAndroidUnitTest {
         assertEquals(MCerebrumStatus.CONNECTION_ERROR, testServiceConnection.register(testDataSourceReadWrite));
 
         // TODO: figure out why setting the DataType makes the object null
-        /*
+        *//*
             .setDataType() doesn't make testServiceConnection null. mService in the MyServiceConnection
             is null until after a connection is made, but there isn't a method to connect.
-         */
+         *//*
         // TODO: check exception is thrown properly
-    }
+    }*/
 }

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -42,7 +42,7 @@ public class _QueryDataCountIn {
         b.putInt(DS_ID, dsId);
         b.putLong(START_TIMESTAMP, startTimestamp);
         b.putLong(END_TIMESTAMP, endTimestamp);
-        return new _Session(session, OperationType.QUERY_DATA_COUNT, Status.SUCCESS, b);
+        return new _Session(session, OperationType.QUERY_DATA_COUNT, MCStatus.SUCCESS, b);
     }
 
     public static long startTimestamp(Bundle b) {

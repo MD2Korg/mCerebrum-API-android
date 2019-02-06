@@ -28,10 +28,10 @@ package org.md2k.mcerebrum.api.core.datakitapi.ipc.subscribe_data;
 
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 public class _UnsubscribeDataIn {
     public static _Session create(int session) {
-        return new _Session(session, OperationType.UNSUBSCRIBE_DATA, Status.SUCCESS);
+        return new _Session(session, OperationType.UNSUBSCRIBE_DATA, MCStatus.SUCCESS);
     }
 }

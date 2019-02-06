@@ -1,11 +1,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
-import org.junit.Before;
-import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-
 public class DataSourceSetAndroidUnitTest {
+/*
     private DataSourceReadWrite dataSourceReadWrite = CommonObjectConstructors.createDataSourceReadWrite();
     private DataSourceCreator dataSourceCreator = CommonObjectConstructors.createDataSourceCreator();
     private DataSourceSet dataSourceSet, dataSourceSet2;
@@ -22,4 +18,5 @@ public class DataSourceSetAndroidUnitTest {
     public void dataSourceSetHashCodeTest() {
         assertEquals(dataSourceSet.hashCode(), dataSourceSet2.hashCode());
     }
+*/
 }

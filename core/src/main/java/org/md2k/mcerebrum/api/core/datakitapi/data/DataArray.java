@@ -133,6 +133,15 @@ public class DataArray implements Parcelable {
     }
 
     /**
+     * Returns <code>Data</code> object that the caller contains.
+     *
+     * @return <code>Data</code> objects.
+     */
+    public Data get(int index) {
+        return data.get(index);
+    }
+
+    /**
      * Returns the <code>size</code>.
      *
      * @return The <code>size</code>.

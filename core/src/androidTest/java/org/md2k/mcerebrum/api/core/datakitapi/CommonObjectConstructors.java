@@ -1,14 +1,8 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.ApplicationMetaData;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.PlatformMetaData;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
-import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
-
-import java.util.ArrayList;
-
 public class CommonObjectConstructors {
 
+/*
     public static PlatformMetaData createPlatformMetaData() {
         return PlatformMetaData.builder().setTitle(TestingConstants.TEST_TITLE)
                 .setSummary(TestingConstants.TEST_SUMMARY)
@@ -50,8 +44,8 @@ public class CommonObjectConstructors {
     }
 
     public static DataDescriptor createDataDescriptor() {
-        DataDescriptor.Builder testDataDescriptorBuilder = DataDescriptor.Builder();
-        return testDataDescriptorBuilder.setTitle(TestingConstants.TEST_TITLE)
+        DataDescriptor.Builder testDataDescriptorBuilder = DataDescriptor.builder();
+        return testDataDescriptorBuilder.setName(TestingConstants.TEST_TITLE)
                 .setSummary(TestingConstants.TEST_SUMMARY)
                 .setDescription(TestingConstants.TEST_DESCRIPTION)
                 .setMinValue(TestingConstants.TEST_MIN_VALUE)
@@ -133,4 +127,5 @@ public class CommonObjectConstructors {
                 .setApplicationType(TestingConstants.APPLICATION_TYPE_ARRAY[0])
                 .build();
     }
+*/
 }

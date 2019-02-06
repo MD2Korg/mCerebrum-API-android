@@ -1,20 +1,10 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
-import android.os.Parcel;
 import android.support.test.filters.SmallTest;
-
-import org.junit.Test;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNull;
 
 @SmallTest
 public class PlatformAppMetaDataAndroidUnitTest {
-    private final String testTitle = TestingConstants.TEST_TITLE;
+/*    private final String testTitle = TestingConstants.TEST_TITLE;
     private final String testSummary = TestingConstants.TEST_SUMMARY;
     private final String testDescription = TestingConstants.TEST_DESCRIPTION;
     private final String testOperationSystem = TestingConstants.TEST_OPERATING_SYSTEM;
@@ -29,10 +19,10 @@ public class PlatformAppMetaDataAndroidUnitTest {
 
     @Test
     public void platformAppMetaDataBuilderTest() {
-        testPlatformAppMetaData = new PlatformAppMetaData.Builder().setValue(testKey, testValue).build();
+        testPlatformAppMetaData = new PlatformAppMetaData.builder().setValue(testKey, testValue).build();
         assertEquals(testValue, testPlatformAppMetaData.getValue(testKey));
 
-        testPlatformAppMetaData = new PlatformAppMetaData.Builder().setTitle(testTitle).setSummary(testSummary)
+        testPlatformAppMetaData = new PlatformAppMetaData.builder().setTitle(testTitle).setSummary(testSummary)
                 .setDescription(testDescription).setOperationSystem(testOperationSystem)
                 .setManufacturer(testManufacturer).setModel(testModel).setVersionFirmware(testVersionFirmware)
                 .setVersionHardware(testVersionHardware).setDeviceId(testDeviceId).build();
@@ -73,5 +63,5 @@ public class PlatformAppMetaDataAndroidUnitTest {
         testPlatformAppMetaData = CommonObjectConstructors.createPlatformAppMetaData();
         PlatformAppMetaData testPlatformAppMetaData2 = CommonObjectConstructors.createPlatformAppMetaData();
         assertEquals(testPlatformAppMetaData.hashCode(), testPlatformAppMetaData2.hashCode());
-    }
+    }*/
 }

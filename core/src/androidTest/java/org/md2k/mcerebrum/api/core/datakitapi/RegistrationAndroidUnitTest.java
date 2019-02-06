@@ -1,17 +1,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi;
 
-import android.content.Context;
-
-import android.support.test.InstrumentationRegistry;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import org.md2k.mcerebrum.api.core.MCerebrumAPI;
-
-import static org.junit.Assert.assertEquals;
-
 public class RegistrationAndroidUnitTest {
+/*
     private final int[] statusIntArray = TestingConstants.STATUS_INT_ARRAY;
 
     private DataSourceCreator testDataSourceCreator;
@@ -47,4 +37,5 @@ public class RegistrationAndroidUnitTest {
         }
         assertEquals(testDataSourceReadWrite, testReg.getDataSource());
     }
+*/
 }

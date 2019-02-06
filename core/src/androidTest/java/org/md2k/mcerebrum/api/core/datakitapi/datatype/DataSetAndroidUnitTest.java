@@ -1,30 +1,10 @@
 package org.md2k.mcerebrum.api.core.datakitapi.datatype;
 
-import android.os.Parcel;
 import android.support.test.filters.SmallTest;
-
-import org.junit.Before;
-import org.junit.Test;
-import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.dataannotation.DataAnnotationEnum;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointBoolean;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointByte;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointDouble;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointEnum;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointInt;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointLong;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObject;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointObjectMocker;
-import org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint.DataPointString;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 @SmallTest
 public class DataSetAndroidUnitTest {
+/*
     private final int actualDataSize = 0;
     private final int receivedDataSize = 1; //890589984
     private int[] samplingTypes = {DataSet.SAMPLING_TYPE.ALL.getCode(),
@@ -146,4 +126,5 @@ public class DataSetAndroidUnitTest {
         DataSet testDataSetSamplingAll2 = new DataSet(data, actualDataSize, receivedDataSize, samplingTypes[0]);
         assertEquals(testDataSetSamplingAll.hashCode(), testDataSetSamplingAll2.hashCode());
     }
+*/
 }

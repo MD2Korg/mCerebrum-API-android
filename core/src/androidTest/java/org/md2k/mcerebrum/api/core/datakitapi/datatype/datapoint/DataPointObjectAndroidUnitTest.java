@@ -1,20 +1,10 @@
 package org.md2k.mcerebrum.api.core.datakitapi.datatype.datapoint;
 
-import android.os.Parcel;
 import android.support.test.filters.SmallTest;
-
-import org.junit.Test;
-import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 @SmallTest
 public class DataPointObjectAndroidUnitTest {
-    // Objects created with a single data point
+/*    // Objects created with a single data point
     private DataPointObject testDPOByte = DataPointObjectMocker.createDPOByte();
     private DataPointObject testDPOShort = DataPointObjectMocker.createDPOShort();
     private DataPointObject testDPOInt = DataPointObjectMocker.createDPOInt();
@@ -119,5 +109,5 @@ public class DataPointObjectAndroidUnitTest {
             DataPointObject dataPointObjectClone = dataPointObject.clone();
             assertEquals(dataPointObject.hashCode(), dataPointObjectClone.hashCode());
         }
-    }
+    }*/
 }

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
-import org.md2k.mcerebrum.api.core.status.Status;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 
 /*
@@ -41,7 +41,7 @@ public class _QueryDataByNumberIn {
         Bundle b = new Bundle();
         b.putInt(DS_ID, dsId);
         b.putInt(LAST_N, lastN);
-        return new _Session(session, OperationType.QUERY_DATA_BY_NUMBER, Status.SUCCESS, b);
+        return new _Session(session, OperationType.QUERY_DATA_BY_NUMBER, MCStatus.SUCCESS, b);
     }
 
     public static int getLastN(Bundle b) {
