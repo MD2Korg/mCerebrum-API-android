@@ -49,7 +49,7 @@ public final class MCerebrumAPI {
     @SuppressLint("StaticFieldLeak")
     private static MCerebrumAPI instance = null;
     private Context context;
-    private static MCData mcDataAPI;
+    private static MCData mcDataAPI = null;
 
     public static void init(@NonNull Context context) {
         Preconditions.checkNotNull(context);

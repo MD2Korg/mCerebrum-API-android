@@ -276,23 +276,14 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
     }
 
     public String toUUID() {
-        String uuid = "";
-        if (dataSourceType != null) uuid += dataSourceType;
-        uuid += SEPARATOR;
-        if (dataSourceId != null) uuid += dataSourceId;
-        uuid += SEPARATOR;
-        if (platformType != null) uuid += platformType;
-        uuid += SEPARATOR;
-        if (platformId != null) uuid += platformId;
-        uuid += SEPARATOR;
-        if (platformAppType != null) uuid += platformAppType;
-        uuid += SEPARATOR;
-        if (platformAppId != null) uuid += platformAppId;
-        uuid += SEPARATOR;
-        if (applicationType != null) uuid += applicationType;
-        uuid += SEPARATOR;
-        if (applicationId != null) uuid += applicationId;
-        return uuid;
+        return (dataSourceType != null ? dataSourceType : "") + SEPARATOR
+                + (dataSourceId != null ? dataSourceId : "") + SEPARATOR
+                + (platformType != null ? platformType : "") + SEPARATOR
+                + (platformId != null ? platformId : "") + SEPARATOR
+                + (platformAppType != null ? platformAppType : "") + SEPARATOR
+                + (platformAppId != null ? platformAppId : "") + SEPARATOR
+                + (applicationType != null ? applicationType : "") + SEPARATOR
+                + (applicationId != null ? applicationId : "");
     }
 
     public boolean isSubset(DataSource master) {

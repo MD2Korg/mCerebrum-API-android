@@ -56,8 +56,10 @@ public class DataSourceRegisterBuilder
 
     @Override
     public IDataSourceBuilder.IDataDescriptor2 addDataDescriptor(DataDescriptor dataDescriptor) {
-        if (dataDescriptor == null) dataDescriptor = DataDescriptor.builder().build();
-        dataSource.dataDescriptors.add(dataDescriptor.getDescriptor());
+        if (dataDescriptor == null) {
+            dataSource.dataDescriptors.add(DataDescriptor.builder().build().getDescriptor());
+        } else
+            dataSource.dataDescriptors.add(dataDescriptor.getDescriptor());
         return this;
     }
 
