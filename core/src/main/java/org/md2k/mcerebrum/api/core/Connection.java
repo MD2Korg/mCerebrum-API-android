@@ -176,11 +176,11 @@ abstract class Connection {
 
     }
 
-    _Session execute(_Session _session) throws RemoteException {
+    protected _Session execute(_Session _session) throws RemoteException {
         return iDataKitRemoteService.execute(_session);
     }
 
-    void executeAsync(_Session _session, IDataKitRemoteCallback iDataKitRemoteCallback) throws RemoteException {
+    protected void executeAsync(_Session _session, IDataKitRemoteCallback iDataKitRemoteCallback) throws RemoteException {
         iDataKitRemoteService.executeAsync(_session, iDataKitRemoteCallback);
     }
 

@@ -31,13 +31,13 @@ import org.md2k.mcerebrum.api.core.status.MCStatus;
 public class Preconditions {
     public static <T> void checkNotNull(final T reference) {
         if (reference == null) {
-            throw new NullPointerException();
+            throw new IllegalArgumentException();
         }
     }
 
     public static <T> void checkAPIInitialized(final T reference) {
         if (reference == null)
-            throw new NullPointerException(MCStatus.getMessage(MCStatus.MCEREBRUM_API_NOT_INITIALIZED));
+            throw new IllegalArgumentException(MCStatus.getMessage(MCStatus.MCEREBRUM_API_NOT_INITIALIZED));
     }
 
 }

@@ -35,7 +35,7 @@ class DataSubscribers {
         subscribers = new ArrayList<>();
     }
 
-    ArrayList<SubscribeDataCallback> getCallback(int sessionId) {
+    protected ArrayList<SubscribeDataCallback> getCallback(int sessionId) {
         ArrayList<SubscribeDataCallback> arrayList = new ArrayList<>();
         for (int i = 0; i < subscribers.size(); i++) {
             if (subscribers.get(i).sessionId == sessionId)
@@ -44,14 +44,14 @@ class DataSubscribers {
         return arrayList;
     }
 
-    boolean hasCallback(SubscribeDataCallback subscribeDataCallback) {
+    protected boolean hasCallback(SubscribeDataCallback subscribeDataCallback) {
         for (int i = 0; i < subscribers.size(); i++)
             if (subscribers.get(i).callback == subscribeDataCallback)
                 return true;
         return false;
     }
 
-    boolean hasUUID(String uuid) {
+    protected boolean hasUUID(String uuid) {
         for (int i = 0; i < subscribers.size(); i++)
             if (subscribers.get(i).uuid.equals(uuid))
                 return true;
@@ -66,7 +66,7 @@ class DataSubscribers {
 
     }
 
-    void remove(SubscribeDataCallback callback) {
+    protected void remove(SubscribeDataCallback callback) {
         int index = -1;
         for (int i = 0; i < subscribers.size(); i++)
             if (subscribers.get(i).callback == callback) {
@@ -77,26 +77,26 @@ class DataSubscribers {
             subscribers.remove(index);
     }
 
-    String getUUID(SubscribeDataCallback callback) {
+    protected String getUUID(SubscribeDataCallback callback) {
         for (int i = 0; i < subscribers.size(); i++)
             if (subscribers.get(i).callback == callback)
                 return subscribers.get(i).uuid;
         return null;
     }
 
-    int getSessionId(SubscribeDataCallback callback) {
+    protected int getSessionId(SubscribeDataCallback callback) {
         for (int i = 0; i < subscribers.size(); i++)
             if (subscribers.get(i).callback == callback)
                 return subscribers.get(i).sessionId;
         return -1;
     }
 
-    void add(String uuid, SubscribeDataCallback subscribeDataCallback) {
+    protected void add(String uuid, SubscribeDataCallback subscribeDataCallback) {
         int sessionId = getUUID(uuid);
         subscribers.add(new Subscriber(uuid, sessionId, subscribeDataCallback));
     }
 
-    void add(String uuid, int sessionId, SubscribeDataCallback subscribeDataCallback) {
+    protected void add(String uuid, int sessionId, SubscribeDataCallback subscribeDataCallback) {
         subscribers.add(new Subscriber(uuid, sessionId, subscribeDataCallback));
     }
 /*

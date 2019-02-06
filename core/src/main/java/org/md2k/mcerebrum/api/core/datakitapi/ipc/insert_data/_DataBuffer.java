@@ -42,7 +42,7 @@ class _DataBuffer {
         circularBuffer.put(dsId, c);
     }
 
-    boolean isHighFrequency(int dsId) {
+    protected boolean isHighFrequency(int dsId) {
         if (circularBuffer.get(dsId).getSize() < BUFFER_SIZE) return false;
         return circularBuffer.get(dsId).getTop() - circularBuffer.get(dsId).getBottom() <= 5000;
     }

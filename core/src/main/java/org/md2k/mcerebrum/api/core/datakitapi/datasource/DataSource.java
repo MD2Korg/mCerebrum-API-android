@@ -272,8 +272,7 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
         if (!applicationMetaData.equals(d.applicationMetaData)) return false;
         if (!dataDescriptors.equals(d.dataDescriptors)) return false;
         if (dataType != d.dataType) return false;
-        if (sampleType != d.sampleType) return false;
-        return true;
+        return sampleType == d.sampleType;
     }
 
     public String toUUID() {
@@ -310,9 +309,7 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
             return false;
         if (this.applicationType != null && !this.applicationType.equals(master.applicationType))
             return false;
-        if (this.applicationId != null && !this.applicationId.equals(master.applicationId))
-            return false;
-        return true;
+        return this.applicationId == null || this.applicationId.equals(master.applicationId);
     }
 
     public boolean isEqualUUID(DataSource d) {

@@ -68,6 +68,7 @@ public class Data implements Parcelable {
             case ENUM:
                 in.readStringArray((String[]) sample);
                 break;
+            default:
         }
 
     }
@@ -217,6 +218,7 @@ public class Data implements Parcelable {
             case ENUM:
                 dest.writeStringArray((String[]) sample);
                 break;
+            default:
         }
     }
 
@@ -454,6 +456,7 @@ public class Data implements Parcelable {
             case OBJECT:
                 result = 31 * result + sample.hashCode();
                 break;
+            default:
         }
 //        result = 31 * result + sample.hashCode();
         return result;

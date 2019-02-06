@@ -149,9 +149,6 @@ public class DataDescriptor {
     public static class Builder {
         private HashMap<String, String> descriptor = new HashMap<>();
 
-        public Builder() {
-        }
-
         /**
          * Sets the <code>NAME</code> key of the hash map.
          *

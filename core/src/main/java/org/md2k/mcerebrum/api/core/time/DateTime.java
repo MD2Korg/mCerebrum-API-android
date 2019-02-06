@@ -159,8 +159,8 @@ public class DateTime {
         }
     }
 
-    public static long getTime(String value) {
-        value = value.trim().toUpperCase();
+    public static long getTime(String timeStr) {
+        String value = timeStr.trim().toUpperCase();
         if (NOW.equals(value))
             return getCurrentTime();
         else if (TODAY.equals(value))
