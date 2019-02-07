@@ -33,7 +33,7 @@ import java.util.Arrays;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public class DataArray implements Parcelable {
-    private ArrayList<Data> data;
+    private ArrayList<MCData> data;
 
 
     /**
@@ -43,7 +43,7 @@ public class DataArray implements Parcelable {
      * @param in Parceled <code>DataArray</code> object.
      */
     protected DataArray(Parcel in) {
-        data = in.readArrayList(Data.class.getClassLoader());
+        data = in.readArrayList(MCData.class.getClassLoader());
     }
 
     /**
@@ -112,14 +112,16 @@ public class DataArray implements Parcelable {
      *
      * @param data Array of Data.
      */
-    public void add(Data[] data) {
-        ArrayList<Data> temp = new ArrayList<Data>(Arrays.asList(data));
+    public void add(MCData[] data) {
+        ArrayList<MCData> temp = new ArrayList<MCData>(Arrays.asList(data));
         this.data.addAll(temp);
     }
-    public void add(ArrayList<Data> data) {
+
+    public void add(ArrayList<MCData> data) {
         this.data.addAll(data);
     }
-    public void add(Data data) {
+
+    public void add(MCData data) {
         this.data.add(data);
     }
 
@@ -128,7 +130,7 @@ public class DataArray implements Parcelable {
      *
      * @return An array of <code>Data</code> objects.
      */
-    public ArrayList<Data> get() {
+    public ArrayList<MCData> get() {
         return data;
     }
 
@@ -137,7 +139,7 @@ public class DataArray implements Parcelable {
      *
      * @return <code>Data</code> objects.
      */
-    public Data get(int index) {
+    public MCData get(int index) {
         return data.get(index);
     }
 
@@ -181,7 +183,7 @@ public class DataArray implements Parcelable {
     @Override
     public int hashCode() {
         int result = 17;
-        for (Data dataPoint : data)
+        for (MCData dataPoint : data)
             if (dataPoint != null)
                 result = 31 * result + dataPoint.hashCode();
         return result;

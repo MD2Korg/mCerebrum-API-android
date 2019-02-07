@@ -5,7 +5,7 @@
 
     <application>
         <service
-            android:name=".core.extensionapi.app.MCExtensionService"
+            android:name=".core.extensionapi.MCExtensionService"
             android:exported="true">
             <intent-filter>
                 <action android:name="org.md2k.mcerebrum.client" />

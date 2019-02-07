@@ -4,8 +4,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.SparseArray;
 
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
 import org.md2k.mcerebrum.api.core.datakitapi.data.DataArray;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.data.SyncCallback;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.insert_datasource.Registration;
 
@@ -57,12 +57,12 @@ public class _InsertDataExec {
         dataArrays = new SparseArray<>();
     }
 
-    public void addData(Registration registration, Data[] data) {
+    public void addData(Registration registration, MCData[] data) {
         lock.lock();
         DataArray d = dataArrays.get(registration.getDsId(), new DataArray());
         d.add(data);
         dataArrays.put(registration.getDsId(), d);
-        for (Data aData : data) dataBuffer.add(registration.getDsId(), aData.getTimestamp());
+        for (MCData aData : data) dataBuffer.add(registration.getDsId(), aData.getTimestamp());
         if (dataBuffer.isHighFrequency(registration.getDsId())) {
             if (!isSyncScheduled)
                 handler.postDelayed(runnable, SYNC_TIME);

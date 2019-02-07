@@ -1,7 +1,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi.ipc.query_data_summary;
 
 import org.md2k.mcerebrum.api.core.datakitapi.callback.Callback;
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -30,5 +30,5 @@ import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public interface DataSummaryCallback extends Callback {
-    void onReceive(Data data);
+    void onReceive(MCData data);
 }

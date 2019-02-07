@@ -33,11 +33,11 @@ import java.util.Arrays;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class Data implements Parcelable {
+public class MCData implements Parcelable {
     private long startTimestamp;
     private long endTimestamp;
-    private DataType dataType;
-    private SampleType sampleType;
+    private MCDataType dataType;
+    private MCSampleType sampleType;
     private Object sample;
 
     /**
@@ -46,11 +46,11 @@ public class Data implements Parcelable {
      *
      * @param in Parceled <code>Data</code> object.
      */
-    protected Data(Parcel in) {
+    protected MCData(Parcel in) {
         startTimestamp = in.readLong();
         endTimestamp = in.readLong();
-        dataType = DataType.getDataType(in.readInt());
-        sampleType = SampleType.getSampleType(in.readInt());
+        dataType = MCDataType.getDataType(in.readInt());
+        sampleType = MCSampleType.getSampleType(in.readInt());
         switch (sampleType) {
             case BYTE_ARRAY:
                 sample = in.createByteArray();
@@ -74,7 +74,7 @@ public class Data implements Parcelable {
                 sample = in.createStringArray();
                 break;
             case ENUM:
-                sample = in.createStringArray();
+                sample = in.createIntArray();
                 break;
             default:
         }
@@ -85,7 +85,7 @@ public class Data implements Parcelable {
      * Embedded <code>CREATOR</code> class for generating instances of <code>Data</code>
      * from a <code>Parcel</code>.
      */
-    public static final Creator<Data> CREATOR = new Creator<Data>() {
+    public static final Creator<MCData> CREATOR = new Creator<MCData>() {
 
         /**
          * Creates an <code>Data</code> object from a <code>Parcel</code>.
@@ -94,8 +94,8 @@ public class Data implements Parcelable {
          * @return The constructed <code>Data</code>.
          */
         @Override
-        public Data createFromParcel(Parcel in) {
-            return new Data(in);
+        public MCData createFromParcel(Parcel in) {
+            return new MCData(in);
         }
 
         /**
@@ -105,8 +105,8 @@ public class Data implements Parcelable {
          * @return Returns an array for <code>Data</code> objects.
          */
         @Override
-        public Data[] newArray(int size) {
-            return new Data[size];
+        public MCData[] newArray(int size) {
+            return new MCData[size];
         }
     };
 
@@ -120,7 +120,7 @@ public class Data implements Parcelable {
      * @param endTimestamp   The end timestamp for when the event was ended.
      * @param sample         The data  sampled from the data source.
      */
-    private Data(DataType dataType, SampleType sampleType, long startTimestamp, long endTimestamp, Object sample) {
+    private MCData(MCDataType dataType, MCSampleType sampleType, long startTimestamp, long endTimestamp, Object sample) {
         this.dataType = dataType;
         this.sampleType = sampleType;
         this.sample = sample;
@@ -133,7 +133,7 @@ public class Data implements Parcelable {
      *
      * @return The type of the data.
      */
-    public DataType getDataType() {
+    public MCDataType getDataType() {
         return dataType;
     }
 
@@ -169,7 +169,7 @@ public class Data implements Parcelable {
      *
      * @return The type of the sample.
      */
-    public SampleType getSampleType() {
+    public MCSampleType getSampleType() {
         return sampleType;
     }
 
@@ -232,6 +232,7 @@ public class Data implements Parcelable {
                 dest.writeStringArray((String[]) sample);
                 break;
             case ENUM:
+                dest.writeIntArray((int[]) sample);
                 break;
             default:
         }
@@ -243,8 +244,8 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPointByteArray(long timestamp, byte sample) {
-        return new Data(DataType.POINT, SampleType.BYTE_ARRAY, timestamp, timestamp, new byte[]{sample});
+    public static MCData createPointByteArray(long timestamp, byte sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.BYTE_ARRAY, timestamp, timestamp, new byte[]{sample});
     }
 
     /**
@@ -253,8 +254,8 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPointByteArray(long timestamp, byte[] sample) {
-        return new Data(DataType.POINT, SampleType.BYTE_ARRAY, timestamp, timestamp, sample);
+    public static MCData createPointByteArray(long timestamp, byte[] sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.BYTE_ARRAY, timestamp, timestamp, sample);
     }
 
     /**
@@ -263,8 +264,34 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPointEnum(long timestamp, EnumType sample) {
-        return new Data(DataType.POINT, SampleType.ENUM, timestamp, timestamp, new String[]{String.valueOf(sample.getId()), sample.getName()});
+    public static MCData createPointEnumArray(long timestamp, MCEnum sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.ENUM, timestamp, timestamp, new int[]{sample.getId()});
+    }
+
+    /**
+     * Creates a data point where the sample type is enum.
+     *
+     * @param timestamp The timestamp for when the data was collected.
+     * @param sample    The sample that was collected.
+     */
+
+    public static MCData createPointEnumArray(long timestamp, MCEnum[] sample) {
+        int[] res = new int[sample.length];
+        for (int i = 0; i < sample.length; i++) {
+            res[i] = sample[i].getId();
+        }
+        return new MCData(MCDataType.POINT, MCSampleType.ENUM, timestamp, timestamp, res);
+    }
+
+
+    /**
+     * Creates a data point where the sample type is boolean array.
+     *
+     * @param timestamp The timestamp for when the data was collected.
+     * @param sample    The sample that was collected.
+     */
+    public static MCData createPointBooleanArray(long timestamp, boolean sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.BOOLEAN_ARRAY, timestamp, timestamp, new boolean[]{sample});
     }
 
     /**
@@ -273,18 +300,8 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPointBooleanArray(long timestamp, boolean sample) {
-        return new Data(DataType.POINT, SampleType.BOOLEAN_ARRAY, timestamp, timestamp, new boolean[]{sample});
-    }
-
-    /**
-     * Creates a data point where the sample type is boolean array.
-     *
-     * @param timestamp The timestamp for when the data was collected.
-     * @param sample    The sample that was collected.
-     */
-    public static Data createPointBooleanArray(long timestamp, boolean[] sample) {
-        return new Data(DataType.POINT, SampleType.BOOLEAN_ARRAY, timestamp, timestamp, sample);
+    public static MCData createPointBooleanArray(long timestamp, boolean[] sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.BOOLEAN_ARRAY, timestamp, timestamp, sample);
     }
 
     /**
@@ -293,8 +310,8 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPointIntArray(long timestamp, int sample) {
-        return new Data(DataType.POINT, SampleType.INT_ARRAY, timestamp, timestamp, new int[]{sample});
+    public static MCData createPointIntArray(long timestamp, int sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.INT_ARRAY, timestamp, timestamp, new int[]{sample});
     }
 
     /**
@@ -303,8 +320,8 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPointIntArray(long timestamp, int[] sample) {
-        return new Data(DataType.POINT, SampleType.INT_ARRAY, timestamp, timestamp, sample);
+    public static MCData createPointIntArray(long timestamp, int[] sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.INT_ARRAY, timestamp, timestamp, sample);
     }
 
     /**
@@ -313,8 +330,8 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPointLongArray(long timestamp, long sample) {
-        return new Data(DataType.POINT, SampleType.LONG_ARRAY, timestamp, timestamp, new long[]{sample});
+    public static MCData createPointLongArray(long timestamp, long sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.LONG_ARRAY, timestamp, timestamp, new long[]{sample});
     }
 
     /**
@@ -323,8 +340,8 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPointLongArray(long timestamp, long[] sample) {
-        return new Data(DataType.POINT, SampleType.LONG_ARRAY, timestamp, timestamp, sample);
+    public static MCData createPointLongArray(long timestamp, long[] sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.LONG_ARRAY, timestamp, timestamp, sample);
     }
 
     /**
@@ -333,8 +350,8 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPointDoubleArray(long timestamp, double sample) {
-        return new Data(DataType.POINT, SampleType.DOUBLE_ARRAY, timestamp, timestamp, new double[]{sample});
+    public static MCData createPointDoubleArray(long timestamp, double sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.DOUBLE_ARRAY, timestamp, timestamp, new double[]{sample});
     }
 
     /**
@@ -343,8 +360,8 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPointDoubleArray(long timestamp, double[] sample) {
-        return new Data(DataType.POINT, SampleType.DOUBLE_ARRAY, timestamp, timestamp, sample);
+    public static MCData createPointDoubleArray(long timestamp, double[] sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.DOUBLE_ARRAY, timestamp, timestamp, sample);
     }
 
     /**
@@ -353,8 +370,8 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPointStringArray(long timestamp, String sample) {
-        return new Data(DataType.POINT, SampleType.STRING_ARRAY, timestamp, timestamp, new String[]{sample});
+    public static MCData createPointStringArray(long timestamp, String sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.STRING_ARRAY, timestamp, timestamp, new String[]{sample});
     }
 
     /**
@@ -363,8 +380,8 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static Data createPointStringArray(long timestamp, String[] sample) {
-        return new Data(DataType.POINT, SampleType.STRING_ARRAY, timestamp, timestamp, sample);
+    public static MCData createPointStringArray(long timestamp, String[] sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.STRING_ARRAY, timestamp, timestamp, sample);
     }
 
     /**
@@ -373,10 +390,10 @@ public class Data implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static <T> Data createPointObject(long timestamp, T sample) {
+    public static <T> MCData createPointObject(long timestamp, T sample) {
         Gson gson = new Gson();
         String[] str = new String[]{gson.toJson(sample)};
-        return new Data(DataType.POINT, SampleType.OBJECT, timestamp, timestamp, str);
+        return new MCData(MCDataType.POINT, MCSampleType.OBJECT, timestamp, timestamp, str);
     }
 
     /**
@@ -386,8 +403,8 @@ public class Data implements Parcelable {
      * @param endTimestamp   The timestamp of the end of the data collection.
      * @param sample         The sample that was collected.
      */
-    public static Data createAnnotation(long startTimestamp, long endTimestamp, EnumType sample) {
-        return new Data(DataType.ANNOTATION, SampleType.ENUM, startTimestamp, endTimestamp, new String[]{String.valueOf(sample.getId()), sample.getName()});
+    public static MCData createAnnotation(long startTimestamp, long endTimestamp, MCEnum sample) {
+        return new MCData(MCDataType.ANNOTATION, MCSampleType.ENUM, startTimestamp, endTimestamp, sample.getId());
     }
 
     /**
@@ -397,8 +414,8 @@ public class Data implements Parcelable {
      * @param endTimestamp   The timestamp of the end of the data collection.
      * @param sample         The sample that was collected.
      */
-    public static Data createAnnotation(long startTimestamp, long endTimestamp, boolean[] sample) {
-        return new Data(DataType.ANNOTATION, SampleType.BOOLEAN_ARRAY, startTimestamp, endTimestamp, sample);
+    public static MCData createAnnotation(long startTimestamp, long endTimestamp, boolean[] sample) {
+        return new MCData(MCDataType.ANNOTATION, MCSampleType.BOOLEAN_ARRAY, startTimestamp, endTimestamp, sample);
     }
 
     /**
@@ -408,8 +425,8 @@ public class Data implements Parcelable {
      * @param endTimestamp   The timestamp of the end of the data collection.
      * @param sample         The sample that was collected.
      */
-    public static Data createAnnotation(long startTimestamp, long endTimestamp, int[] sample) {
-        return new Data(DataType.ANNOTATION, SampleType.INT_ARRAY, startTimestamp, endTimestamp, sample);
+    public static MCData createAnnotation(long startTimestamp, long endTimestamp, int[] sample) {
+        return new MCData(MCDataType.ANNOTATION, MCSampleType.INT_ARRAY, startTimestamp, endTimestamp, sample);
     }
 
     /**
@@ -419,8 +436,8 @@ public class Data implements Parcelable {
      * @param endTimestamp   The timestamp of the end of the data collection.
      * @param sample         The sample that was collected.
      */
-    public static Data createAnnotation(long startTimestamp, long endTimestamp, long[] sample) {
-        return new Data(DataType.ANNOTATION, SampleType.LONG_ARRAY, startTimestamp, endTimestamp, sample);
+    public static MCData createAnnotation(long startTimestamp, long endTimestamp, long[] sample) {
+        return new MCData(MCDataType.ANNOTATION, MCSampleType.LONG_ARRAY, startTimestamp, endTimestamp, sample);
     }
 
     /**
@@ -430,8 +447,8 @@ public class Data implements Parcelable {
      * @param endTimestamp   The timestamp of the end of the data collection.
      * @param sample         The sample that was collected.
      */
-    public static Data createAnnotation(long startTimestamp, long endTimestamp, double[] sample) {
-        return new Data(DataType.ANNOTATION, SampleType.DOUBLE_ARRAY, startTimestamp, endTimestamp, sample);
+    public static MCData createAnnotation(long startTimestamp, long endTimestamp, double[] sample) {
+        return new MCData(MCDataType.ANNOTATION, MCSampleType.DOUBLE_ARRAY, startTimestamp, endTimestamp, sample);
     }
 
     /**
@@ -441,8 +458,8 @@ public class Data implements Parcelable {
      * @param endTimestamp   The timestamp of the end of the data collection.
      * @param sample         The sample that was collected.
      */
-    public static Data createAnnotation(long startTimestamp, long endTimestamp, String[] sample) {
-        return new Data(DataType.ANNOTATION, SampleType.STRING_ARRAY, startTimestamp, endTimestamp, sample);
+    public static MCData createAnnotation(long startTimestamp, long endTimestamp, String[] sample) {
+        return new MCData(MCDataType.ANNOTATION, MCSampleType.STRING_ARRAY, startTimestamp, endTimestamp, sample);
     }
 
     /**
@@ -452,10 +469,10 @@ public class Data implements Parcelable {
      * @param endTimestamp   The timestamp of the end of the data collection.
      * @param sample         The sample that was collected.
      */
-    public static <T> Data createAnnotation(long startTimestamp, long endTimestamp, T sample) {
+    public static <T> MCData createAnnotation(long startTimestamp, long endTimestamp, T sample) {
         Gson gson = new Gson();
         String str = gson.toJson(sample);
-        return new Data(DataType.ANNOTATION, SampleType.OBJECT, startTimestamp, endTimestamp, str);
+        return new MCData(MCDataType.ANNOTATION, MCSampleType.OBJECT, startTimestamp, endTimestamp, str);
     }
 
     /**
@@ -463,8 +480,8 @@ public class Data implements Parcelable {
      *
      * @return A new <code>Data</code>.
      */
-    public Data clone() {
-        return new Data(dataType, sampleType, startTimestamp, endTimestamp, sample);
+    public MCData clone() {
+        return new MCData(dataType, sampleType, startTimestamp, endTimestamp, sample);
     }
 
     /**
@@ -477,30 +494,30 @@ public class Data implements Parcelable {
     @Override
     public boolean equals(Object toCompare) {
         if (!equalsIgnoreTimestamp(toCompare)) return false;
-        return (this.getDataType().equals(((Data) toCompare).getDataType())
-                && this.getStartTimestamp() == ((Data) toCompare).getStartTimestamp()
-                && this.getEndTimestamp() == ((Data) toCompare).getEndTimestamp()
+        return (this.getDataType().equals(((MCData) toCompare).getDataType())
+                && this.getStartTimestamp() == ((MCData) toCompare).getStartTimestamp()
+                && this.getEndTimestamp() == ((MCData) toCompare).getEndTimestamp()
         );
     }
 
     public boolean equalsIgnoreTimestamp(Object toCompare) {
-        if (!(toCompare instanceof Data) || !this.getSampleType().equals(((Data) toCompare).getSampleType()))
+        if (!(toCompare instanceof MCData) || !this.getSampleType().equals(((MCData) toCompare).getSampleType()))
             return false;
         switch (sampleType) {
             case BOOLEAN_ARRAY:
-                return Arrays.equals((boolean[]) sample, (boolean[]) (((Data) toCompare).getSample()));
+                return Arrays.equals((boolean[]) sample, (boolean[]) (((MCData) toCompare).getSample()));
             case BYTE_ARRAY:
-                return Arrays.equals((byte[]) sample, (byte[]) (((Data) toCompare).getSample()));
+                return Arrays.equals((byte[]) sample, (byte[]) (((MCData) toCompare).getSample()));
             case INT_ARRAY:
-                return Arrays.equals((int[]) sample, (int[]) (((Data) toCompare).getSample()));
+                return Arrays.equals((int[]) sample, (int[]) (((MCData) toCompare).getSample()));
             case LONG_ARRAY:
-                return Arrays.equals((long[]) sample, (long[]) (((Data) toCompare).getSample()));
+                return Arrays.equals((long[]) sample, (long[]) (((MCData) toCompare).getSample()));
             case DOUBLE_ARRAY:
-                return Arrays.equals((double[]) sample, (double[]) (((Data) toCompare).getSample()));
+                return Arrays.equals((double[]) sample, (double[]) (((MCData) toCompare).getSample()));
             case STRING_ARRAY:
-                return Arrays.equals((String[]) sample, (String[]) (((Data) toCompare).getSample()));
+                return Arrays.equals((String[]) sample, (String[]) (((MCData) toCompare).getSample()));
             case OBJECT:
-                return Arrays.equals((String[]) sample, (String[]) (((Data) toCompare).getSample()));
+                return Arrays.equals((String[]) sample, (String[]) (((MCData) toCompare).getSample()));
             default:
                 return false;
         }

@@ -1,9 +1,8 @@
-package org.md2k.mcerebrum.api.core;
+package org.md2k.mcerebrum.api.core.datakitapi;
 
 import android.os.RemoteException;
 import android.util.Log;
 
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSource;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceQuery;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceRegister;
@@ -178,7 +177,7 @@ final class MCData extends Connection {
     }
 
 
-    protected ArrayList<Data> queryDataByTime(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
+    protected ArrayList<org.md2k.mcerebrum.api.core.datakitapi.data.MCData> queryDataByTime(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
         insertDataExec.syncIfRequired(dataSourceResult.getDsId());
         _Session in = _QueryDataByTimeIn.create(createSessionId(), dataSourceResult.getDsId(), startTimestamp, endTimestamp);
         try {
@@ -209,7 +208,7 @@ final class MCData extends Connection {
     }
 
 
-    protected ArrayList<Data> queryDataByNumber(DataSourceResult dataSourceResult, int lastNData) {
+    protected ArrayList<org.md2k.mcerebrum.api.core.datakitapi.data.MCData> queryDataByNumber(DataSourceResult dataSourceResult, int lastNData) {
         insertDataExec.syncIfRequired(dataSourceResult.getDsId());
         _Session in = _QueryDataByNumberIn.create(createSessionId(), dataSourceResult.getDsId(), lastNData);
         try {
@@ -268,8 +267,8 @@ final class MCData extends Connection {
         }
     }
 
-    protected int insertData(Registration registration, Data[] data) {
-        for (Data aData : data)
+    protected int insertData(Registration registration, org.md2k.mcerebrum.api.core.datakitapi.data.MCData[] data) {
+        for (org.md2k.mcerebrum.api.core.datakitapi.data.MCData aData : data)
             if (registration.getDataSource().getSampleType() != aData.getSampleType() || registration.getDataSource().getDataType() != aData.getDataType())
                 return MCStatus.INVALID_DATA;
         insertDataExec.addData(registration, data);
@@ -282,7 +281,7 @@ final class MCData extends Connection {
         IDataKitRemoteCallback.Stub iDataKitRemoteCallback = new IDataKitRemoteCallback.Stub() {
             @Override
             public void onReceived(_Session _session) throws RemoteException {
-                ArrayList<Data> data = _SubscribeDataOut.getData(_session.getBundle());
+                ArrayList<org.md2k.mcerebrum.api.core.datakitapi.data.MCData> data = _SubscribeDataOut.getData(_session.getBundle());
                 for (int i = 0; i < data.size(); i++)
                     subscribeDataCallback.onReceive(data.get(i));
             }

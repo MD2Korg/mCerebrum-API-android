@@ -1,4 +1,10 @@
-package org.md2k.mcerebrum.api.core.datakitapi.data;
+package org.md2k.mcerebrum.sample;
+
+import android.content.Context;
+
+import org.md2k.mcerebrum.api.core.extensionapi.MCExtensionAPI;
+import org.md2k.mcerebrum.api.core.extensionapi.MCExtensionLibrary;
+
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -26,23 +32,9 @@ package org.md2k.mcerebrum.api.core.datakitapi.data;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public enum DataType {
-    POINT(100),
-    ANNOTATION(101);
-    private int value;
-
-    DataType(int value) {
-        this.value = value;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public static DataType getDataType(int value) {
-        for (DataType a : DataType.values()) {
-            if (a.getValue() == value) return a;
-        }
-        return POINT;
+public class MyMCExtension extends MCExtensionLibrary {
+    @Override
+    public MCExtensionAPI createExtensionAPI(Context context) {
+        return null;
     }
 }

@@ -29,10 +29,10 @@ package org.md2k.mcerebrum.api.core.datakitapi.ipc.subscribe_data;
 
 
 import org.md2k.mcerebrum.api.core.datakitapi.callback.Callback;
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
 
 public interface SubscribeDataCallback extends Callback {
-    void onReceive(Data data);
+    void onReceive(MCData data);
 
     void onError(int status);
 }

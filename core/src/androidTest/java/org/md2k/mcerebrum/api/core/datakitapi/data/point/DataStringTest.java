@@ -6,7 +6,7 @@ import android.support.test.filters.SmallTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -22,19 +22,19 @@ public class DataStringTest {
     private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final String testSample = "Hello world";
-    private Data mDataPointString;
+    private MCData mDataPointString;
 
     private final String testEmptyString = "";
-    private Data mDataPointEmptyString;
+    private MCData mDataPointEmptyString;
 
     private final String[] testSampleArray = {"Test 1", "Test 2", ""};
-    private Data mDataPointStringArray;
+    private MCData mDataPointStringArray;
 
     @Before
     public void createDataPointString() {
-        mDataPointString = Data.createPointStringArray(testTimestamp, testSample);
-        mDataPointStringArray = Data.createPointStringArray(testTimestamp, testSampleArray);
-        mDataPointEmptyString = Data.createPointStringArray(testTimestamp, testEmptyString);
+        mDataPointString = MCData.createPointStringArray(testTimestamp, testSample);
+        mDataPointStringArray = MCData.createPointStringArray(testTimestamp, testSampleArray);
+        mDataPointEmptyString = MCData.createPointStringArray(testTimestamp, testEmptyString);
     }
 
     @Test
@@ -55,7 +55,7 @@ public class DataStringTest {
 
     @Test
     public void dataPointStringCloneTest() {
-        Data dataPointClone = mDataPointString.clone();
+        MCData dataPointClone = mDataPointString.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointString)));
         assertNotSame(mDataPointString, dataPointClone);
     }
@@ -70,8 +70,8 @@ public class DataStringTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
-        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
+        MCData createdFromParcel = MCData.CREATOR.createFromParcel(parcel);
+        MCData[] createdFromParcelArray = MCData.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -88,8 +88,8 @@ public class DataStringTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
-        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
+        MCData createdFromParcel = MCData.CREATOR.createFromParcel(parcel);
+        MCData[] createdFromParcelArray = MCData.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -106,8 +106,8 @@ public class DataStringTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
-        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
+        MCData createdFromParcel = MCData.CREATOR.createFromParcel(parcel);
+        MCData[] createdFromParcelArray = MCData.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);

@@ -25,32 +25,25 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.md2k.mcerebrum.api.core;
+package org.md2k.mcerebrum.api.core.extensionapi;
 
-import android.content.Context;
-import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.md2k.mcerebrum.api.core.extensionapi.Action;
-import org.md2k.mcerebrum.api.core.extensionapi.IBackgroundProcess;
-import org.md2k.mcerebrum.api.core.extensionapi.IConfigure;
-import org.md2k.mcerebrum.api.core.extensionapi.IPermission;
-import org.md2k.mcerebrum.api.core.extensionapi.MCAction;
-import org.md2k.mcerebrum.api.core.extensionapi.MCUserInterface;
-import org.md2k.mcerebrum.api.core.extensionapi.Param;
-import org.md2k.mcerebrum.api.core.extensionapi.UserInterface;
-
 import java.util.ArrayList;
 
-public class MCExtension implements Parcelable {
+public class MCExtensionAPI implements Parcelable
+        , IMCExtensionBuilder.IPackageName
+        , IMCExtensionBuilder.IName
+        , IMCExtensionBuilder.IDescription
+        , IMCExtensionBuilder.IVersion
+        , IMCExtensionBuilder.IIcon
+        , IMCExtensionBuilder.IOperation {
+    private String packageName;
     private String name;
     private String description;
     private String version;
-    private String packageName;
     private Bitmap icon;
     private IConfigure iConfigure;
     private IBackgroundProcess iBackgroundProcess;
@@ -59,47 +52,12 @@ public class MCExtension implements Parcelable {
     private ArrayList<Action> actions;
     private ArrayList<Param> listOfOperations;
 
-    private MCExtension(MCExtensionBuilder builder) {
-        name = builder.name;
-        description = builder.description;
-        version = builder.version;
-        packageName = builder.packageName;
-        icon = builder.icon;
-        listOfOperations = new ArrayList<>();
-
-        //IConfigure
-        iConfigure = builder.iConfigure;
-        if (iConfigure != null) {
-            listOfOperations.add(new Param(IConfigure.TYPE, IConfigure.ID_GET_STATE, null, null));
-            listOfOperations.add(new Param(IConfigure.TYPE, IConfigure.ID_SET, null, null));
-        }
-
-        //IBackgroundProcess
-        iBackgroundProcess = builder.iBackgroundProcess;
-        if (iBackgroundProcess != null) {
-            listOfOperations.add(new Param(IBackgroundProcess.TYPE, IBackgroundProcess.ID_START, null, null));
-            listOfOperations.add(new Param(IBackgroundProcess.TYPE, IBackgroundProcess.ID_STOP, null, null));
-            listOfOperations.add(new Param(IBackgroundProcess.TYPE, IBackgroundProcess.ID_IS_RUNNING, null, null));
-        }
-        //IPermission
-        iUserPermission = builder.iUserPermission;
-        if (iUserPermission != null) {
-            listOfOperations.add(new Param(IPermission.TYPE, IPermission.ID_HAS_PERMISSION, null, null));
-            listOfOperations.add(new Param(IPermission.TYPE, IPermission.ID_REQUEST_PERMISSION, null, null));
-        }
-        //IUserInterface
-        userInterfaces = builder.userInterfaces;
-        for (int i = 0; userInterfaces != null && i < userInterfaces.size(); i++) {
-            listOfOperations.add(userInterfaces.get(i).getParam());
-        }
-        //Action
-        actions = builder.actions;
-        for (int i = 0; actions != null && i < actions.size(); i++) {
-            listOfOperations.add(actions.get(i).getParam());
-        }
+    private MCExtensionAPI() {
+        userInterfaces = new ArrayList<>();
+        actions = new ArrayList<>();
     }
 
-    protected MCExtension(Parcel in) {
+    protected MCExtensionAPI(Parcel in) {
         name = in.readString();
         description = in.readString();
         version = in.readString();
@@ -118,15 +76,15 @@ public class MCExtension implements Parcelable {
         parcel.writeList(listOfOperations);
     }
 
-    public static final Creator<MCExtension> CREATOR = new Creator<MCExtension>() {
+    public static final Creator<MCExtensionAPI> CREATOR = new Creator<MCExtensionAPI>() {
         @Override
-        public MCExtension createFromParcel(Parcel in) {
-            return new MCExtension(in);
+        public MCExtensionAPI createFromParcel(Parcel in) {
+            return new MCExtensionAPI(in);
         }
 
         @Override
-        public MCExtension[] newArray(int size) {
-            return new MCExtension[size];
+        public MCExtensionAPI[] newArray(int size) {
+            return new MCExtensionAPI[size];
         }
     };
 
@@ -179,8 +137,8 @@ public class MCExtension implements Parcelable {
         return uiParams;
     }
 
-    public static MCExtensionBuilder builder(Context context) {
-        return new MCExtensionBuilder(context);
+    public static IMCExtensionBuilder.IPackageName builder() {
+        return new MCExtensionAPI();
     }
 
     @Override
@@ -188,6 +146,98 @@ public class MCExtension implements Parcelable {
         return 0;
     }
 
+    @Override
+    public IMCExtensionBuilder.IName setPackageName(String packageName) {
+        this.packageName = packageName;
+        return this;
+    }
+
+    @Override
+    public IMCExtensionBuilder.IVersion setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    @Override
+    public IMCExtensionBuilder.IOperation setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    @Override
+    public IMCExtensionBuilder.IIcon setVersion(String version) {
+        this.version = version;
+        return this;
+    }
+
+    @Override
+    public IMCExtensionBuilder.IDescription setIcon(Bitmap icon) {
+        this.icon = icon;
+        return this;
+    }
+
+    @Override
+    public IMCExtensionBuilder.IOperation setConfigurationInterface(IConfigure iConfigure) {
+        this.iConfigure = iConfigure;
+        return this;
+    }
+
+    @Override
+    public IMCExtensionBuilder.IOperation setPermissionInterface(IPermission iPermission) {
+        this.iUserPermission = iPermission;
+        return this;
+    }
+
+    @Override
+    public IMCExtensionBuilder.IOperation setBackgroundExecutionInterface(IBackgroundProcess iBackgroundProcess) {
+        this.iBackgroundProcess = iBackgroundProcess;
+        return this;
+    }
+
+    @Override
+    public IMCExtensionBuilder.IOperation addUserInterface(String id, String name, String description, MCUserInterface mcUserInterface) {
+        UserInterface userInterface = new UserInterface(id, name, description, mcUserInterface);
+        this.userInterfaces.add(userInterface);
+        return this;
+    }
+
+    @Override
+    public IMCExtensionBuilder.IOperation addAction(String id, String name, String description, MCAction mcAction) {
+        Action action = new Action(id, name, description, mcAction);
+        this.actions.add(action);
+        return this;
+    }
+
+    @Override
+    public MCExtensionAPI build() {
+        createList();
+        return this;
+    }
+
+    private void createList() {
+        listOfOperations = new ArrayList<>();
+        if (iConfigure != null) {
+            listOfOperations.add(new Param(IConfigure.TYPE, IConfigure.ID_GET_STATE, "Configuration Status", null));
+            listOfOperations.add(new Param(IConfigure.TYPE, IConfigure.ID_SET, "Set Configuration", null));
+        }
+        if (iBackgroundProcess != null) {
+            listOfOperations.add(new Param(IBackgroundProcess.TYPE, IBackgroundProcess.ID_START, "Start Process", null));
+            listOfOperations.add(new Param(IBackgroundProcess.TYPE, IBackgroundProcess.ID_STOP, "Stop Process", null));
+            listOfOperations.add(new Param(IBackgroundProcess.TYPE, IBackgroundProcess.ID_IS_RUNNING, "Process Status", null));
+        }
+        if (iUserPermission != null) {
+            listOfOperations.add(new Param(IPermission.TYPE, IPermission.ID_HAS_PERMISSION, "Permission Status", null));
+            listOfOperations.add(new Param(IPermission.TYPE, IPermission.ID_REQUEST_PERMISSION, "Request Permission", null));
+        }
+        for (int i = 0; userInterfaces != null && i < userInterfaces.size(); i++) {
+            listOfOperations.add(userInterfaces.get(i).getParam());
+        }
+        for (int i = 0; actions != null && i < actions.size(); i++) {
+            listOfOperations.add(actions.get(i).getParam());
+        }
+    }
+
+/*
     public static class MCExtensionBuilder {
         private String name;
         private String description;
@@ -278,6 +328,7 @@ public class MCExtension implements Parcelable {
             return new MCExtension(this);
         }
     }
+*/
 
 }
 

@@ -28,7 +28,7 @@ public class DataDescriptorAndroidUnitTest {
                 .setMaxValue(testMaxValue).setPossibleValues(testPossibleValuesAsString)
                 .setPossibleValues(testPossibleValuesAsInt).setUnit(testUnit).build();
         assertEquals(testTitle, testDataDescriptor.getName());
-        assertEquals(testSummary, testDataDescriptor.getSummary());
+        assertEquals(testSummary, testDataDescriptor.getDescription());
         assertEquals(testDescription, testDataDescriptor.getDescription());
         assertEquals(testMinValue, testDataDescriptor.getMinValue(), DELTA);
         assertEquals(testMaxValue, testDataDescriptor.getMaxValue(), DELTA);

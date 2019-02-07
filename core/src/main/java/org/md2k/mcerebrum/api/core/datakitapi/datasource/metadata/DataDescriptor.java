@@ -27,7 +27,7 @@
 
 package org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata;
 
-import org.md2k.mcerebrum.api.core.datakitapi.data.EnumType;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCEnum;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.unit.MCUnit;
 
 import java.util.HashMap;
@@ -81,7 +81,7 @@ public class DataDescriptor {
      */
     public double getMinValue() {
         if (descriptor.get(MIN_VALUE) == null) return Double.MIN_VALUE;
-        return Double.valueOf(descriptor.get(MIN_VALUE));
+        else return Double.valueOf(descriptor.get(MIN_VALUE));
     }
 
 
@@ -92,7 +92,7 @@ public class DataDescriptor {
      */
     public double getMaxValue() {
         if (descriptor.get(MAX_VALUE) == null) return Double.MAX_VALUE;
-        return Double.valueOf(descriptor.get(MAX_VALUE));
+        else return Double.valueOf(descriptor.get(MAX_VALUE));
     }
 
 
@@ -197,7 +197,7 @@ public class DataDescriptor {
             return this;
         }
 
-        public Builder setEnumValues(EnumType[] enumTypes) {
+        public Builder setEnumValues(MCEnum[] enumTypes) {
             this.descriptor.put(ENUM_LENGTH, String.valueOf(enumTypes.length));
             for (int i = 0; i < enumTypes.length; i++) {
                 this.descriptor.put(ENUM + "_" + String.valueOf(i), String.valueOf(enumTypes[i].getId()) + "#" + enumTypes[i].getName());

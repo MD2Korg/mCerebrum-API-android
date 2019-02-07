@@ -1,10 +1,10 @@
-package org.md2k.mcerebrum.api.core;
+package org.md2k.mcerebrum.api.core.datakitapi;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceQuery;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceRegister;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.DataSourceResult;
@@ -45,21 +45,21 @@ import java.util.ArrayList;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public final class MCerebrumAPI {
+public final class MCDataAPI {
     @SuppressLint("StaticFieldLeak")
-    private static MCerebrumAPI instance = null;
+    private static MCDataAPI instance = null;
     private Context context;
-    private static MCData mcDataAPI = null;
+    private static org.md2k.mcerebrum.api.core.datakitapi.MCData mcDataAPI = null;
 
     public static void init(@NonNull Context context) {
         Preconditions.checkNotNull(context);
         if (instance == null) {
-            instance = new MCerebrumAPI(context.getApplicationContext());
-            mcDataAPI = new MCData();
+            instance = new MCDataAPI(context.getApplicationContext());
+            mcDataAPI = new org.md2k.mcerebrum.api.core.datakitapi.MCData();
         }
     }
 
-    private MCerebrumAPI(Context context) {
+    private MCDataAPI(Context context) {
         this.context = context;
     }
 
@@ -127,7 +127,7 @@ public final class MCerebrumAPI {
         mcDataAPI.unsubscribeDataSourceAsync(subscribeDataSourceCallback);
     }
 
-    public static ArrayList<Data> queryData(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
+    public static ArrayList<MCData> queryData(DataSourceResult dataSourceResult, long startTimestamp, long endTimestamp) {
         Preconditions.checkAPIInitialized(instance);
         Preconditions.checkNotNull(dataSourceResult);
         return mcDataAPI.queryDataByTime(dataSourceResult, startTimestamp, endTimestamp);
@@ -140,7 +140,7 @@ public final class MCerebrumAPI {
         mcDataAPI.queryDataByTimeAsync(dataSourceResult, startTimestamp, endTimestamp, queryCallback);
     }
 
-    public static ArrayList<Data> queryData(DataSourceResult dataSourceResult, int lastN) {
+    public static ArrayList<MCData> queryData(DataSourceResult dataSourceResult, int lastN) {
         Preconditions.checkAPIInitialized(instance);
         Preconditions.checkNotNull(dataSourceResult);
         return mcDataAPI.queryDataByNumber(dataSourceResult, lastN);
@@ -166,12 +166,12 @@ public final class MCerebrumAPI {
         mcDataAPI.queryDataCountAsync(dataSourceResult, startTimestamp, endTimestamp, countDataCallback);
     }
 
-    public static int insertData(Registration registration, Data data) {
+    public static int insertData(Registration registration, MCData data) {
         Preconditions.checkNotNull(data);
-        return insertData(registration, new Data[]{data});
+        return insertData(registration, new MCData[]{data});
     }
 
-    public static int insertData(Registration registration, Data[] data) {
+    public static int insertData(Registration registration, MCData[] data) {
         Preconditions.checkAPIInitialized(instance);
         Preconditions.checkNotNull(registration);
         Preconditions.checkNotNull(data);

@@ -6,7 +6,7 @@ import android.support.test.filters.SmallTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -21,16 +21,16 @@ public class DataByteTest {
     private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final byte testSample = 1;
-    private Data mDataPointByte;
+    private MCData mDataPointByte;
 
     private final byte[] testSampleArray = {-126, -1, 0, 1, 127};
-    private Data mDataPointByteArray;
+    private MCData mDataPointByteArray;
 
     // Create the object.
     @Before
     public void createDataPointByte() {
-        mDataPointByte = Data.createPointByteArray(testTimestamp, testSample);
-        mDataPointByteArray = Data.createPointByteArray(testTimestamp, testSampleArray);
+        mDataPointByte = MCData.createPointByteArray(testTimestamp, testSample);
+        mDataPointByteArray = MCData.createPointByteArray(testTimestamp, testSampleArray);
     }
 
     @Test
@@ -47,7 +47,7 @@ public class DataByteTest {
 
     @Test
     public void dataPointByteCloneTest() {
-        Data dataPointClone = mDataPointByte.clone();
+        MCData dataPointClone = mDataPointByte.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointByte)));
         assertNotSame(mDataPointByte, dataPointClone);
     }
@@ -62,8 +62,8 @@ public class DataByteTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
-        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
+        MCData createdFromParcel = MCData.CREATOR.createFromParcel(parcel);
+        MCData[] createdFromParcelArray = MCData.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -80,8 +80,8 @@ public class DataByteTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
-        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
+        MCData createdFromParcel = MCData.CREATOR.createFromParcel(parcel);
+        MCData[] createdFromParcelArray = MCData.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -90,13 +90,13 @@ public class DataByteTest {
 
     @Test
     public void dataPointByteHashcodeTest() {
-        Data dataClone = mDataPointByte.clone();
+        MCData dataClone = mDataPointByte.clone();
         assertEquals(mDataPointByte.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentTimestamp = Data.createPointByteArray(testTimestamp + 10, testSample);
+        MCData dpbWithDifferentTimestamp = MCData.createPointByteArray(testTimestamp + 10, testSample);
         assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentSample = Data.createPointByteArray(testTimestamp, (byte) 101);
+        MCData dpbWithDifferentSample = MCData.createPointByteArray(testTimestamp, (byte) 101);
         assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
     }
 }

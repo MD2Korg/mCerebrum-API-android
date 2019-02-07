@@ -22,7 +22,7 @@ public class ApplicationMetaDataAndroidUnitTest {
                 .setDescription(testDescription).setVersionName(testVersionName)
                 .setVersionNumber(testVersionNumber).build();
         assertEquals(testTitle, testAppMetaData.getName());
-        assertEquals(testSummary, testAppMetaData.getSummary());
+        assertEquals(testSummary, testAppMetaData.getDescription());
         assertEquals(testDescription, testAppMetaData.getDescription());
         assertEquals(testVersionName, testAppMetaData.getVersionName());
         assertEquals(testVersionNumber, testAppMetaData.getVersionNumber());

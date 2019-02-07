@@ -27,7 +27,7 @@ package org.md2k.mcerebrum.api.core.extensionapi;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public class UserInterface {
-    public static final String TYPE = "#USER_INTERFACE#";
+    public static final String TYPE = "USER_INTERFACE";
     private String id;
     private String title;
     private String summary;
@@ -37,7 +37,7 @@ public class UserInterface {
         return new Param(TYPE, id, title, summary);
     }
 
-    public UserInterface(String id, String title, String summary, MCUserInterface mcUserInterface) {
+    protected UserInterface(String id, String title, String summary, MCUserInterface mcUserInterface) {
         this.id = id;
         this.title = title;
         this.summary = summary;

@@ -2,7 +2,7 @@ package org.md2k.mcerebrum.api.core.datakitapi.ipc.query_data_by_time;
 
 import android.os.Bundle;
 
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
 import org.md2k.mcerebrum.api.core.status.MCStatus;
@@ -36,14 +36,14 @@ import java.util.ArrayList;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public class _QueryDataByTimeOut {
-    public static _Session create(int session, ArrayList<Data> data) {
+    public static _Session create(int session, ArrayList<MCData> data) {
         Bundle b = new Bundle();
-        b.putParcelableArrayList(Data.class.getSimpleName(), data);
+        b.putParcelableArrayList(MCData.class.getSimpleName(), data);
         return new _Session(session, OperationType.QUERY_DATA_BY_TIME, MCStatus.SUCCESS, b);
     }
 
-    public static ArrayList<Data> getData(Bundle b) {
+    public static ArrayList<MCData> getData(Bundle b) {
         if (b == null) return null;
-        return b.getParcelableArrayList(Data.class.getSimpleName());
+        return b.getParcelableArrayList(MCData.class.getSimpleName());
     }
 }

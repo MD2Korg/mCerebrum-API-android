@@ -1,7 +1,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
-import org.md2k.mcerebrum.api.core.datakitapi.data.DataType;
-import org.md2k.mcerebrum.api.core.datakitapi.data.SampleType;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCDataType;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCSampleType;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.ApplicationMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
@@ -53,9 +53,9 @@ public interface DataSourceRegister {
 
     String getApplicationId();
 
-    DataType getDataType();
+    MCDataType getDataType();
 
-    SampleType getSampleType();
+    MCSampleType getSampleType();
 
     DataSourceMetaData getDataSourceMetaData();
 

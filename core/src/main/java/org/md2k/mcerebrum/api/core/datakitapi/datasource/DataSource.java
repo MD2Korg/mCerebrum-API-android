@@ -31,8 +31,8 @@ import android.os.Parcelable;
 
 import com.google.gson.Gson;
 
-import org.md2k.mcerebrum.api.core.datakitapi.data.DataType;
-import org.md2k.mcerebrum.api.core.datakitapi.data.SampleType;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCDataType;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCSampleType;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.ApplicationMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
@@ -55,8 +55,8 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
     protected String applicationId = null;
 
 
-    protected int dataType = DataType.POINT.getValue();
-    protected int sampleType = SampleType.INT_ARRAY.getValue();
+    protected int dataType = MCDataType.POINT.getValue();
+    protected int sampleType = MCSampleType.INT_ARRAY.getValue();
 
     protected HashMap<String, String> dataSourceMetaData = new HashMap<>();
     protected HashMap<String, String> platformMetaData = new HashMap<>();
@@ -140,12 +140,12 @@ public class DataSource implements Parcelable, DataSourceQuery, DataSourceRegist
         return applicationId;
     }
 
-    public DataType getDataType() {
-        return DataType.getDataType(dataType);
+    public MCDataType getDataType() {
+        return MCDataType.getDataType(dataType);
     }
 
-    public SampleType getSampleType() {
-        return SampleType.getSampleType(sampleType);
+    public MCSampleType getSampleType() {
+        return MCSampleType.getSampleType(sampleType);
     }
 
     public DataSourceMetaData getDataSourceMetaData() {

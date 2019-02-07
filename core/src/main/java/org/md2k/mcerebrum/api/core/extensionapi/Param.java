@@ -33,21 +33,21 @@ import android.support.annotation.NonNull;
 public class Param implements Parcelable {
     private String type;
     private String id;
-    private String title;
-    private String summary;
+    private String name;
+    private String description;
 
-    public Param(@NonNull String type, @NonNull String id, @NonNull String title, @NonNull String summary) {
+    public Param(@NonNull String type, @NonNull String id, @NonNull String name, @NonNull String description) {
         this.type = type;
         this.id = id;
-        this.title = title;
-        this.summary = summary;
+        this.name = name;
+        this.description = description;
     }
 
     protected Param(Parcel in) {
         type = in.readString();
         id = in.readString();
-        title = in.readString();
-        summary = in.readString();
+        name = in.readString();
+        description = in.readString();
     }
 
     public static final Creator<Param> CREATOR = new Creator<Param>() {
@@ -66,16 +66,16 @@ public class Param implements Parcelable {
         return type;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
     public String getId() {
         return id;
     }
 
-    public String getSummary() {
-        return summary;
+    public String getDescription() {
+        return description;
     }
 
     @Override
@@ -87,8 +87,8 @@ public class Param implements Parcelable {
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(type);
         parcel.writeString(id);
-        parcel.writeString(title);
-        parcel.writeString(summary);
+        parcel.writeString(name);
+        parcel.writeString(description);
     }
 
     @Override
@@ -96,8 +96,8 @@ public class Param implements Parcelable {
         if (toCompare instanceof Param) {
             return ((this.type.equals(((Param) toCompare).type)) &&
                     (this.id.equals(((Param) toCompare).id))) &&
-                    ((this.title.equals(((Param) toCompare).title)) &&
-                            (this.summary.equals(((Param) toCompare).summary)));
+                    ((this.name.equals(((Param) toCompare).name)) &&
+                            (this.description.equals(((Param) toCompare).description)));
         } else
             return false;
     }
@@ -106,9 +106,9 @@ public class Param implements Parcelable {
     public int hashCode() {
         int result = 17;
         result = 31 * result + type.hashCode();
-        result = 31 * result + title.hashCode();
+        result = 31 * result + name.hashCode();
         result = 31 * result + id.hashCode();
-        result = 31 * result + summary.hashCode();
+        result = 31 * result + description.hashCode();
         return result;
     }
 

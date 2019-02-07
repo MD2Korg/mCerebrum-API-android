@@ -1,12 +1,6 @@
-package org.md2k.mcerebrum.api.core.datakitapi.ipc.subscribe_data;
+package org.md2k.mcerebrum.api.core.datakitapi;
 
-import android.os.Bundle;
-
-import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
-import org.md2k.mcerebrum.api.core.datakitapi.ipc.OperationType;
-import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
-
-import java.util.ArrayList;
+import org.md2k.mcerebrum.api.core.status.MCStatus;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -16,7 +10,7 @@ import java.util.ArrayList;
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
- * * Redistributions of source value must retain the above copyright notice, this
+ * * Redistributions of source code must retain the above copyright notice, this
  * list of conditions and the following disclaimer.
  *
  * * Redistributions in binary form must reproduce the above copyright notice,
@@ -34,15 +28,16 @@ import java.util.ArrayList;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class _SubscribeDataOut {
-    public static _Session create(int status, ArrayList<MCData> data) {
-        Bundle b = new Bundle();
-        b.putParcelableArrayList(MCData.class.getSimpleName(), data);
-        return new _Session(0, OperationType.SUBSCRIBE_DATA, status, b);
+public class Preconditions {
+    public static <T> void checkNotNull(final T reference) {
+        if (reference == null) {
+            throw new IllegalArgumentException();
+        }
     }
 
-    public static ArrayList<MCData> getData(Bundle b) {
-        if (b == null) return null;
-        return b.getParcelableArrayList(MCData.class.getSimpleName());
+    public static <T> void checkAPIInitialized(final T reference) {
+        if (reference == null)
+            throw new IllegalArgumentException(MCStatus.getMessage(MCStatus.MCEREBRUM_API_NOT_INITIALIZED));
     }
+
 }

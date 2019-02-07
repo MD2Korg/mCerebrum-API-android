@@ -27,7 +27,7 @@ package org.md2k.mcerebrum.api.core.extensionapi;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public interface IConfigure {
-    String TYPE = "#CONFIGURE#";
+    String TYPE = "CONFIGURE";
     String ID_GET_STATE = "GET_STATE";
     String ID_SET = "SET";
 

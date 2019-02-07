@@ -3,7 +3,7 @@ package org.md2k.mcerebrum.api.core.datakitapi.ipc.query_data_summary;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
 
 /*
@@ -33,11 +33,11 @@ import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public class _QueryDataSummaryOut extends _Session {
-    private Data data;
+    private MCData data;
 
     protected _QueryDataSummaryOut(Parcel in) {
         super(in);
-        data = in.readParcelable(Data.class.getClassLoader());
+        data = in.readParcelable(MCData.class.getClassLoader());
     }
 
 /*
@@ -70,7 +70,7 @@ public class _QueryDataSummaryOut extends _Session {
         parcel.writeParcelable(data, i);
     }
 
-    public Data getData() {
+    public MCData getData() {
         return data;
     }
 }

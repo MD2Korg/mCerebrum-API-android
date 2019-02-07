@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.api.core;
+package org.md2k.mcerebrum.api.core.datakitapi;
 
 import android.content.ComponentName;
 import android.content.Context;
@@ -10,7 +10,6 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.util.Log;
 
-import org.md2k.mcerebrum.api.core.datakitapi.IDataKitRemoteService;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.IDataKitRemoteCallback;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc._Session;
 import org.md2k.mcerebrum.api.core.datakitapi.ipc.authenticate.ConnectionCallback;
@@ -88,7 +87,7 @@ abstract class Connection {
         return connected;
     }
 
-    protected void disconnectAll() {
+    private void disconnectAll() {
         connectionCallbacks.clear();
 
         disconnectFromServer();
@@ -99,9 +98,9 @@ abstract class Connection {
         connected = false;
         authenticated = MCStatus.AUTHENTICATION_REQUIRED;
         if (serverIntent != null) {
-            assert MCerebrumAPI.getContext() != null;
-            MCerebrumAPI.getContext().stopService(serverIntent);
-            MCerebrumAPI.getContext().unbindService(mServiceConnection);
+            assert MCDataAPI.getContext() != null;
+            MCDataAPI.getContext().stopService(serverIntent);
+            MCDataAPI.getContext().unbindService(mServiceConnection);
         }
     }
 
@@ -124,8 +123,8 @@ abstract class Connection {
             return;
         }
         try {
-            assert MCerebrumAPI.getContext() != null;
-            boolean res = MCerebrumAPI.getContext().bindService(serverIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
+            assert MCDataAPI.getContext() != null;
+            boolean res = MCDataAPI.getContext().bindService(serverIntent, mServiceConnection, Context.BIND_AUTO_CREATE);
             if (!res) {
                 sendConnectionError(MCStatus.MCEREBRUM_BIND_ERROR);
             }
@@ -156,8 +155,8 @@ abstract class Connection {
 
     private void authenticate() {
         try {
-            assert MCerebrumAPI.getContext() != null;
-            _Session in = _AuthenticateIn.create(createSessionId(), MCerebrumAPI.getContext().getPackageName());
+            assert MCDataAPI.getContext() != null;
+            _Session in = _AuthenticateIn.create(createSessionId(), MCDataAPI.getContext().getPackageName());
             executeAsync(in, new IDataKitRemoteCallback.Stub() {
                 @Override
                 public void onReceived(_Session _session) {
@@ -185,8 +184,8 @@ abstract class Connection {
     }
 
     private Intent findServer() {
-        assert MCerebrumAPI.getContext() != null;
-        PackageManager packageManager = MCerebrumAPI.getContext().getPackageManager();
+        assert MCDataAPI.getContext() != null;
+        PackageManager packageManager = MCDataAPI.getContext().getPackageManager();
         Intent intent = new Intent(SERVER_ID);
         List<ResolveInfo> resolveInfo = packageManager.queryIntentServices(intent, 0);
         if (resolveInfo.size() == 0) return null;
@@ -196,7 +195,7 @@ abstract class Connection {
             return intent;
         }
         for (int i = 0; i < resolveInfo.size(); i++) {
-            if (resolveInfo.get(i).serviceInfo.packageName.equals(MCerebrumAPI.getContext().getPackageName())) {
+            if (resolveInfo.get(i).serviceInfo.packageName.equals(MCDataAPI.getContext().getPackageName())) {
                 intent = new Intent();
                 intent.setComponent(new ComponentName(resolveInfo.get(i).serviceInfo.packageName, resolveInfo.get(i).serviceInfo.name));
                 return intent;

@@ -1,9 +1,9 @@
 package org.md2k.mcerebrum.api.core.datakitapi.data.point;
 
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
 
-public class DataPointObjectMocker {
+public class DataObjectMocker {
     /*
         This class creates an object with several primitive type fields to test DataPointObject.
      */
@@ -40,77 +40,77 @@ public class DataPointObjectMocker {
                                                 "~ Ada Lovelace"};
 
     // Constructors for single data points
-    public static Data createDPOByte() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_BYTE);
+    public static MCData createDPOByte() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_BYTE);
     }
 
-    public static Data createDPOShort() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_SHORT);
+    public static MCData createDPOShort() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_SHORT);
     }
 
-    public static Data createDPOInt() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_INT);
+    public static MCData createDPOInt() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_INT);
     }
 
-    public static Data createDPOLong() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_LONG);
+    public static MCData createDPOLong() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_LONG);
     }
 
-    public static Data createDPOChar() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_CHAR);
+    public static MCData createDPOChar() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_CHAR);
     }
 
-    public static Data createDPOFloat() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_FLOAT);
+    public static MCData createDPOFloat() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_FLOAT);
     }
 
-    public static Data createDPODouble() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_DOUBLE);
+    public static MCData createDPODouble() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_DOUBLE);
     }
 
-    public static Data createDPOBoolean() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_BOOLEAN);
+    public static MCData createDPOBoolean() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_BOOLEAN);
     }
 
     // Constructors for generic arrays of data
-    public static Data createDPOByteArray() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_BYTE_ARRAY);
+    public static MCData createDPOByteArray() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_BYTE_ARRAY);
     }
 
-    public static Data createDPOShortArray() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_SHORT_ARRAY);
+    public static MCData createDPOShortArray() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_SHORT_ARRAY);
     }
 
-    public static Data createDPOIntArray() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_INT_ARRAY);
+    public static MCData createDPOIntArray() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_INT_ARRAY);
     }
 
-    public static Data createDPOLongArray() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_LONG_ARRAY);
+    public static MCData createDPOLongArray() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_LONG_ARRAY);
     }
 
-    public static Data createDPOCharArray() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_CHAR_ARRAY);
+    public static MCData createDPOCharArray() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_CHAR_ARRAY);
     }
 
-    public static Data createDPOFloatArray() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_FLOAT_ARRAY);
+    public static MCData createDPOFloatArray() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_FLOAT_ARRAY);
     }
 
-    public static Data createDPODoubleArray() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_DOUBLE_ARRAY);
+    public static MCData createDPODoubleArray() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_DOUBLE_ARRAY);
     }
 
-    public static Data createDPOBooleanArray() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_BOOLEAN_ARRAY);
+    public static MCData createDPOBooleanArray() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_BOOLEAN_ARRAY);
     }
 
-    public static Data createDPOAllTypeArray() {
-        return Data.createPointObject(TEST_TIMESTAMP, TEST_ALL_TYPE_ARRAY);
+    public static MCData createDPOAllTypeArray() {
+        return MCData.createPointObject(TEST_TIMESTAMP, TEST_ALL_TYPE_ARRAY);
     }
 
     // Constructor for String array
-    public static Data createDPOStringArray() {
-        return Data.createPointStringArray(TEST_TIMESTAMP, TEST_STRING_ARRAY);
+    public static MCData createDPOStringArray() {
+        return MCData.createPointStringArray(TEST_TIMESTAMP, TEST_STRING_ARRAY);
     }
 }

@@ -27,7 +27,7 @@ public class PlatformMetaDataAndroidUnitTest {
                 .setManufacturer(testManufacturer).setModel(testModel).setVersionFirmware(testVersionFirmware)
                 .setVersionHardware(testVersionHardware).setDeviceId(testDeviceId).build();
         assertEquals(testTitle, testPlatformMetaData.getName());
-        assertEquals(testSummary, testPlatformMetaData.getSummary());
+        assertEquals(testSummary, testPlatformMetaData.getDescription());
         assertEquals(testDescription, testPlatformMetaData.getDescription());
         assertEquals(testOperationSystem, testPlatformMetaData.getOperationSystem());
         assertEquals(testManufacturer, testPlatformMetaData.getManufacturer());

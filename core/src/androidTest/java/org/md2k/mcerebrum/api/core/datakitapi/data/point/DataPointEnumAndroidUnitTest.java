@@ -6,17 +6,17 @@ import android.support.test.filters.SmallTest;
 public class DataPointEnumAndroidUnitTest {
 /*    private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
-    private final byte testSample = 1;
-    private DataPointEnum mDataPointEnum;
+    private final MCEnum testSample = MCEnumMocker.B;
+    private MCData mDataPointEnum;
 
-    private final byte[] testSampleArray = {-126, -1, 0, 1, 127};
-    private DataPointEnum mDataPointEnumArray;
+    private final MCEnum[] testSampleArray = {MCEnumMocker.A, MCEnumMocker.B, MCEnumMocker.C};
+    private MCData mDataPointEnumArray;
 
     // Create the object.
     @Before
     public void createDataPointEnum() {
-        mDataPointEnum = new DataPointEnum(testTimestamp, testSample);
-        mDataPointEnumArray = new DataPointEnum(testTimestamp, testSampleArray);
+        mDataPointEnum = MCData.createPointEnumArray(testTimestamp, MCEnumMocker.A);
+        mDataPointEnumArray = MCData.createPointEnumArray(testTimestamp, testSampleArray);
     }
 
     @Test
@@ -29,7 +29,7 @@ public class DataPointEnumAndroidUnitTest {
 
     @Test
     public void dataPointEnumCloneTest() {
-        DataPointEnum dataPointClone = mDataPointEnum.clone();
+        MCData dataPointClone = mDataPointEnum.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointEnum)));
         assertNotSame(mDataPointEnum, dataPointClone);
     }
@@ -44,8 +44,8 @@ public class DataPointEnumAndroidUnitTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        DataPointEnum createdFromParcel = DataPointEnum.CREATOR.createFromParcel(parcel);
-        DataPointEnum[] createdFromParcelArray = DataPointEnum.CREATOR.newArray(1);
+        MCData createdFromParcel = MCData.CREATOR.createFromParcel(parcel);
+        MCData[] createdFromParcelArray = MCData.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -62,8 +62,8 @@ public class DataPointEnumAndroidUnitTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        DataPointEnum createdFromParcel = DataPointEnum.CREATOR.createFromParcel(parcel);
-        DataPointEnum[] createdFromParcelArray = DataPointEnum.CREATOR.newArray(1);
+        MCData createdFromParcel = MCData.CREATOR.createFromParcel(parcel);
+        MCData[] createdFromParcelArray = MCData.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -72,13 +72,13 @@ public class DataPointEnumAndroidUnitTest {
 
     @Test
     public void dataPointEnumHashcodeTest() {
-        DataPointEnum dataClone = mDataPointEnum.clone();
+        MCData dataClone = mDataPointEnum.clone();
         assertEquals(mDataPointEnum.hashCode(), dataClone.hashCode());
 
-        DataPointEnum dpbWithDifferentTimestamp = new DataPointEnum(testTimestamp + 10, testSample);
+        MCData dpbWithDifferentTimestamp = new DataPointEnum(testTimestamp + 10, testSample);
         assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
 
-        DataPointEnum dpbWithDifferentSample = new DataPointEnum(testTimestamp, (byte)1010);
+        MCData dpbWithDifferentSample = new DataPointEnum(testTimestamp, (byte)1010);
         assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
     }*/
 }

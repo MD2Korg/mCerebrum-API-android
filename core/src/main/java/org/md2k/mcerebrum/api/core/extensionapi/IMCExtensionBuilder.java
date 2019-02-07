@@ -1,6 +1,6 @@
-package org.md2k.mcerebrum.api.core.extensionapi.library;
+package org.md2k.mcerebrum.api.core.extensionapi;
 
-import org.md2k.mcerebrum.api.core.MCExtension;
+import android.graphics.Bitmap;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -28,6 +28,39 @@ import org.md2k.mcerebrum.api.core.MCExtension;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public abstract class MCExtensionLibrary {
-    abstract MCExtension createExtension();
+interface IMCExtensionBuilder {
+    interface IPackageName {
+        IName setPackageName(String packageName);
+    }
+
+    interface IName {
+        IVersion setName(String name);
+    }
+
+
+    interface IVersion {
+        IIcon setVersion(String version);
+    }
+
+    interface IIcon {
+        IDescription setIcon(Bitmap icon);
+    }
+
+    interface IDescription {
+        IOperation setDescription(String description);
+    }
+
+    interface IOperation {
+        IOperation setConfigurationInterface(IConfigure iConfigure);
+
+        IOperation setPermissionInterface(IPermission iPermission);
+
+        IOperation setBackgroundExecutionInterface(IBackgroundProcess iBackgroundProcess);
+
+        IOperation addUserInterface(String id, String name, String description, MCUserInterface mcUserInterface);
+
+        IOperation addAction(String id, String name, String description, MCAction mcAction);
+
+        MCExtensionAPI build();
+    }
 }

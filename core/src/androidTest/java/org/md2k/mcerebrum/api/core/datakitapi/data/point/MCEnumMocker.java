@@ -1,4 +1,6 @@
-package org.md2k.mcerebrum.api.core.datakitapi.data;
+package org.md2k.mcerebrum.api.core.datakitapi.data.point;
+
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCEnum;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -26,8 +28,24 @@ package org.md2k.mcerebrum.api.core.datakitapi.data;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public interface EnumType {
-    int getId();
+public enum MCEnumMocker implements MCEnum {
+    A(10),
+    B(20),
+    C(30);
 
-    String getName();
+    private int id;
+
+    MCEnumMocker(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public int getId() {
+        return id;
+    }
+
+    @Override
+    public String getName() {
+        return name();
+    }
 }

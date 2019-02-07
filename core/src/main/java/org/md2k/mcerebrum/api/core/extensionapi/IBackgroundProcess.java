@@ -27,7 +27,7 @@ package org.md2k.mcerebrum.api.core.extensionapi;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public interface IBackgroundProcess {
-    String TYPE = "#BACKGROUND_PROCESS#";
+    String TYPE = "BACKGROUND_PROCESS";
     String ID_START = "START";
     String ID_STOP = "STOP";
     String ID_IS_RUNNING = "IS_RUNNING";

@@ -26,62 +26,8 @@ package org.md2k.mcerebrum.api.core.datakitapi.data;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public enum SampleType {
-    /**
-     * This class enumerates the sample types of <code>Data</code> objects that can exist
-     * and provides <code> enumeration value</code>s for them.
-     * The possible types are:
-     * <ul>
-     * <li>BOOLEAN_ARRAY</li>
-     * <li>BYTE_ARRAY</li>
-     * <li>INT_ARRAY</li>
-     * <li>LONG_ARRAY</li>
-     * <li>DOUBLE_ARRAY</li>
-     * <li>STRING_ARRAY</li>
-     * <li>ENUM</li>
-     * <li>OBJECT</li>
-     * </ul>
-     */
-    BOOLEAN_ARRAY(100),
-    BYTE_ARRAY(101),
-    INT_ARRAY(102),
-    LONG_ARRAY(103),
-    DOUBLE_ARRAY(104),
-    STRING_ARRAY(105),
-    ENUM(106),
-    OBJECT(107);
-    private int value;
+public interface MCEnum {
+    int getId();
 
-    /**
-     * Constructor
-     *
-     * @param value value for the <code>SampleType</code>. This should be the
-     *              <code>unique code</code> for the specific type of the sample
-     *              as enumerated above.
-     */
-    SampleType(int value) {
-        this.value = value;
-    }
-
-    /**
-     * Returns the <code>value</code>.
-     *
-     * @return The <code>value</code>.
-     */
-    public int getValue() {
-        return value;
-    }
-
-    /**
-     * Returns the <code>SampleType</code> given value.
-     *
-     * @param value value to find <code>SampleType</code>
-     * @return The <code>SampleType</code>.
-     */
-    public static SampleType getSampleType(int value) {
-        for (SampleType a : SampleType.values()) {
-            if (a.getValue() == value) return a;
-        }
-        return BYTE_ARRAY;
-    }
+    String getName();
 }

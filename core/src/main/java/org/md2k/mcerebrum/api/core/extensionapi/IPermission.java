@@ -27,7 +27,7 @@ package org.md2k.mcerebrum.api.core.extensionapi;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public interface IPermission {
-    String TYPE = "#PERMISSION#";
+    String TYPE = "PERMISSION";
     String ID_HAS_PERMISSION = "HAS_PERMISSION";
     String ID_REQUEST_PERMISSION = "REQUEST_PERMISSION";
 

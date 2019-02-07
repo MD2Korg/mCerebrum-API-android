@@ -1,7 +1,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
-import org.md2k.mcerebrum.api.core.datakitapi.data.DataType;
-import org.md2k.mcerebrum.api.core.datakitapi.data.SampleType;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCDataType;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCSampleType;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.ApplicationMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
@@ -35,11 +35,11 @@ import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.PlatformMetaDa
  */
 interface IDataSourceBuilder {
     interface IDataType {
-        ISample setDataType(DataType dataType);
+        ISample setDataType(MCDataType dataType);
     }
 
     interface ISample {
-        IDataDescriptor1 setSampleType(SampleType sampleType);
+        IDataDescriptor1 setSampleType(MCSampleType sampleType);
     }
 
     interface IDataDescriptor1 {

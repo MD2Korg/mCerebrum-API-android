@@ -6,7 +6,7 @@ import android.support.test.filters.SmallTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -22,16 +22,16 @@ public class DataBooleanTest {
     private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final boolean testSample = true;
-    private Data mDataPointBoolean;
+    private MCData mDataPointBoolean;
 
     private final boolean[] testSampleArray = {true, false, true};
-    private Data mDataPointBooleanArray;
+    private MCData mDataPointBooleanArray;
 
     // Create the object.
     @Before
     public void createDataPointBoolean() {
-        mDataPointBoolean = Data.createPointBooleanArray(testTimestamp, testSample);
-        mDataPointBooleanArray = Data.createPointBooleanArray(testTimestamp, testSampleArray);
+        mDataPointBoolean = MCData.createPointBooleanArray(testTimestamp, testSample);
+        mDataPointBooleanArray = MCData.createPointBooleanArray(testTimestamp, testSampleArray);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class DataBooleanTest {
 
     @Test
     public void dataPointBooleanCloneTest() {
-        Data dataPointClone = mDataPointBoolean.clone();
+        MCData dataPointClone = mDataPointBoolean.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointBoolean)));
         assertNotSame(mDataPointBoolean, dataPointClone);
     }
@@ -62,8 +62,8 @@ public class DataBooleanTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
-        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
+        MCData createdFromParcel = MCData.CREATOR.createFromParcel(parcel);
+        MCData[] createdFromParcelArray = MCData.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -78,8 +78,8 @@ public class DataBooleanTest {
         // After writing, reset the parcel for reading
         parcel.setDataPosition(0);
         // Read the data.
-        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
-        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
+        MCData createdFromParcel = MCData.CREATOR.createFromParcel(parcel);
+        MCData[] createdFromParcelArray = MCData.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -87,8 +87,8 @@ public class DataBooleanTest {
     }
     @Test
     public void equalsNullObjectTest() {
-        Data nullBoolean = null;
-        Data nullBoolean1 = null;
+        MCData nullBoolean = null;
+        MCData nullBoolean1 = null;
 
         assertThat(nullBoolean, is(equalTo(nullBoolean1)));
         assertThat(nullBoolean, is(not(equalTo(mDataPointBoolean))));
@@ -96,13 +96,13 @@ public class DataBooleanTest {
 
     @Test
     public void dataPointBooleanHashcodeTest() {
-        Data dataClone = mDataPointBoolean.clone();
+        MCData dataClone = mDataPointBoolean.clone();
         assertEquals(mDataPointBoolean.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentTimestamp = Data.createPointBooleanArray(testTimestamp + 10, testSample);
+        MCData dpbWithDifferentTimestamp = MCData.createPointBooleanArray(testTimestamp + 10, testSample);
         assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentSample = Data.createPointBooleanArray(testTimestamp, false);
+        MCData dpbWithDifferentSample = MCData.createPointBooleanArray(testTimestamp, false);
         assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
     }
 }

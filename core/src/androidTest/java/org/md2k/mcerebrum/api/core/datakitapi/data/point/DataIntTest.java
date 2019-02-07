@@ -6,7 +6,7 @@ import android.support.test.filters.SmallTest;
 import org.junit.Before;
 import org.junit.Test;
 import org.md2k.mcerebrum.api.core.datakitapi.TestingConstants;
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
 
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsEqual.equalTo;
@@ -21,16 +21,16 @@ public class DataIntTest {
     private final long testTimestamp = TestingConstants.TEST_TIMESTAMP;
 
     private final int testSample = 1;
-    private Data mDataPointInt;
+    private MCData mDataPointInt;
 
     private final int[] testSampleArray = {-3874901, -1, 0, 1, 784309147};
-    private Data mDataPointIntArray;
+    private MCData mDataPointIntArray;
 
     // Create the object.
     @Before
     public void createDataPointInt() {
-        mDataPointInt = Data.createPointIntArray(testTimestamp, testSample);
-        mDataPointIntArray = Data.createPointIntArray(testTimestamp, testSampleArray);
+        mDataPointInt = MCData.createPointIntArray(testTimestamp, testSample);
+        mDataPointIntArray = MCData.createPointIntArray(testTimestamp, testSampleArray);
     }
 
     @Test
@@ -45,7 +45,7 @@ public class DataIntTest {
 
     @Test
     public void dataPointIntCloneTest() {
-        Data dataPointClone = mDataPointInt.clone();
+        MCData dataPointClone = mDataPointInt.clone();
         assertThat(dataPointClone, is(equalTo(mDataPointInt)));
         assertNotSame(mDataPointInt, dataPointClone);
     }
@@ -60,8 +60,8 @@ public class DataIntTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
-        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
+        MCData createdFromParcel = MCData.CREATOR.createFromParcel(parcel);
+        MCData[] createdFromParcelArray = MCData.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -78,8 +78,8 @@ public class DataIntTest {
         parcel.setDataPosition(0);
 
         // Read the data.
-        Data createdFromParcel = Data.CREATOR.createFromParcel(parcel);
-        Data[] createdFromParcelArray = Data.CREATOR.newArray(1);
+        MCData createdFromParcel = MCData.CREATOR.createFromParcel(parcel);
+        MCData[] createdFromParcelArray = MCData.CREATOR.newArray(1);
 
         // Verify results.
         assertNotEquals(0, createdFromParcelArray.length);
@@ -88,13 +88,13 @@ public class DataIntTest {
 
     @Test
     public void dataPointIntHashcodeTest() {
-        Data dataClone = mDataPointInt.clone();
+        MCData dataClone = mDataPointInt.clone();
         assertEquals(mDataPointInt.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentTimestamp = Data.createPointIntArray(testTimestamp + 10, testSample);
+        MCData dpbWithDifferentTimestamp = MCData.createPointIntArray(testTimestamp + 10, testSample);
         assertNotEquals(dpbWithDifferentTimestamp.hashCode(), dataClone.hashCode());
 
-        Data dpbWithDifferentSample = Data.createPointIntArray(testTimestamp, 42);
+        MCData dpbWithDifferentSample = MCData.createPointIntArray(testTimestamp, 42);
         assertNotEquals(dpbWithDifferentSample.hashCode(), dataClone.hashCode());
     }
 }

@@ -1,7 +1,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi.ipc.data;
 
 import org.md2k.mcerebrum.api.core.datakitapi.callback.Callback;
-import org.md2k.mcerebrum.api.core.datakitapi.data.Data;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCData;
 
 import java.util.ArrayList;
 
@@ -32,5 +32,5 @@ import java.util.ArrayList;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public interface QueryDataCallback extends Callback {
-    void onReceive(ArrayList<Data> data, int status);
+    void onReceive(ArrayList<MCData> data, int status);
 }

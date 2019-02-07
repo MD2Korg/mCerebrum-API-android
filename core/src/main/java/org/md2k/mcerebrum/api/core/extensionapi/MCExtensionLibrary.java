@@ -1,6 +1,6 @@
-package org.md2k.mcerebrum.api.core;
+package org.md2k.mcerebrum.api.core.extensionapi;
 
-import org.md2k.mcerebrum.api.core.status.MCStatus;
+import android.content.Context;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -28,16 +28,6 @@ import org.md2k.mcerebrum.api.core.status.MCStatus;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class Preconditions {
-    public static <T> void checkNotNull(final T reference) {
-        if (reference == null) {
-            throw new IllegalArgumentException();
-        }
-    }
-
-    public static <T> void checkAPIInitialized(final T reference) {
-        if (reference == null)
-            throw new IllegalArgumentException(MCStatus.getMessage(MCStatus.MCEREBRUM_API_NOT_INITIALIZED));
-    }
-
+public abstract class MCExtensionLibrary {
+    public abstract MCExtensionAPI createExtensionAPI(Context context);
 }

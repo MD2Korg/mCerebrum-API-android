@@ -1,20 +1,15 @@
-package org.md2k.mcerebrum.api.core.extensionapi.app;
+package org.md2k.mcerebrum.api.core.extensionapi;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.IBinder;
 import android.os.RemoteException;
-
-import org.md2k.mcerebrum.api.core.MCExtension;
-import org.md2k.mcerebrum.api.core.extensionapi.Action;
-import org.md2k.mcerebrum.api.core.extensionapi.ConfigState;
-import org.md2k.mcerebrum.api.core.extensionapi.IBackgroundProcess;
-import org.md2k.mcerebrum.api.core.extensionapi.ICallback;
-import org.md2k.mcerebrum.api.core.extensionapi.IConfigure;
-import org.md2k.mcerebrum.api.core.extensionapi.IExtensionRemoteService;
-import org.md2k.mcerebrum.api.core.extensionapi.IPermission;
-import org.md2k.mcerebrum.api.core.extensionapi.Param;
-import org.md2k.mcerebrum.api.core.extensionapi.UserInterface;
 
 import java.util.ArrayList;
 
@@ -45,7 +40,14 @@ import java.util.ArrayList;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public abstract class MCExtensionService extends Service {
-    protected abstract MCExtension getMCExtension();
+    private MCExtensionAPI mcExtensionAPI;
+
+    protected abstract MCExtensionAPI createMCExtensionAPI(Context context);
+
+    public MCExtensionService() {
+        mcExtensionAPI = createMCExtensionAPI(this);
+        mcExtensionAPI.setPackageName(this.getPackageName());
+    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -59,8 +61,8 @@ public abstract class MCExtensionService extends Service {
 
     private final IExtensionRemoteService.Stub mBinder = new IExtensionRemoteService.Stub() {
         @Override
-        public MCExtension getExtensionInfo() {
-            return getMCExtension();
+        public MCExtensionAPI getExtensionInfo() {
+            return mcExtensionAPI;
         }
 
         @Override
@@ -89,15 +91,15 @@ public abstract class MCExtensionService extends Service {
     private void runBackgroundProcess(String id, ICallback iCallback) throws RemoteException {
         switch (id) {
             case IBackgroundProcess.ID_START:
-                getMCExtension().getiBackgroundProcess().start();
+                mcExtensionAPI.getiBackgroundProcess().start();
                 iCallback.onSuccess(null);
                 break;
             case IBackgroundProcess.ID_STOP:
-                getMCExtension().getiBackgroundProcess().stop();
+                mcExtensionAPI.getiBackgroundProcess().stop();
                 iCallback.onSuccess(null);
                 break;
             case IBackgroundProcess.ID_IS_RUNNING:
-                boolean result = getMCExtension().getiBackgroundProcess().isRunning();
+                boolean result = mcExtensionAPI.getiBackgroundProcess().isRunning();
                 iCallback.onSuccess(String.valueOf(result));
                 break;
             default:
@@ -107,11 +109,11 @@ public abstract class MCExtensionService extends Service {
     private void runPermission(String id, ICallback iCallback) throws RemoteException {
         switch (id) {
             case IPermission.ID_REQUEST_PERMISSION:
-                getMCExtension().getiUserPermission().requestPermission();
+                mcExtensionAPI.getiUserPermission().requestPermission();
                 iCallback.onSuccess(null);
                 break;
             case IPermission.ID_HAS_PERMISSION:
-                boolean result = getMCExtension().getiUserPermission().hasPermission();
+                boolean result = mcExtensionAPI.getiUserPermission().hasPermission();
                 iCallback.onSuccess(String.valueOf(result));
                 break;
             default:
@@ -119,7 +121,7 @@ public abstract class MCExtensionService extends Service {
     }
 
     private void runUserInterface(String id, String param, ICallback iCallback) throws RemoteException {
-        ArrayList<UserInterface> list = getMCExtension().getUserInterfaces();
+        ArrayList<UserInterface> list = mcExtensionAPI.getUserInterfaces();
         for (int i = 0; i < list.size(); i++) {
             Param uiParam = list.get(i).getParam();
             if (uiParam.getId().equals(id)) {
@@ -132,7 +134,7 @@ public abstract class MCExtensionService extends Service {
     }
 
     private void runAction(String id, String param, ICallback iCallback) throws RemoteException {
-        ArrayList<Action> list = getMCExtension().getActions();
+        ArrayList<Action> list = mcExtensionAPI.getActions();
         for (int i = 0; i < list.size(); i++) {
             Param uiParam = list.get(i).getParam();
             if (uiParam.getId().equals(id)) {
@@ -146,15 +148,41 @@ public abstract class MCExtensionService extends Service {
     private void runConfigure(String id, String param, ICallback iCallback) throws RemoteException {
         switch (id) {
             case IConfigure.ID_SET:
-                getMCExtension().getiConfigure().setConfiguration(param);
+                mcExtensionAPI.getiConfigure().setConfiguration(param);
                 iCallback.onSuccess(null);
                 break;
             case IConfigure.ID_GET_STATE:
-                ConfigState c = getMCExtension().getiConfigure().getConfigurationState();
+                ConfigState c = mcExtensionAPI.getiConfigure().getConfigurationState();
                 iCallback.onSuccess(String.valueOf(c.getValue()));
                 break;
             default:
         }
+    }
+
+    private Bitmap getIcon(Context context) {
+        try {
+            BitmapDrawable d = (BitmapDrawable) context.getPackageManager().getApplicationIcon(context.getPackageName());
+            return d.getBitmap();
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private String getApplicationName(Context context) {
+        ApplicationInfo applicationInfo = context.getApplicationInfo();
+        int stringId = applicationInfo.labelRes;
+        return stringId == 0 ? applicationInfo.nonLocalizedLabel.toString() : context.getString(stringId);
+    }
+
+    private String getVersionName(Context context) {
+        String version = "";
+        try {
+            PackageInfo pInfo = context.getPackageManager().getPackageInfo(getPackageName(), 0);
+            version = pInfo.versionName;
+        } catch (PackageManager.NameNotFoundException ignored) {
+        }
+        return version;
     }
 
 }

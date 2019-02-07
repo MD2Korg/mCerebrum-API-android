@@ -1,7 +1,7 @@
 package org.md2k.mcerebrum.api.core.datakitapi.datasource;
 
-import org.md2k.mcerebrum.api.core.datakitapi.data.DataType;
-import org.md2k.mcerebrum.api.core.datakitapi.data.SampleType;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCDataType;
+import org.md2k.mcerebrum.api.core.datakitapi.data.MCSampleType;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.ApplicationMetaData;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataDescriptor;
 import org.md2k.mcerebrum.api.core.datakitapi.datasource.metadata.DataSourceMetaData;
@@ -43,13 +43,13 @@ public class DataSourceRegisterBuilder
     }
 
     @Override
-    public IDataSourceBuilder.ISample setDataType(DataType dataType) {
+    public IDataSourceBuilder.ISample setDataType(MCDataType dataType) {
         dataSource.dataType = dataType.getValue();
         return this;
     }
 
     @Override
-    public IDataSourceBuilder.IDataDescriptor1 setSampleType(SampleType sampleType) {
+    public IDataSourceBuilder.IDataDescriptor1 setSampleType(MCSampleType sampleType) {
         dataSource.sampleType = sampleType.getValue();
         return this;
     }

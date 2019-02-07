@@ -27,7 +27,7 @@ package org.md2k.mcerebrum.api.core.extensionapi;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public class Action {
-    public static final String TYPE = "#ACTION#";
+    public static final String TYPE = "ACTION";
     private String id;
     private String title;
     private String summary;
