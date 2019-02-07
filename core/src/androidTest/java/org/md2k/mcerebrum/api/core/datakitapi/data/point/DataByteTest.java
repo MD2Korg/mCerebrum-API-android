@@ -35,9 +35,8 @@ public class DataByteTest {
 
     @Test
     public void fieldAccuracyTest() {
-        byte[] r1, r2;
-        r1 = mDataPointByte.getSample();
-        r2 = mDataPointByteArray.getSample();
+        byte[] r1 = mDataPointByte.getSample();
+        byte[] r2 = mDataPointByteArray.getSample();
 
         assertEquals(testTimestamp, mDataPointByte.getTimestamp());
         assertEquals(testSample, r1[0]);

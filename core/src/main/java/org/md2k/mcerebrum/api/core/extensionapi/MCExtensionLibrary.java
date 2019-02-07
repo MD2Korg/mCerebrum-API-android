@@ -29,5 +29,5 @@ import android.content.Context;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public abstract class MCExtensionLibrary {
-    public abstract MCExtensionAPI createExtensionAPI(Context context);
+    abstract MCExtensionAPI createExtensionAPI(Context context);
 }

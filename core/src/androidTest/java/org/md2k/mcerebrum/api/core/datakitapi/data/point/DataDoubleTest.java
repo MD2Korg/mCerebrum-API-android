@@ -36,9 +36,8 @@ public class DataDoubleTest {
     @Test
     public void fieldAccuracyTest() {
         assertEquals(testTimestamp, mDataPointDouble.getTimestamp());
-        double[] r1, r2;
-        r1 = mDataPointDouble.getSample();
-        r2 = mDataPointDoubleArray.getSample();
+        double[] r1 = mDataPointDouble.getSample();
+        double[] r2 = mDataPointDoubleArray.getSample();
         assertEquals(testSample, r1[0], DELTA);
         assertEquals(testTimestamp, mDataPointDoubleArray.getTimestamp());
         assertArrayEquals(testSampleArray, r2, DELTA);

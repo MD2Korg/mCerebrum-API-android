@@ -37,9 +37,8 @@ public class DataLongTest {
     @Test
     public void fieldAccuracyTest() {
         assertEquals(testTimestamp, mDataPointLong.getTimestamp());
-        long[] r1, r2;
-        r1 = mDataPointLong.getSample();
-        r2 = mDataPointLongArray.getSample();
+        long[] r1 = mDataPointLong.getSample();
+        long[] r2 = mDataPointLongArray.getSample();
         assertEquals(testSample, r1[0], DELTA);
         assertEquals(testTimestamp, mDataPointLongArray.getTimestamp());
         assertArrayEquals(testSampleArray, r2);

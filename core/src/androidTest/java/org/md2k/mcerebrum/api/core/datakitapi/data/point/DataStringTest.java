@@ -39,10 +39,9 @@ public class DataStringTest {
 
     @Test
     public void fieldAccuracyTest() {
-        String[] r1, r2, r3;
-        r1 = mDataPointString.getSample();
-        r2 = mDataPointEmptyString.getSample();
-        r3 = mDataPointStringArray.getSample();
+        String[] r1 = mDataPointString.getSample();
+        String[] r2 = mDataPointEmptyString.getSample();
+        String[] r3 = mDataPointStringArray.getSample();
         assertEquals(testTimestamp, mDataPointString.getTimestamp());
         assertEquals(testSample, r1[0]);
 

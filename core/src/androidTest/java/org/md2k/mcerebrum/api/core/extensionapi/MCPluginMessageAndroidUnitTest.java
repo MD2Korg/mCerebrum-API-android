@@ -1,4 +1,4 @@
-package org.md2k.mcerebrum.api.core.pluginapi;
+package org.md2k.mcerebrum.api.core.extensionapi;
 
 public class MCPluginMessageAndroidUnitTest {
 /*
