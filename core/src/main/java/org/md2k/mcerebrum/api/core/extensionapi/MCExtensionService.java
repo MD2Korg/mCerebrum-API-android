@@ -69,7 +69,7 @@ public abstract class MCExtensionService extends Service {
         public void execute(String type, String id, String param, ICallback callback) throws RemoteException {
             switch (type) {
                 case IBackgroundProcess.TYPE:
-                    runBackgroundProcess(id, callback);
+                    runBackgroundProcess(id, param, callback);
                     break;
                 case IPermission.TYPE:
                     runPermission(id, callback);
@@ -88,10 +88,10 @@ public abstract class MCExtensionService extends Service {
         }
     };
 
-    private void runBackgroundProcess(String id, ICallback iCallback) throws RemoteException {
+    private void runBackgroundProcess(String id, String param, ICallback iCallback) throws RemoteException {
         switch (id) {
             case IBackgroundProcess.ID_START:
-                mcExtensionAPI.getiBackgroundProcess().start();
+                mcExtensionAPI.getiBackgroundProcess().start(param);
                 iCallback.onSuccess(null);
                 break;
             case IBackgroundProcess.ID_STOP:

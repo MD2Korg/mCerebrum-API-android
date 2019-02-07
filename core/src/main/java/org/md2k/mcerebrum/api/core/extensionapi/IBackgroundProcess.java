@@ -32,7 +32,7 @@ public interface IBackgroundProcess {
     String ID_STOP = "STOP";
     String ID_IS_RUNNING = "IS_RUNNING";
 
-    void start();
+    void start(String param);
 
     void stop();
 
