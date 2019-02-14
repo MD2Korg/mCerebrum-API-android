@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="org.md2k.mcerebrum.sample">
+    package="org.md2k.mcerebrumapi.core.sample">
 
     <application
-        android:name="org.md2k.mcerebrum.sample.MyApplication"
+        android:name="org.md2k.mcerebrumapi.core.sample.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service
-            android:name="org.md2k.mcerebrum.sample.MyService"
-            android:enabled="true"
-            android:exported="true"></service>
-
-        <activity android:name="org.md2k.mcerebrum.sample.MainActivity">
+        <activity android:name="org.md2k.mcerebrumapi.core.sample.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="org.md2k.mcerebrum.sample.Main2Activity" />
+        <activity android:name="org.md2k.mcerebrumapi.core.sample.Main2Activity" />
     </application>
 
 </manifest>
