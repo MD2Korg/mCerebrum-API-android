@@ -2,7 +2,26 @@ package org.md2k.mcerebrumapi.core.sample;
 
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.util.Log;
+import android.view.View;
 import android.widget.Button;
+
+import org.md2k.mcerebrumapi.core.data.MCData;
+import org.md2k.mcerebrumapi.core.data.MCDataType;
+import org.md2k.mcerebrumapi.core.data.MCSampleType;
+import org.md2k.mcerebrumapi.core.datakitapi.MCDataKitAPI;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSource;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSourceQuery;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSourceRegister;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSourceResult;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.constants.MCDataSourceType;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCDataDescriptor;
+import org.md2k.mcerebrumapi.core.datakitapi.ipc.authenticate.MCConnectionCallback;
+import org.md2k.mcerebrumapi.core.datakitapi.ipc.insert_datasource.MCRegistration;
+import org.md2k.mcerebrumapi.core.status.MCStatus;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -12,18 +31,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button b = findViewById(R.id.button);
 
-/*
         b.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                MCerebrumAPI.connect(new ConnectionCallback() {
+                MCDataKitAPI.connect(new MCConnectionCallback() {
                     @Override
                     public void onSuccess() {
                         Log.d("abc", "Connected");
                         int[] values=new int[]{5,4,2};
-                        Data point = Data.createPointByteArray(System.currentTimeMillis(), values);
-                        MCerebrumAPI.insertData(rid, point);
-
+                        MCData point = MCData.createPointIntArray(System.currentTimeMillis(), values);
+                        MCDataSourceRegister mcDataSourceRegister = MCDataSource.registerBuilder()
+                                .setDataType(MCDataType.POINT)
+                                .setSampleTypeAsIntArray(3)
+                                .addDataDescriptor(0,MCDataDescriptor.builder().build())
+                                .setDataSourceType(MCDataSourceType.ACCELEROMETER)
+                                .build();
+                        MCRegistration r = MCDataKitAPI.registerDataSource(mcDataSourceRegister);
+                        MCDataKitAPI.insertData(r, point);
+                        MCDataSourceQuery q = MCDataSource.queryBuilder().build();
+                        ArrayList<MCDataSourceResult> rr = MCDataKitAPI.queryDataSource(q);
                     }
 
                     @Override
@@ -33,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         });
-*/
     }
 /*
     public void connect(){

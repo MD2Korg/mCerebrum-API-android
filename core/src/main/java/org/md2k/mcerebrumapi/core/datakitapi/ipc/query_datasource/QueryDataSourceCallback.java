@@ -1,7 +1,7 @@
 package org.md2k.mcerebrumapi.core.datakitapi.ipc.query_datasource;
 
 import org.md2k.mcerebrumapi.core.datakitapi.callback.Callback;
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.DataSourceResult;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSourceResult;
 
 import java.util.ArrayList;
 
@@ -32,6 +32,6 @@ import java.util.ArrayList;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public interface QueryDataSourceCallback extends Callback {
-    void onReceive(ArrayList<DataSourceResult> dataSourceResults, int status);
+    void onReceive(ArrayList<MCDataSourceResult> dataSourceResults, int status);
 
 }

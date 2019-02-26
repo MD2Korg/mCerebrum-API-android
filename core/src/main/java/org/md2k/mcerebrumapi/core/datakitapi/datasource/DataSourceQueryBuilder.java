@@ -26,12 +26,12 @@ package org.md2k.mcerebrumapi.core.datakitapi.datasource;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class DataSourceQueryBuilder
+class DataSourceQueryBuilder
         implements IDataSourceBuilder.IQuery {
-    private DataSource dataSource;
+    private MCDataSource dataSource;
 
     DataSourceQueryBuilder() {
-        dataSource = new DataSource();
+        dataSource = new MCDataSource();
     }
 
     @Override
@@ -84,16 +84,16 @@ public class DataSourceQueryBuilder
 
     @Override
     public IDataSourceBuilder.IQuery fromUUID(String uuid) {
-        this.dataSource = new DataSource(uuid);
+        this.dataSource = new MCDataSource(uuid);
         return this;
     }
 
     @Override
-    public DataSourceQuery build() {
+    public MCDataSourceQuery build() {
         return dataSource;
     }
 
-    public DataSource getDataSource() {
+    public MCDataSource getDataSource() {
         return dataSource;
     }
 }

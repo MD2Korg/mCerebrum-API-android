@@ -1,11 +1,14 @@
 package org.md2k.mcerebrumapi.core.datakitapi.datasource;
 
 import org.md2k.mcerebrumapi.core.data.MCDataType;
+import org.md2k.mcerebrumapi.core.data.MCEnum;
 import org.md2k.mcerebrumapi.core.data.MCSampleType;
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.ApplicationMetaData;
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.DataDescriptor;
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.DataSourceMetaData;
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.PlatformMetaData;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCApplicationMetaData;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCDataDescriptor;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCDataSourceMetaData;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCPlatformMetaData;
+
+import java.util.ArrayList;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -33,13 +36,13 @@ import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.PlatformMetaDat
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public class DataSourceRegisterBuilder
+class DataSourceRegisterBuilder
         implements IDataSourceBuilder.IDataType,
         IDataSourceBuilder.ISample, IDataSourceBuilder.IDataDescriptor1, IDataSourceBuilder.IDataDescriptor2, IDataSourceBuilder.IRegister {
-    private DataSource dataSource;
+    private MCDataSource dataSource;
 
     DataSourceRegisterBuilder() {
-        dataSource = new DataSource();
+        dataSource = new MCDataSource();
     }
 
     @Override
@@ -49,17 +52,73 @@ public class DataSourceRegisterBuilder
     }
 
     @Override
-    public IDataSourceBuilder.IDataDescriptor1 setSampleType(MCSampleType sampleType) {
-        dataSource.sampleType = sampleType.getValue();
+    public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsBooleanArray(int size) {
+        dataSource.sampleType =MCSampleType.BOOLEAN_ARRAY.getValue();
+        dataSource.dataDescriptors=new ArrayList<>(size);
         return this;
     }
 
     @Override
-    public IDataSourceBuilder.IDataDescriptor2 addDataDescriptor(DataDescriptor dataDescriptor) {
+    public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsByteArray(int size) {
+        dataSource.sampleType =MCSampleType.BYTE_ARRAY.getValue();
+        dataSource.dataDescriptors=new ArrayList<>(size);
+        return this;
+    }
+
+    @Override
+    public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsIntArray(int size) {
+        dataSource.sampleType =MCSampleType.INT_ARRAY.getValue();
+        dataSource.dataDescriptors=new ArrayList<>(size);
+        return this;
+    }
+    @Override
+    public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsLongArray(int size) {
+        dataSource.sampleType =MCSampleType.LONG_ARRAY.getValue();
+        dataSource.dataDescriptors=new ArrayList<>(size);
+        return this;
+    }
+
+    @Override
+    public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsDoubleArray(int size) {
+        dataSource.sampleType =MCSampleType.DOUBLE_ARRAY.getValue();
+        dataSource.dataDescriptors=new ArrayList<>(size);
+        return this;
+    }
+
+    @Override
+    public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsStringArray(int size) {
+        dataSource.sampleType =MCSampleType.STRING_ARRAY.getValue();
+        dataSource.dataDescriptors=new ArrayList<>(size);
+        return this;
+    }
+
+    @Override
+    public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsEnum(MCEnum[] enums) {
+        dataSource.sampleType =MCSampleType.ENUM.getValue();
+        dataSource.dataDescriptors=new ArrayList<>(1);
+        return this;
+    }
+
+    @Override
+    public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsObject() {
+        dataSource.sampleType =MCSampleType.OBJECT.getValue();
+        dataSource.dataDescriptors=new ArrayList<>(1);
+        return this;
+    }
+
+    @Override
+    public IDataSourceBuilder.IDataDescriptor2 setSampleTypeAsNoData() {
+        dataSource.sampleType =MCSampleType.WITH_NO_DATA.getValue();
+        dataSource.dataDescriptors=new ArrayList<>(0);
+        return this;
+    }
+
+    @Override
+    public IDataSourceBuilder.IDataDescriptor2 addDataDescriptor(int index, MCDataDescriptor dataDescriptor) {
         if (dataDescriptor == null) {
-            dataSource.dataDescriptors.add(DataDescriptor.builder().build().getDescriptor());
+            dataSource.dataDescriptors.set(index, MCDataDescriptor.builder().build().getDescriptor());
         } else
-            dataSource.dataDescriptors.add(dataDescriptor.getDescriptor());
+            dataSource.dataDescriptors.set(index, dataDescriptor.getDescriptor());
         return this;
     }
 
@@ -100,29 +159,29 @@ public class DataSourceRegisterBuilder
     }
 
     @Override
-    public IDataSourceBuilder.IRegister setDataSourceMetaData(DataSourceMetaData dataSourceMetaData) {
+    public IDataSourceBuilder.IRegister setDataSourceMetaData(MCDataSourceMetaData dataSourceMetaData) {
         dataSource.dataSourceMetaData = dataSourceMetaData.getMetaData();
         return this;
     }
 
     @Override
-    public IDataSourceBuilder.IRegister setPlatformMetaData(PlatformMetaData platformMetaData) {
+    public IDataSourceBuilder.IRegister setPlatformMetaData(MCPlatformMetaData platformMetaData) {
         dataSource.platformMetaData = platformMetaData.getMetaData();
         return this;
     }
 
     @Override
-    public IDataSourceBuilder.IRegister setApplicationMetaData(ApplicationMetaData applicationMetaData) {
+    public IDataSourceBuilder.IRegister setApplicationMetaData(MCApplicationMetaData applicationMetaData) {
         dataSource.applicationMetaData = applicationMetaData.getMetaData();
         return this;
     }
 
     @Override
-    public DataSourceRegister build() {
+    public MCDataSourceRegister build() {
         return dataSource;
     }
 
-    public DataSource getDataSource() {
+    public MCDataSource getDataSource() {
         return dataSource;
     }
 }

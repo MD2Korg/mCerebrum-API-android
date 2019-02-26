@@ -1,10 +1,6 @@
-package org.md2k.mcerebrumapi.core.datakitapi.ipc.insert_datasource;
-
-import org.md2k.mcerebrumapi.core.datakitapi.callback.Callback;
-
 /*
- * Copyright (c) 2016, The University of Memphis, MD2K Center
- * - Syed Monowar Hossain <monowar.hossain@gmail.com>
+ * Copyright (c) 2018, The University of Memphis, MD2K Center of Excellence
+ *
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -28,6 +24,39 @@ import org.md2k.mcerebrumapi.core.datakitapi.callback.Callback;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public interface RegisterCallback extends Callback {
-    void onRegister(MCRegistration registration, int status);
+
+package org.md2k.mcerebrumapi.core.datakitapi.ipc.insert_datasource;
+
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSource;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSourceResult;
+
+/**
+ * Container object class for data sources.
+ */
+public class MCRegistration {
+    private MCDataSourceResult dataSourceResult;
+
+    public MCRegistration(MCDataSourceResult dataSourceResult) {
+        this.dataSourceResult = dataSourceResult;
+    }
+
+    public long getCreationTime() {
+        return this.dataSourceResult.getCreationTime();
+    }
+
+    public long getLastUpdateTime() {
+        return this.dataSourceResult.getLastUpdateTime();
+    }
+
+    public long getLastDataTime() {
+        return this.dataSourceResult.getLastDataTime();
+    }
+
+    public MCDataSource getDataSource() {
+        return this.dataSourceResult.getDataSource();
+    }
+
+    public int getDsId() {
+        return this.dataSourceResult.getDsId();
+    }
 }

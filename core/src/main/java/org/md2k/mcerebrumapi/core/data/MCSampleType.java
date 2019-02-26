@@ -38,7 +38,7 @@ public enum MCSampleType {
      * <li>LONG_ARRAY</li>
      * <li>DOUBLE_ARRAY</li>
      * <li>STRING_ARRAY</li>
-     * <li>ENUM_ARRAY</li>
+     * <li>ENUM</li>
      * <li>OBJECT</li>
      * </ul>
      */
@@ -48,7 +48,7 @@ public enum MCSampleType {
     LONG_ARRAY(103),
     DOUBLE_ARRAY(104),
     STRING_ARRAY(105),
-    ENUM_ARRAY(106),
+    ENUM(106),
     OBJECT(107),
     WITH_NO_DATA(108);
     private int value;

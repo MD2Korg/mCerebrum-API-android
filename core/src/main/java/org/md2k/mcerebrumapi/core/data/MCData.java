@@ -181,7 +181,7 @@ public class MCData extends MCValue implements Parcelable {
                 break;
             case WITH_NO_DATA:
                 break;
-            case ENUM_ARRAY:
+            case ENUM:
                 result = 31*result+Arrays.hashCode((int[])sample);
             default:
         }
@@ -255,22 +255,8 @@ public class MCData extends MCValue implements Parcelable {
      * @param timestamp The timestamp for when the data was collected.
      * @param sample    The sample that was collected.
      */
-    public static MCData createPointEnumArray(long timestamp, MCEnum sample) {
-        return new MCData(MCDataType.POINT, MCSampleType.ENUM_ARRAY, timestamp, timestamp, new int[]{sample.getId()});
-    }
-
-    /**
-     * Creates a data point where the sample type is enum.
-     *
-     * @param timestamp The timestamp for when the data was collected.
-     * @param sample    The sample that was collected.
-     */
-    public static MCData createPointEnumArray(long timestamp, MCEnum[] sample) {
-        int[] res = new int[sample.length];
-        for (int i = 0; i < sample.length; i++) {
-            res[i] = sample[i].getId();
-        }
-        return new MCData(MCDataType.POINT, MCSampleType.ENUM_ARRAY, timestamp, timestamp, res);
+    public static MCData createPointEnum(long timestamp, MCEnum sample) {
+        return new MCData(MCDataType.POINT, MCSampleType.ENUM, timestamp, timestamp, new int[]{sample.getId()});
     }
 
 
@@ -428,24 +414,8 @@ public class MCData extends MCValue implements Parcelable {
      * @param endTimestamp   The timestamp of the end of the data collection.
      * @param sample         The sample that was collected.
      */
-    public static MCData createAnnotationEnumArray(long startTimestamp, long endTimestamp, MCEnum sample) {
-        return new MCData(MCDataType.ANNOTATION, MCSampleType.ENUM_ARRAY, startTimestamp, endTimestamp, new int[]{sample.getId()});
-    }
-
-    /**
-     * Creates a data annotation where the sample type is enum.
-     *
-     * @param startTimestamp The timestamp of the beginning of the data collection.
-     * @param endTimestamp   The timestamp of the end of the data collection.
-     * @param sample         The sample that was collected.
-     */
-    public static MCData createAnnotationEnumArray(long startTimestamp, long endTimestamp, MCEnum[] sample) {
-        int[] res = new int[sample.length];
-        for (int i = 0; i < sample.length; i++) {
-            res[i] = sample[i].getId();
-        }
-
-        return new MCData(MCDataType.ANNOTATION, MCSampleType.ENUM_ARRAY, startTimestamp, endTimestamp, res);
+    public static MCData createAnnotationEnum(long startTimestamp, long endTimestamp, int sample) {
+        return new MCData(MCDataType.ANNOTATION, MCSampleType.ENUM, startTimestamp, endTimestamp, new int[]{sample});
     }
     /**
      * Creates a data annotation where the sample type is integer array.

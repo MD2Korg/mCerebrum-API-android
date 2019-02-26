@@ -1,11 +1,12 @@
 package org.md2k.mcerebrumapi.core.datakitapi.datasource;
 
 import org.md2k.mcerebrumapi.core.data.MCDataType;
+import org.md2k.mcerebrumapi.core.data.MCEnum;
 import org.md2k.mcerebrumapi.core.data.MCSampleType;
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.ApplicationMetaData;
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.DataDescriptor;
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.DataSourceMetaData;
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.PlatformMetaData;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCApplicationMetaData;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCDataDescriptor;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCDataSourceMetaData;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCPlatformMetaData;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -39,15 +40,23 @@ interface IDataSourceBuilder {
     }
 
     interface ISample {
-        IDataDescriptor1 setSampleType(MCSampleType sampleType);
+        IDataDescriptor1 setSampleTypeAsBooleanArray(int size);
+        IDataDescriptor1 setSampleTypeAsByteArray(int size);
+        IDataDescriptor1 setSampleTypeAsIntArray(int size);
+        IDataDescriptor1 setSampleTypeAsLongArray(int size);
+        IDataDescriptor1 setSampleTypeAsDoubleArray(int size);
+        IDataDescriptor1 setSampleTypeAsStringArray(int size);
+        IDataDescriptor1 setSampleTypeAsEnum(MCEnum[] enums);
+        IDataDescriptor1 setSampleTypeAsObject();
+        IDataDescriptor2 setSampleTypeAsNoData();
     }
 
     interface IDataDescriptor1 {
-        IDataDescriptor2 addDataDescriptor(DataDescriptor dataDescriptor);
+        IDataDescriptor2 addDataDescriptor(int index, MCDataDescriptor dataDescriptor);
     }
 
     interface IDataDescriptor2 {
-        IDataDescriptor2 addDataDescriptor(DataDescriptor dataDescriptor);
+        IDataDescriptor2 addDataDescriptor(int index, MCDataDescriptor dataDescriptor);
 
         IRegister setDataSourceType(String dataSourceType);
     }
@@ -71,7 +80,7 @@ interface IDataSourceBuilder {
 
         IQuery fromUUID(String uuid);
 
-        DataSourceQuery build();
+        MCDataSourceQuery build();
     }
 
     interface IRegister {
@@ -85,12 +94,12 @@ interface IDataSourceBuilder {
 
         IRegister setApplicationId(String applicationId);
 
-        IRegister setDataSourceMetaData(DataSourceMetaData dataSourceMetaData);
+        IRegister setDataSourceMetaData(MCDataSourceMetaData dataSourceMetaData);
 
-        IRegister setPlatformMetaData(PlatformMetaData platformMetaData);
+        IRegister setPlatformMetaData(MCPlatformMetaData platformMetaData);
 
-        IRegister setApplicationMetaData(ApplicationMetaData applicationMetaData);
+        IRegister setApplicationMetaData(MCApplicationMetaData applicationMetaData);
 
-        DataSourceRegister build();
+        MCDataSourceRegister build();
     }
 }

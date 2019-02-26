@@ -4,6 +4,7 @@
     package="org.md2k.mcerebrumapi">
 
     <application>
+<!--
         <service
             android:name="org.md2k.mcerebrumapi.core.extensionapi.app.MCExtensionService"
             android:exported="true">
@@ -11,5 +12,6 @@
                 <action android:name="org.md2k.library.mcerebrum.client" />
             </intent-filter>
         </service>
+-->
     </application>
 </manifest>

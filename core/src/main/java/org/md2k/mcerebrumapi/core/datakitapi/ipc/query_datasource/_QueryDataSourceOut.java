@@ -28,7 +28,7 @@ package org.md2k.mcerebrumapi.core.datakitapi.ipc.query_datasource;
 
 import android.os.Bundle;
 
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.DataSourceResult;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSourceResult;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc._Session;
 import org.md2k.mcerebrumapi.core.status.MCStatus;
@@ -36,14 +36,14 @@ import org.md2k.mcerebrumapi.core.status.MCStatus;
 import java.util.ArrayList;
 
 public class _QueryDataSourceOut {
-    public static _Session create(int session, ArrayList<DataSourceResult> dataSourceResults) {
+    public static _Session create(int session, ArrayList<MCDataSourceResult> dataSourceResults) {
         Bundle b = new Bundle();
-        b.putParcelableArrayList(DataSourceResult.class.getSimpleName(), dataSourceResults);
+        b.putParcelableArrayList(MCDataSourceResult.class.getSimpleName(), dataSourceResults);
         return new _Session(session, OperationType.QUERY_DATASOURCE, MCStatus.SUCCESS, b);
     }
 
-    public static ArrayList<DataSourceResult> getDataSourceResults(Bundle b) {
+    public static ArrayList<MCDataSourceResult> getDataSourceResults(Bundle b) {
         if (b == null) return null;
-        return b.getParcelableArrayList(DataSourceResult.class.getSimpleName());
+        return b.getParcelableArrayList(MCDataSourceResult.class.getSimpleName());
     }
 }

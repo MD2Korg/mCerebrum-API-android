@@ -98,6 +98,27 @@ public class MCExtensionAPILibrary {
         return iPermissionInterface;
     }
 
+
+    public String[] getPermissionList() {
+        return permissionList;
+    }
+
+    public IConfigure getiConfigure() {
+        return iConfigure;
+    }
+
+    public IConfigureWithUI getiConfigureWithUI() {
+        return iConfigureWithUI;
+    }
+
+    public IBackgroundProcess getiBackgroundProcess() {
+        return iBackgroundProcess;
+    }
+
+    public ArrayList<Param> getListOfOperations() {
+        return listOfOperations;
+    }
+
     public ArrayList<UserInterface> getUserInterfaces() {
         return userInterfaces;
     }

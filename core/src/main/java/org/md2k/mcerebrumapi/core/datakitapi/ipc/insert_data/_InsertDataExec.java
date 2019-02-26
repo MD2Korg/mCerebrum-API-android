@@ -2,12 +2,13 @@ package org.md2k.mcerebrumapi.core.datakitapi.ipc.insert_data;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.util.SparseArray;
 
 import org.md2k.mcerebrumapi.core.data.DataArray;
 import org.md2k.mcerebrumapi.core.data.MCData;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.data.SyncCallback;
-import org.md2k.mcerebrumapi.core.datakitapi.ipc.insert_datasource.Registration;
+import org.md2k.mcerebrumapi.core.datakitapi.ipc.insert_datasource.MCRegistration;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
@@ -57,7 +58,8 @@ public class _InsertDataExec {
         dataArrays = new SparseArray<>();
     }
 
-    public void addData(Registration registration, MCData[] data) {
+    public void addData(MCRegistration registration, MCData[] data) {
+        Log.d("abc","data="+registration.getDataSource().getDataSourceType());
         lock.lock();
         DataArray d = dataArrays.get(registration.getDsId(), new DataArray());
         d.add(data);

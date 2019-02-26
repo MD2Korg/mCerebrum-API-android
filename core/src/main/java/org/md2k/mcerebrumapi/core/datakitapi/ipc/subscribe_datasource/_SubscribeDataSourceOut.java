@@ -28,19 +28,19 @@ package org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_datasource;
 
 import android.os.Bundle;
 
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.DataSourceResult;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSourceResult;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc._Session;
 
 public class _SubscribeDataSourceOut {
-    public static _Session create(int status, DataSourceResult dataSourceResult) {
+    public static _Session create(int status, MCDataSourceResult dataSourceResult) {
         Bundle b = new Bundle();
-        b.putParcelable(DataSourceResult.class.getSimpleName(), dataSourceResult);
+        b.putParcelable(MCDataSourceResult.class.getSimpleName(), dataSourceResult);
         return new _Session(0, OperationType.SUBSCRIBE_DATASOURCE, status, b);
     }
 
-    public static DataSourceResult getDataSourceResult(Bundle b) {
+    public static MCDataSourceResult getDataSourceResult(Bundle b) {
         if (b == null) return null;
-        return b.getParcelable(DataSourceResult.class.getSimpleName());
+        return b.getParcelable(MCDataSourceResult.class.getSimpleName());
     }
 }

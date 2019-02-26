@@ -1,6 +1,4 @@
-package org.md2k.mcerebrumapi.core.datakitapi.ipc.insert_datasource;
-
-import org.md2k.mcerebrumapi.core.datakitapi.callback.Callback;
+package org.md2k.mcerebrumapi.core.datakitapi.datasource;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -28,6 +26,20 @@ import org.md2k.mcerebrumapi.core.datakitapi.callback.Callback;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public interface RegisterCallback extends Callback {
-    void onRegister(MCRegistration registration, int status);
+public interface MCDataSourceQuery {
+    String getDataSourceType();
+
+    String getDataSourceId();
+
+    String getPlatformType();
+
+    String getPlatformId();
+
+    String getPlatformAppType();
+
+    String getPlatformAppId();
+
+    String getApplicationType();
+
+    String getApplicationId();
 }

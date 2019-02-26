@@ -28,20 +28,20 @@ package org.md2k.mcerebrumapi.core.datakitapi.ipc.query_datasource;
 
 import android.os.Bundle;
 
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.DataSource;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSource;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.OperationType;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc._Session;
 import org.md2k.mcerebrumapi.core.status.MCStatus;
 
 public class _QueryDataSourceIn {
-    public static _Session create(int session, DataSource dataSource) {
+    public static _Session create(int session, MCDataSource dataSource) {
         Bundle b = new Bundle();
-        b.putParcelable(DataSource.class.getSimpleName(), dataSource);
+        b.putParcelable(MCDataSource.class.getSimpleName(), dataSource);
         return new _Session(session, OperationType.QUERY_DATASOURCE, MCStatus.SUCCESS, b);
     }
 
-    public static DataSource getDataSource(Bundle b) {
+    public static MCDataSource getDataSource(Bundle b) {
         if (b == null) return null;
-        return b.getParcelable(DataSource.class.getSimpleName());
+        return b.getParcelable(MCDataSource.class.getSimpleName());
     }
 }

@@ -1,7 +1,3 @@
-package org.md2k.mcerebrumapi.core.datakitapi.ipc.insert_datasource;
-
-import org.md2k.mcerebrumapi.core.datakitapi.callback.Callback;
-
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
  * - Syed Monowar Hossain <monowar.hossain@gmail.com>
@@ -28,6 +24,16 @@ import org.md2k.mcerebrumapi.core.datakitapi.callback.Callback;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public interface RegisterCallback extends Callback {
-    void onRegister(MCRegistration registration, int status);
+package org.md2k.mcerebrumapi.core.datakitapi.ipc.authenticate;
+
+import org.md2k.mcerebrumapi.core.datakitapi.callback.Callback;
+
+/**
+ * Callback interface for connection verification.
+ */
+
+public interface MCConnectionCallback extends Callback {
+    void onSuccess();
+
+    void onError(int status);
 }

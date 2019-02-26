@@ -34,5 +34,5 @@ public interface IConfigure {
     String ID_SET = "SET";
 
     ConfigState getConfigurationState();
-    void setConfiguration(ExtensionCallback extensionCallback);
+    void setConfiguration(Object object, ExtensionCallback extensionCallback);
 }

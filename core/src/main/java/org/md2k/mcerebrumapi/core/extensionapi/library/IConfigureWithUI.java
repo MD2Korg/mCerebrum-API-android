@@ -36,5 +36,5 @@ public interface IConfigureWithUI {
     String ID_SET = "SET";
 
     ConfigState getConfigurationState();
-    void setConfigurationUI(Activity activity, ExtensionCallback extensionCallback);
+    void setConfigurationUI(Activity activity, Object param, ExtensionCallback extensionCallback);
 }

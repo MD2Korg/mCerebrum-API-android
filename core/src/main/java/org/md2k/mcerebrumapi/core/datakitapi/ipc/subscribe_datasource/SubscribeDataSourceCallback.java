@@ -1,7 +1,7 @@
 package org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_datasource;
 
 import org.md2k.mcerebrumapi.core.datakitapi.callback.Callback;
-import org.md2k.mcerebrumapi.core.datakitapi.datasource.DataSourceResult;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSourceResult;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -30,7 +30,7 @@ import org.md2k.mcerebrumapi.core.datakitapi.datasource.DataSourceResult;
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 public interface SubscribeDataSourceCallback extends Callback {
-    void onReceive(DataSourceResult dataSourceResult);
+    void onReceive(MCDataSourceResult dataSourceResult);
 
     void onError(int status);
 

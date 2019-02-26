@@ -1,6 +1,14 @@
-package org.md2k.mcerebrumapi.core.datakitapi.ipc.insert_datasource;
+package org.md2k.mcerebrumapi.core.datakitapi.datasource;
 
-import org.md2k.mcerebrumapi.core.datakitapi.callback.Callback;
+import org.md2k.mcerebrumapi.core.data.MCDataType;
+import org.md2k.mcerebrumapi.core.data.MCSampleType;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCApplicationMetaData;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCDataDescriptor;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCDataSourceMetaData;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCPlatformAppMetaData;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCPlatformMetaData;
+
+import java.util.ArrayList;
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
@@ -28,6 +36,35 @@ import org.md2k.mcerebrumapi.core.datakitapi.callback.Callback;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public interface RegisterCallback extends Callback {
-    void onRegister(MCRegistration registration, int status);
+public interface MCDataSourceRegister {
+    String getDataSourceType();
+
+    String getDataSourceId();
+
+    String getPlatformType();
+
+    String getPlatformId();
+
+    String getPlatformAppType();
+
+    String getPlatformAppId();
+
+    String getApplicationType();
+
+    String getApplicationId();
+
+    MCDataType getDataType();
+
+    MCSampleType getSampleType();
+
+    MCDataSourceMetaData getDataSourceMetaData();
+
+    MCPlatformMetaData getPlatformMetaData();
+
+    MCPlatformAppMetaData getPlatformAppMetaData();
+
+    MCApplicationMetaData getApplicationMetaData();
+
+    ArrayList<MCDataDescriptor> getDataDescriptors();
+
 }
