@@ -100,8 +100,6 @@ public class MCValue implements Parcelable {
                 return Arrays.equals((String[]) sample, (String[]) (((MCValue) toCompare).getSample()));
             case OBJECT:
                 return Arrays.equals((String[]) sample, (String[]) (((MCValue) toCompare).getSample()));
-            case WITH_NO_DATA:
-                return true;
             default:
                 return false;
         }
@@ -139,8 +137,6 @@ public class MCValue implements Parcelable {
                 break;
             case OBJECT:
                 result = 31 * result + sample.hashCode();
-                break;
-            case WITH_NO_DATA:
                 break;
             case ENUM:
                 result = 31*result+Arrays.hashCode((int[])sample);
@@ -181,9 +177,6 @@ public class MCValue implements Parcelable {
                 break;
             case STRING_ARRAY:
                 sample = in.createStringArray();
-                break;
-            case WITH_NO_DATA:
-                sample = in.createByteArray();
                 break;
             default:
         }
@@ -266,8 +259,6 @@ public class MCValue implements Parcelable {
             case ENUM:
                 dest.writeIntArray((int[]) sample);
                 break;
-            case WITH_NO_DATA:
-                dest.writeByteArray(new byte[]{0});
             default:
         }
     }

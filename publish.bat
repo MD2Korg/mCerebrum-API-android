@@ -1,0 +1,1 @@
+./gradlew :clean build bintrayUpload -PbintrayUser=monowar -PbintrayKey=2e67b0cc9f9b958908d2adc9e19fdf9a103d9497 -PdryRun=false

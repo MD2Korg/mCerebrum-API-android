@@ -14,29 +14,32 @@ You can find more information about MD2K software on our [software website](http
 
 ### Dependency
 Include the library in your `build.gradle`
+
 ```groovy
-implementation "org.md2k.mcerebrum.api:core:<latest_version>"
-```
-(Please replace `<latest_version>` with this: [ ![Download](https://api.bintray.com/packages/md2korg/mCerebrum/core/images/download.svg) ](https://bintray.com/md2korg/mCerebrum/core/_latestVersion)
-)
+ implementation "org.md2k.mcerebrum.api:core:0.0.1-RC2"
+ ```
 
 
-### Using mCerebrumAPI
+### Using MCDataKitAPI
 
-- Step 1: initialize MCerebrumAPI
+- Step 1: initialize MCDataKitAPI
 - Step 2: Connect to mCerebrum through ``connect()`` function.
-- Step 3: InThen, you can insert, query or subscribe any datastream. Functions supported by mCerebrum: `connect()`, `disconnect()`, `registerDataSource()`, `queryDataSource()`, `subscribeDataSourceAsync()`, `queryData()`, `queryCount()`, `subscribe()`, `unsubscribe()`
+- Step 3: Then, you can insert, query or subscribe any datastream.
+  Functions supported by mCerebrum: `connect()`, `disconnect()`,
+  `registerDataSource()`, `queryDataSource()`,
+  `subscribeDataSourceAsync()`, `queryData()`, `queryCount()`,
+  `subscribe()`, `unsubscribe()`
 
-#### Initialize mCerebrumAPI
-Initialize MCerebrumAPI before using it.
+#### Initialize MCDataKitAPI
+Initialize MCDataKitAPI before using it.
 ```java
-mCerebrumAPI.init(context);
+MCDataKitAPI.init(context);
 ```
 
-#### Connect to mCerebrum
+#### Connect
 Step 1: Use connect() function to connect to `mCerebrum`
 ```java
- MCerebrumAPI.connect(new ConnectionCallback() {
+ MCDataKitAPI.connect(new MCConnectionCallback() {
      @Override
      public void onSuccess() {
      }
@@ -50,43 +53,42 @@ Step 1: Use connect() function to connect to `mCerebrum`
 }
 ```
 #### Register DataSource
-- Step 1: Connect to mCerebrum (as [Connect to mCerebrum](conect) )
-- Step 2: Create DataSourceRegister using `DataSource.RegisterBuilder()`
-- Step 3: Register datasource to mCerebrum
-<br><br> Example: 
-```
+- Step 1: Create DataSourceRegister using
+  `MCDataSource.RegisterBuilder()`
+- Step 2: Register datasource to mCerebrum
+
+Example:
+```java
 // register Accelerometer datastream
 
-//Step 2:
-DataSourceRegister req = DataSource.RegisterBuilder()
-                        .setDataType(DataType.POINT)
-                        .setSampleType(SampleType.INT_ARRAY)
-                        .addDataDescriptor(DataDescriptor.Builder().setName("ACL_X").build())
-                        .addDataDescriptor(DataDescriptor.Builder().setName("ACL_Y").build())
-                        .addDataDescriptor(DataDescriptor.Builder().setName("ACL_Z").build())
-                        .setDataSourceType("ACCELEROMETER")
-                        .setPlatformType("PHONE")
-                        .setDataSourceMetaData(DataSourceMetaData.Builder().setUnit("METER_PER_SECOND_SQUARED").build())
-                        .build();
-//Step 3:
-Registration r = MCerebrumAPI.registerDataSource(dataSourceRegisterCreator);
+//Step 1: create datasource:
+        MCDataSourceRegister req = MCDataSource.registerBuilder()
+                .setDataType(MCDataType.POINT)
+                .setSampleTypeAsDoubleArray(3)
+                .setDataDescriptor(0, MCDataDescriptor.builder("Accelerometer X").build())
+                .setDataDescriptor(1, MCDataDescriptor.builder("Accelerometer Y").build())
+                .setDataDescriptor(2, MCDataDescriptor.builder("Accelerometer Z").build())
+                .setDataSourceType("ACCELEROMETER")
+                .setPlatformType("PHONE")
+                .setDataSourceMetaData(MCDataSourceMetaData.builder().setUnit(MCUnit.METER_PER_SECOND_SQUARED).build())
+                .build();
+//Step 3: register to mCerebrum
+        MCRegistration res = MCDataKitAPI.registerDataSource(req);
  ```
 
-#### Insert Data to mCerebrum
+#### Insert Data
 
 Supported data types: `BOOLEAN_ARRAY`, `BYTE_ARRAY`, `INT_ARRAY`, `LONG_ARRAY`, `DOUBLE_ARRAY`, `STRING_ARRAY`, `ENUM`, `OBJECT`
 
-- Step 1: Connect to mCerebrum
-- Step 2: Create DataSourceRegister using `DataSource.RegisterBuilder()`
-- Step 3: Register datasource to mCerebrum
-- Step 4: Insert data to mCerebrum using registered id returned by `registerDataSource()` function
+- Step 1: Register datasource to mCerebrum (as previous)
+- Step 2: Insert data to mCerebrum using registered id returned by
+  `registerDataSource()` function
 
-```
+```java
 // insert accelerometer data
+        MCData data = MCData.createPointDoubleArray(System.currentTimeMillis(), new double[]{0.0, 0.0, 9.8});
+        MCDataKitAPI.insertData(res, data); // "res" is the registration id. see previous example for more information.
 
-double[] values=new double[]{5.4,4.1,-2.0};
-Data point = Data.createPoint(System.currentTimeMillis(), values);
-MCerebrumAPI.insertData(rid, point);
 ```
 #### Subscribe data
 
@@ -131,29 +133,47 @@ Steps:
 #### Supported DataType
 |   DataType||
 |---|---|
-| POINT| Creates data with timestamp|
-| ANNOTATION|Creates data with starttime and endtime|
+| POINT| Data with timestamp|
+| ANNOTATION|Data with starttime and endtime|
 #### Supported SampleType
 |   SampleType|Example (Point)|Example(Annotation)
 |---|---|---|
-| BOOLEAN_ARRAY| `Data.createPoint(time, boolean[]{true, false}`|`Data.createAnnotation(startTime, endTime, boolean[]{true, false}`|
-| BYTE_ARRAY|Creates data with starttime and endtime|
+|BOOLEAN_ARRAY| 
+|BYTE_ARRAY|
+|INT_ARRAY|
+|LONG_ARRAY|
+|DOUBLE_ARRAY|
+|STRING_ARRAY|
+|ENUM|
+|OBJECT|
 
 #### Supported Functionality
 
-```
-int connect(ConnectionCallback c);
-int disconnect(ConnectionCallback c);
-Registration register(DataSourceCreator d);
-int unregister(Registration r);
-DataSourceSet find(DataSourceQuery d);
-int insert(Registration r, Data[] d);
-DataSet query(DataSource dataSource, int lastNPoint);
-DataSet query(DataSource dataSource, long startTimestamp, long endTimestamp);
-DataSet querySummary(DataSource dataSource, long startTimestamp, long endTimestamp);
-DataSet queryCount(DataSource dataSource, long startTimestamp, long endTimestamp);
-int subscribe(DataSource dataSource, DataCallback callback);
-int unsubscribe(dataSource dataSource, DataCallback callback);
+```java
+void init(Context context);
+
+//connection
+void connect(MCConnectionCallback c);
+boolean isConnected();
+void disconnect(ConnectionCallback c);
+
+//datasource
+
+MCRegistration registerDataSource(MCDataSourceRegister r);
+ArrayList<MCDataSourceResult> queryDataSource(MCDataSourceQuery q);
+void subscribeDataSourceAsync(MCDataSourceQuery q, MCSubscribeDataSourceCallback s);
+void unsubscribeDataSourceAsync(MCSubscribeDataSourceCallback s);
+
+//data
+
+ArrayList<MCData> queryData(MCDataSourceResult r, long startTimestamp, long endTimestamp);
+ArrayList<MCData> queryData(MCDataSourceResult r, int lastN);
+int queryDataCount(MCDataSourceResult r, long startTimestamp, long endTimestamp);
+int insertData(MCRegistration reg, MCData d);
+int insertData(MCRegistration reg, MCData[] d);
+void subscribeDataAsync(MCDataSourceResult r, MCSubscribeDataCallback s);
+void unsubscribeDataAsync(MCSubscribeDataCallback s);
+
 ```
 
 ## Contributing

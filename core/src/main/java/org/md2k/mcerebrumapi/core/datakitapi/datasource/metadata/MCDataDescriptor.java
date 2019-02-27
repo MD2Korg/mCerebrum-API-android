@@ -111,7 +111,7 @@ public class MCDataDescriptor {
      * @param key The key to get the value of.
      * @return The value for the given key.
      */
-    public String getDescriptor(String key) {
+    public String asHashMap(String key) {
         if (descriptor == null) return null;
         return descriptor.get(key);
     }
@@ -121,7 +121,7 @@ public class MCDataDescriptor {
      *
      * @return The hash map of all data descriptors.
      */
-    public HashMap<String, String> getDescriptor() {
+    public HashMap<String, String> asHashMap() {
         return new HashMap<>(descriptor);
     }
 
@@ -139,8 +139,8 @@ public class MCDataDescriptor {
      *
      * @return A new <code>builder</code>.
      */
-    public static Builder builder() {
-        return new Builder();
+    public static Builder builder(String name) {
+        return new Builder(name);
     }
 
     /**
@@ -149,15 +149,8 @@ public class MCDataDescriptor {
     public static class Builder {
         private HashMap<String, String> descriptor = new HashMap<>();
 
-        /**
-         * Sets the <code>NAME</code> key of the hash map.
-         *
-         * @param name Value to associate <code>NAME</code> to.
-         * @return The modified <code>builder</code>.
-         */
-        public Builder setName(String name) {
+        public Builder(String name){
             descriptor.put(NAME, name);
-            return this;
         }
 
 

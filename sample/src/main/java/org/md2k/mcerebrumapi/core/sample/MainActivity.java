@@ -17,6 +17,8 @@ import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSourceRegister;
 import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSourceResult;
 import org.md2k.mcerebrumapi.core.datakitapi.datasource.constants.MCDataSourceType;
 import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCDataDescriptor;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCDataSourceMetaData;
+import org.md2k.mcerebrumapi.core.datakitapi.datasource.unit.MCUnit;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.authenticate.MCConnectionCallback;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.insert_datasource.MCRegistration;
 import org.md2k.mcerebrumapi.core.status.MCStatus;
@@ -30,6 +32,30 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button b = findViewById(R.id.button);
+        MCDataSourceRegister req = MCDataSource.registerBuilder()
+                .setDataType(MCDataType.POINT)
+                .setSampleTypeAsIntArray(3)
+                .setDataDescriptor(0, MCDataDescriptor.builder("Accelerometer X").build())
+                .setDataDescriptor(1, MCDataDescriptor.builder("Accelerometer Y").build())
+                .setDataDescriptor(2, MCDataDescriptor.builder("Accelerometer Z").build())
+                .setDataSourceType("ACCELEROMETER")
+                .setPlatformType("PHONE")
+                .setDataSourceMetaData(MCDataSourceMetaData.builder().setUnit(MCUnit.METER_PER_SECOND_SQUARED).build())
+                .build();
+        MCRegistration res = MCDataKitAPI.registerDataSource(req);
+        MCData data = MCData.createPointDoubleArray(System.currentTimeMillis(), new double[]{0.0, 0.0, 9.8});
+        MCDataKitAPI.insertData(res, data);
+        MCDataKitAPI.connect(new MCConnectionCallback() {
+            @Override
+            public void onSuccess() {
+
+            }
+
+            @Override
+            public void onError(int status) {
+
+            }
+        });
 
         b.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                         MCDataSourceRegister mcDataSourceRegister = MCDataSource.registerBuilder()
                                 .setDataType(MCDataType.POINT)
                                 .setSampleTypeAsIntArray(3)
-                                .addDataDescriptor(0,MCDataDescriptor.builder().build())
+                                .setDataDescriptor(0,MCDataDescriptor.builder("").build())
                                 .setDataSourceType(MCDataSourceType.ACCELEROMETER)
                                 .build();
                         MCRegistration r = MCDataKitAPI.registerDataSource(mcDataSourceRegister);

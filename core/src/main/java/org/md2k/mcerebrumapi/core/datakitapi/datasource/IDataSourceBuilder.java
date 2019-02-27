@@ -46,17 +46,26 @@ interface IDataSourceBuilder {
         IDataDescriptor1 setSampleTypeAsLongArray(int size);
         IDataDescriptor1 setSampleTypeAsDoubleArray(int size);
         IDataDescriptor1 setSampleTypeAsStringArray(int size);
-        IDataDescriptor1 setSampleTypeAsEnum(MCEnum[] enums);
-        IDataDescriptor1 setSampleTypeAsObject();
-        IDataDescriptor2 setSampleTypeAsNoData();
+        IDataDescriptorEnum setSampleTypeAsEnum();
+        IDataDescriptorObject setSampleTypeAsObject();
     }
 
     interface IDataDescriptor1 {
-        IDataDescriptor2 addDataDescriptor(int index, MCDataDescriptor dataDescriptor);
+        IDataDescriptor2 setDataDescriptor(int index, MCDataDescriptor dataDescriptor);
+    }
+    interface IDataDescriptorEnum {
+        IDataSourceType setDataDescriptor(MCEnum[] mcEnums, MCDataDescriptor dataDescriptor);
+    }
+    interface IDataDescriptorObject {
+        IDataSourceType setDataDescriptor(MCDataDescriptor dataDescriptor);
+    }
+
+    interface IDataSourceType {
+        IRegister setDataSourceType(String dataSourceType);
     }
 
     interface IDataDescriptor2 {
-        IDataDescriptor2 addDataDescriptor(int index, MCDataDescriptor dataDescriptor);
+        IDataDescriptor2 setDataDescriptor(int index, MCDataDescriptor dataDescriptor);
 
         IRegister setDataSourceType(String dataSourceType);
     }

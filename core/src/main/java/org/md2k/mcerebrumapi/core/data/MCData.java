@@ -136,8 +136,6 @@ public class MCData extends MCValue implements Parcelable {
                 return Arrays.equals((String[]) sample, (String[]) (((MCData) toCompare).getSample()));
             case OBJECT:
                 return Arrays.equals((String[]) sample, (String[]) (((MCData) toCompare).getSample()));
-            case WITH_NO_DATA:
-                return true;
             default:
                 return false;
         }
@@ -178,8 +176,6 @@ public class MCData extends MCValue implements Parcelable {
                 break;
             case OBJECT:
                 result = 31 * result + sample.hashCode();
-                break;
-            case WITH_NO_DATA:
                 break;
             case ENUM:
                 result = 31*result+Arrays.hashCode((int[])sample);
@@ -332,14 +328,6 @@ public class MCData extends MCValue implements Parcelable {
         return new MCData(MCDataType.POINT, MCSampleType.STRING_ARRAY, timestamp, timestamp, sample);
     }
 
-    /**
-     * Creates a data point where there is no sample.
-     *
-     * @param timestamp The timestamp for when the data was collected.
-     */
-    public static MCData createPointWithNoData(long timestamp) {
-        return new MCData(MCDataType.POINT, MCSampleType.WITH_NO_DATA, timestamp, timestamp, new byte[]{0});
-    }
     /**
      * Creates a data annotation where the sample type is boolean array.
      *
@@ -494,15 +482,6 @@ public class MCData extends MCValue implements Parcelable {
     public static MCData createAnnotationStringArray(long startTimestamp, long endTimestamp, String[] sample) {
         return new MCData(MCDataType.ANNOTATION, MCSampleType.STRING_ARRAY, startTimestamp, endTimestamp, sample);
     }
-    /**
-     * Creates a data point where there is no sample.
-     *
-     * @param startTimestamp The timestamp for when the data was collected.
-     */
-    public static MCData createAnnotationWithNoData(long startTimestamp, long endTimestamp) {
-        return new MCData(MCDataType.ANNOTATION, MCSampleType.WITH_NO_DATA, startTimestamp, endTimestamp, new byte[]{0});
-    }
-
     /**
      * Embedded <code>CREATOR</code> class for generating instances of <code>Data</code>
      * from a <code>Parcel</code>.

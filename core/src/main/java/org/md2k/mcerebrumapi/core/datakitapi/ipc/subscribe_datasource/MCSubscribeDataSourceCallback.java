@@ -29,7 +29,7 @@ import org.md2k.mcerebrumapi.core.datakitapi.datasource.MCDataSourceResult;
  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-public interface SubscribeDataSourceCallback extends Callback {
+public interface MCSubscribeDataSourceCallback extends Callback {
     void onReceive(MCDataSourceResult dataSourceResult);
 
     void onError(int status);

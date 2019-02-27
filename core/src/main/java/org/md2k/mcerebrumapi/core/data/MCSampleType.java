@@ -49,8 +49,7 @@ public enum MCSampleType {
     DOUBLE_ARRAY(104),
     STRING_ARRAY(105),
     ENUM(106),
-    OBJECT(107),
-    WITH_NO_DATA(108);
+    OBJECT(107);
     private int value;
 
     /**

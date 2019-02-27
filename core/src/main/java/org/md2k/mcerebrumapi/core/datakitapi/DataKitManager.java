@@ -28,11 +28,11 @@ import org.md2k.mcerebrumapi.core.datakitapi.ipc.query_data_count._QueryDataCoun
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.query_datasource.QueryDataSourceCallback;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.query_datasource._QueryDataSourceIn;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.query_datasource._QueryDataSourceOut;
-import org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_data.SubscribeDataCallback;
+import org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_data.MCSubscribeDataCallback;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_data._SubscribeDataIn;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_data._SubscribeDataOut;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_data._UnsubscribeDataIn;
-import org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_datasource.SubscribeDataSourceCallback;
+import org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_datasource.MCSubscribeDataSourceCallback;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_datasource._SubscribeDataSourceIn;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_datasource._SubscribeDataSourceOut;
 import org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_datasource._UnsubscribeDataSourceIn;
@@ -69,8 +69,8 @@ import java.util.HashMap;
  */
 final class DataKitManager extends AbstractDataKitManager {
     private static final String TAG = DataKitManager.class.getName();
-    private HashMap<SubscribeDataSourceCallback, IDataKitRemoteCallback.Stub> subscriptionDataSourceList;
-    private HashMap<SubscribeDataCallback, IDataKitRemoteCallback.Stub> subscriptionDataList;
+    private HashMap<MCSubscribeDataSourceCallback, IDataKitRemoteCallback.Stub> subscriptionDataSourceList;
+    private HashMap<MCSubscribeDataCallback, IDataKitRemoteCallback.Stub> subscriptionDataList;
     private _InsertDataExec insertDataExec;
 
     protected DataKitManager() {
@@ -148,7 +148,7 @@ final class DataKitManager extends AbstractDataKitManager {
         }
     }
 
-    protected void subscribeDataSourceAsync(MCDataSourceQuery dataSourceQuery, final SubscribeDataSourceCallback subscribeDataSourceCallback) {
+    protected void subscribeDataSourceAsync(MCDataSourceQuery dataSourceQuery, final MCSubscribeDataSourceCallback subscribeDataSourceCallback) {
         if (subscriptionDataSourceList.containsKey(subscribeDataSourceCallback)) return;
         _Session in = _SubscribeDataSourceIn.create(createSessionId(), (MCDataSource) dataSourceQuery);
         IDataKitRemoteCallback.Stub iDataKitRemoteCallback = new IDataKitRemoteCallback.Stub() {
@@ -167,7 +167,7 @@ final class DataKitManager extends AbstractDataKitManager {
         }
     }
 
-    protected void unsubscribeDataSourceAsync(SubscribeDataSourceCallback subscribeDataSourceCallback) {
+    protected void unsubscribeDataSourceAsync(MCSubscribeDataSourceCallback subscribeDataSourceCallback) {
         if (!subscriptionDataSourceList.containsKey(subscribeDataSourceCallback)) return;
         try {
             executeAsync(_UnsubscribeDataSourceIn.create(createSessionId()), subscriptionDataSourceList.get(subscribeDataSourceCallback));
@@ -283,7 +283,7 @@ final class DataKitManager extends AbstractDataKitManager {
         return MCStatus.SUCCESS;
     }
 
-    protected void subscribeDataAsync(MCDataSourceResult dataSourceResult, final SubscribeDataCallback subscribeDataCallback) {
+    protected void subscribeDataAsync(MCDataSourceResult dataSourceResult, final MCSubscribeDataCallback subscribeDataCallback) {
         if (subscriptionDataList.containsKey(subscribeDataCallback)) return;
         _Session in = _SubscribeDataIn.create(createSessionId(), dataSourceResult);
         IDataKitRemoteCallback.Stub iDataKitRemoteCallback = new IDataKitRemoteCallback.Stub() {
@@ -304,7 +304,7 @@ final class DataKitManager extends AbstractDataKitManager {
         }
     }
 
-    protected void unsubscribeDataAsync(SubscribeDataCallback subscribeDataCallback) {
+    protected void unsubscribeDataAsync(MCSubscribeDataCallback subscribeDataCallback) {
         if (!subscriptionDataList.containsKey(subscribeDataCallback)) return;
         try {
             executeAsync(_UnsubscribeDataIn.create(createSessionId()), subscriptionDataList.get(subscribeDataCallback));

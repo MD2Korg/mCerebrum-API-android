@@ -31,7 +31,7 @@ package org.md2k.mcerebrumapi.core.datakitapi.ipc.subscribe_data;
 import org.md2k.mcerebrumapi.core.datakitapi.callback.Callback;
 import org.md2k.mcerebrumapi.core.data.MCData;
 
-public interface SubscribeDataCallback extends Callback {
+public interface MCSubscribeDataCallback extends Callback {
     void onReceive(MCData data);
 
     void onError(int status);
