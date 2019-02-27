@@ -16,7 +16,7 @@ You can find more information about MD2K software on our [software website](http
 Include the library in your `build.gradle`
 
 ```groovy
- implementation "org.md2k.mcerebrum.api:core:0.0.1-RC2"
+ implementation "org.md2k.mcerebrum.api:core:0.0.1-RC3"
  ```
 
 

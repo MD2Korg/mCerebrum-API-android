@@ -60,56 +60,77 @@ class DataSourceRegisterBuilder
 
     @Override
     public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsBooleanArray(int size) {
-        dataSource.sampleType =MCSampleType.BOOLEAN_ARRAY.getValue();
-        dataSource.dataDescriptors=new ArrayList<>(size);
+        dataSource.sampleType = MCSampleType.BOOLEAN_ARRAY.getValue();
+        dataSource.dataDescriptors = new ArrayList<>();
+        for(int i =0;i<size;i++){
+            dataSource.dataDescriptors.add(null);
+        }
         return this;
     }
 
     @Override
     public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsByteArray(int size) {
-        dataSource.sampleType =MCSampleType.BYTE_ARRAY.getValue();
-        dataSource.dataDescriptors=new ArrayList<>(size);
+        dataSource.sampleType = MCSampleType.BYTE_ARRAY.getValue();
+        dataSource.dataDescriptors = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            dataSource.dataDescriptors.add(null);
+        }
         return this;
     }
 
     @Override
     public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsIntArray(int size) {
-        dataSource.sampleType =MCSampleType.INT_ARRAY.getValue();
-        dataSource.dataDescriptors=new ArrayList<>(size);
+        dataSource.sampleType = MCSampleType.INT_ARRAY.getValue();
+        dataSource.dataDescriptors = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            dataSource.dataDescriptors.add(null);
+        }
         return this;
     }
+
     @Override
     public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsLongArray(int size) {
-        dataSource.sampleType =MCSampleType.LONG_ARRAY.getValue();
-        dataSource.dataDescriptors=new ArrayList<>(size);
+        dataSource.sampleType = MCSampleType.LONG_ARRAY.getValue();
+        dataSource.dataDescriptors = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            dataSource.dataDescriptors.add(null);
+        }
         return this;
     }
 
     @Override
     public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsDoubleArray(int size) {
-        dataSource.sampleType =MCSampleType.DOUBLE_ARRAY.getValue();
-        dataSource.dataDescriptors=new ArrayList<>(size);
+        dataSource.sampleType = MCSampleType.DOUBLE_ARRAY.getValue();
+        dataSource.dataDescriptors = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            dataSource.dataDescriptors.add(null);
+        }
         return this;
     }
 
     @Override
     public IDataSourceBuilder.IDataDescriptor1 setSampleTypeAsStringArray(int size) {
-        dataSource.sampleType =MCSampleType.STRING_ARRAY.getValue();
-        dataSource.dataDescriptors=new ArrayList<>(size);
+        dataSource.sampleType = MCSampleType.STRING_ARRAY.getValue();
+        dataSource.dataDescriptors = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            dataSource.dataDescriptors.add(null);
+        }
         return this;
     }
 
     @Override
     public IDataSourceBuilder.IDataDescriptorEnum setSampleTypeAsEnum() {
-        dataSource.sampleType =MCSampleType.ENUM.getValue();
-        dataSource.dataDescriptors=new ArrayList<>(1);
+        dataSource.sampleType = MCSampleType.ENUM.getValue();
+        dataSource.dataDescriptors = new ArrayList<>();
+        dataSource.dataDescriptors.add(null);
         return this;
     }
 
     @Override
     public IDataSourceBuilder.IDataDescriptorObject setSampleTypeAsObject() {
-        dataSource.sampleType =MCSampleType.OBJECT.getValue();
-        dataSource.dataDescriptors=new ArrayList<>(1);
+        dataSource.sampleType = MCSampleType.OBJECT.getValue();
+        dataSource.dataDescriptors = new ArrayList<>();
+        dataSource.dataDescriptors.add(null);
         return this;
     }
 
@@ -122,12 +143,14 @@ class DataSourceRegisterBuilder
             dataSource.dataDescriptors.set(index, dataDescriptor.asHashMap());
         return this;
     }
+
     @Override
     public IDataSourceBuilder.IDataSourceType setDataDescriptor(MCEnum[] mcEnums, MCDataDescriptor dataDescriptor) {
         HashMap<String, String> h = dataDescriptor.asHashMap();
         dataSource.dataDescriptors.set(0, MCDataDescriptor.builder(dataDescriptor.getName()).setDescriptor(h).setEnumValues(mcEnums).build().asHashMap());
         return this;
     }
+
     @Override
     public IDataSourceBuilder.IDataSourceType setDataDescriptor(MCDataDescriptor dataDescriptor) {
         dataSource.dataDescriptors.set(0, dataDescriptor.asHashMap());
