@@ -2,7 +2,6 @@ package org.md2k.mcerebrumapi.core.datakitapi.datasource;
 
 import org.md2k.mcerebrumapi.core.data.MCDataType;
 import org.md2k.mcerebrumapi.core.data.MCEnum;
-import org.md2k.mcerebrumapi.core.data.MCSampleType;
 import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCApplicationMetaData;
 import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCDataDescriptor;
 import org.md2k.mcerebrumapi.core.datakitapi.datasource.metadata.MCDataSourceMetaData;

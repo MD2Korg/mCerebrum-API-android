@@ -179,7 +179,9 @@ public class MCData extends MCValue implements Parcelable {
                 break;
             case ENUM:
                 result = 31*result+Arrays.hashCode((int[])sample);
+                break;
             default:
+                break;
         }
 //        result = 31 * result + sample.hashCode();
         return result;

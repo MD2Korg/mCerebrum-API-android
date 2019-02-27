@@ -3,8 +3,6 @@ package org.md2k.mcerebrumapi.core.extensionapi.library;
 import android.app.Activity;
 import android.graphics.Bitmap;
 
-import org.md2k.mcerebrumapi.core.extensionapi.ConfigState;
-
 
 /*
  * Copyright (c) 2016, The University of Memphis, MD2K Center
